@@ -42,26 +42,26 @@ namespace SwanSong.Service
         {
             Studio studio = await GetStudioAsync(studioDto); 
 
-            ValidationResult result = BeforeSave(studio);
+            ValidationResult result = await BeforeSaveAsync(studio);
             if (!result.IsValid)
                 return GetDto(GetEntity(studio), result.Errors, false);
              
             studio = await SaveAsync(studio); 
 
-            return GetDto(studio, AfterSave(studio, CacheKeys.Studio), true);
+            return GetDto(studio, await AfterSaveAsync(studio, CacheKeys.Studio), true);
         }                
 
         public async Task<StudioDto> DeleteAsync(int id)
         {
             Studio studio = await _unitOfWork.Studios.ByIdAsync(id);      
 
-            ValidationResult result = BeforeDelete(studio);
+            ValidationResult result = await BeforeDeleteAsync(studio);
             if (!result.IsValid)
                 return GetDto(GetEntity(studio), result.Errors, false);             
 
             studio = await DeleteAsync(studio);
 
-            return GetDto(studio, AfterDelete(studio, CacheKeys.Studio), true);
+            return GetDto(studio, await AfterDeleteAsync(studio, CacheKeys.Studio), true);
         }  
 
         private async Task<Studio> GetStudioAsync(StudioDto studioDto)

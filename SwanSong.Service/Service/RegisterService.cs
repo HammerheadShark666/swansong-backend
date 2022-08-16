@@ -40,14 +40,14 @@ namespace SwanSong.Service
         {
             var register = _mapper.Map<Register>(registerDto);
              
-            ValidationResult result = BeforeSave(register);
+            ValidationResult result = await BeforeSaveAsync(register);
             if (!result.IsValid)
                 return GetDto(register, result.Errors, false); 
 
             Account account = await SaveAccountAsync(await CreateAccountAsync(register));
             SendVerificationEmail(account.Email, account.VerificationToken); 
 
-            return GetDto(register, AfterSave(register, null), true); 
+            return GetDto(register, await AfterSaveAsync(register, null), true); 
         }
  
         public async Task<Account> CreateAccountAsync(Register model)

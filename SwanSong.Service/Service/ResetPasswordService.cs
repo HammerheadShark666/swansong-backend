@@ -56,14 +56,14 @@ namespace SwanSong.Service
         {
             var resetPassword = _mapper.Map<ResetPassword>(resetPasswordDto);
               
-            ValidationResult result = BeforeSave(resetPassword);
+            ValidationResult result = await BeforeSaveAsync(resetPassword);
             if (!result.IsValid)
                 return GetDto(resetPassword, result.Errors, false);
              
             _unitOfWork.Accounts.Update(await UpdateAccountAsync(resetPasswordDto.Token, resetPasswordDto.Password));
             await _unitOfWork.Complete();
 
-            return GetDto(resetPassword, AfterSave(resetPassword, null), true);
+            return GetDto(resetPassword, await AfterSaveAsync(resetPassword, null), true);
         }  
 
         public async Task ValidateResetTokenAsync(ValidateResetTokenRequest model)

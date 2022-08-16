@@ -65,20 +65,20 @@ namespace SwanSong.Service
         {
             Member member = await GetMemberAsync(memberDto); 
 
-            ValidationResult result = BeforeSave(member);
+            ValidationResult result = await BeforeSaveAsync(member);
             if (!result.IsValid)
                 return GetDto(GetEntity(member), result.Errors, false); 
 
             member = await SaveAsync(member); 
 
-            return GetDto(member, AfterSave(member, null), true);
+            return GetDto(member, await AfterSaveAsync(member, null), true);
         }
 
         public async Task<MemberDto> DeleteAsync(long id)
         {
             Member member = await _unitOfWork.Members.GetAsync(id);
 
-            ValidationResult result = BeforeDelete(member);
+            ValidationResult result = await BeforeDeleteAsync(member);
             if (!result.IsValid)
                 return GetDto(GetEntity(member), result.Errors, false);
 
@@ -87,7 +87,7 @@ namespace SwanSong.Service
             if (notDefaultImage(member.Photo))
                 await _azureStorageHelper.DeleteFileInAzureStorageContainerAsync(member.Photo, Constants.AzureStorageContainerMembers);
 
-            return GetDto(member, AfterDelete(member, null), true);
+            return GetDto(member, await AfterDeleteAsync(member, null), true);
         }
 
         public async Task<string> UpdateMemberPhotoAsync(long id, IFormFile file)

@@ -24,13 +24,13 @@ namespace SwanSong.Service
         { 
             Account account = await GetAccountAsync(accountDto);
 
-            ValidationResult result = BeforeSave(account);
+            ValidationResult result = await BeforeSaveAsync(account);
             if (!result.IsValid)
                 return GetDto(account, result.Errors, false);
 
             account = await SaveAsync(account);
 
-            return GetDto(account, AfterSave(account, null), true);
+            return GetDto(account, await AfterSaveAsync(account, null), true);
 
         }
 
