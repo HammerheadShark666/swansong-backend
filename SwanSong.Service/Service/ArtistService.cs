@@ -77,20 +77,20 @@ namespace SwanSong.Service
         { 
             Artist artist = await GetArtistAsync(artistDto); 
 
-            ValidationResult result = BeforeSave(artist);
+            ValidationResult result = await BeforeSaveAsync(artist);
             if (!result.IsValid)
                 return GetDto(artist, result.Errors, false);
 
             artist = await SaveAsync(artist);
 
-            return GetDto(artist, AfterSave(artist, null), true);
+            return GetDto(artist, await AfterSaveAsync(artist, null), true);
         }
 
         public async Task<ArtistDto> DeleteAsync(long id)
         {
             Artist artist = await _unitOfWork.Artists.GetWithMembersAsync(id);
 
-            ValidationResult result = BeforeDelete(artist);
+            ValidationResult result = await BeforeDeleteAsync(artist);
             if (!result.IsValid)
                 return GetDto(artist, result.Errors, false);
 
@@ -101,7 +101,7 @@ namespace SwanSong.Service
             
             await DeleteMembersAsync(artist.Members);
             
-            return GetDto(artist, AfterDelete(artist, null), true);
+            return GetDto(artist, await AfterDeleteAsync(artist, null), true);
         }
 
 

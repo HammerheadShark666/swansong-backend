@@ -26,13 +26,13 @@ namespace SwanSong.Service
         {
             Song song = await _unitOfWork.Songs.GetByIdAsync(id);
 
-            ValidationResult result = BeforeDelete(song);
+            ValidationResult result = await BeforeDeleteAsync(song);
             if (!result.IsValid)
                 return GetDto(song, result.Errors, false);
 
             song = await DeleteAsync(song);
 
-            return GetDto(song, AfterDelete(song, CacheKeys.Studio), true);
+            return GetDto(song, await AfterDeleteAsync(song, CacheKeys.Studio), true);
         } 
 
         private async Task<Song> DeleteAsync(Song song)

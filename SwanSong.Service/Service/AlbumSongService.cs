@@ -35,26 +35,26 @@ namespace SwanSong.Service
         { 
             AlbumSong albumSong = await GetAlbumSongAsync(albumSongDto);
           
-            ValidationResult result = BeforeSave(albumSong);
+            ValidationResult result = await BeforeSaveAsync(albumSong);
             if (!result.IsValid)
                 return GetDto(albumSong, result.Errors, false);
 
             albumSong = await SaveAsync(albumSong);
 
-            return GetDto(albumSong, AfterSave(albumSong, null), true);  
+            return GetDto(albumSong, await AfterSaveAsync(albumSong, null), true);  
         }
 
         public async Task<AlbumSongDto> DeleteAsync(long id)
         {  
             AlbumSong albumSong = await _unitOfWork.AlbumSongs.GetAsync(id);
           
-            ValidationResult result = BeforeDelete(albumSong);
+            ValidationResult result = await BeforeDeleteAsync(albumSong);
             if (!result.IsValid)
                 return GetDto(albumSong, result.Errors, false); 
 
             albumSong = await DeleteAsync(albumSong);
 
-            return GetDto(albumSong, AfterDelete(albumSong, null), true); 
+            return GetDto(albumSong, await AfterDeleteAsync(albumSong, null), true); 
         } 
 
         private async Task<AlbumSong> GetAlbumSongAsync(AlbumSongDto albumSongDto)

@@ -28,13 +28,13 @@ namespace SwanSong.Service
         {
             ProfilePasswordChange profilePasswordChange = _mapper.Map<ProfilePasswordChange>(profilePasswordChangeDto);
              
-            ValidationResult result = BeforeSave(profilePasswordChange);
+            ValidationResult result = await BeforeSaveAsync(profilePasswordChange);
             if (!result.IsValid)
                 return GetDto(profilePasswordChange, result.Errors, false);
 
             Account account = await UpdatePasswordAsync(profilePasswordChange.Id, profilePasswordChangeDto);
 
-            return GetDto(profilePasswordChange, AfterSave(profilePasswordChange, null), true); 
+            return GetDto(profilePasswordChange, await AfterSaveAsync(profilePasswordChange, null), true); 
         }
 
         public async Task<Account> UpdatePasswordAsync(int id, ProfilePasswordChangeDto profilePasswordChangeDto)

@@ -33,13 +33,13 @@ namespace SwanSong.Service
             Profile profile = _mapper.Map<Profile>(profileDto);
             profile.Id = id;
 
-            ValidationResult result = BeforeSave(profile);
+            ValidationResult result = await BeforeSaveAsync(profile);
             if (!result.IsValid)
                 return GetDto(profile, result.Errors, false);
              
             Account account = await UpdateAccountAsync(profile.Id, profileDto); 
 
-            return GetDto(profile, AfterSave(profile, null), true);
+            return GetDto(profile, await AfterSaveAsync(profile, null), true);
         }
 
         public async Task<Account> UpdateAccountAsync(int id, ProfileDto profileDto)

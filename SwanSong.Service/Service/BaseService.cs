@@ -37,35 +37,35 @@ namespace SwanSong.Service
             _unitOfWork.Dispose();
         }
 
-        public ValidationResult BeforeSave(T item)
+        public async Task<ValidationResult> BeforeSaveAsync(T item)
         {
-            return _validator.Validate(item, options => options
+            return await _validator.ValidateAsync(item, options => options
                                         .IncludeRuleSets("BeforeSave"));
         }
 
-        public List<FluentValidation.Results.ValidationFailure> AfterSave(T item, string cacheKey)
+        public async Task<List<FluentValidation.Results.ValidationFailure>> AfterSaveAsync(T item, string cacheKey)
         {
             if (cacheKey != null)
                 _memoryCache.Remove(cacheKey);
 
-            var afterSaveRules = _validator.Validate(item, options => options
-                                        .IncludeRuleSets("AfterSave")).Errors;
+            var afterSaveRules = await _validator.ValidateAsync(item, options => options
+                                        .IncludeRuleSets("AfterSave")); 
 
-            return afterSaveRules.Count > 0 ? afterSaveRules : new();
+            return afterSaveRules.Errors.Count > 0 ? afterSaveRules.Errors : new();
         }
 
-        public ValidationResult BeforeDelete(T item)
+        public async Task<ValidationResult> BeforeDeleteAsync(T item)
         {
-            return _validator.Validate(item, options => options
+            return await _validator.ValidateAsync(item, options => options
                                         .IncludeRuleSets("BeforeDelete"));
         }
 
-        public List<ValidationFailure> AfterDelete(T item, string cacheKey)
+        public async Task<List<ValidationFailure>> AfterDeleteAsync(T item, string cacheKey)
         {
             if (cacheKey != null)
                 _memoryCache.Remove(cacheKey);
 
-            var afterDeleteRules = _validator.Validate(item, options => options
+            var afterDeleteRules = await _validator.ValidateAsync(item, options => options
                                         .IncludeRuleSets("AfterDelete"));
 
             return (afterDeleteRules != null && afterDeleteRules.Errors.Count > 0) ? afterDeleteRules.Errors : new();

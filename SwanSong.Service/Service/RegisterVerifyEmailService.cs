@@ -33,13 +33,13 @@ namespace SwanSong.Service
         { 
             var registerVerifyEmail = _mapper.Map<RegisterVerifyEmail>(registerVerifyEmailDto);
  
-            ValidationResult result = BeforeSave(registerVerifyEmail);
+            ValidationResult result = await BeforeSaveAsync(registerVerifyEmail);
             if (!result.IsValid)
                 return GetDto(registerVerifyEmail, result.Errors, false);
 
             Account account = await UpdateAccountAsync(registerVerifyEmail);
 
-            return GetDto(registerVerifyEmail, AfterSave(registerVerifyEmail, null), true);
+            return GetDto(registerVerifyEmail, await AfterSaveAsync(registerVerifyEmail, null), true);
         }  
 
         public async Task<Account> UpdateAccountAsync(RegisterVerifyEmail registerVerifyEmail)
