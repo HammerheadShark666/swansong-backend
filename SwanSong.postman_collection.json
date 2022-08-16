@@ -1,0 +1,2325 @@
+{
+	"info": {
+		"_postman_id": "93b176ce-c2bc-43e1-9735-ea3c5706a1e3",
+		"name": "SwanSong",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4654363"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "/api/login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"token\", jsonData.jwtToken);\r",
+									"\r",
+									"pm.test(\"Is valid user\", () => { \r",
+									"    pm.expect(jsonData.email).to.equal(\"Test100@hotmail.com\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"Test100@hotmail.com\",\r\n  \"password\": \"Password#1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Album",
+			"item": [
+				{
+					"name": "/api/albums?pageNumber=1&pageSize=5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"albums present\", () => {\r",
+									"    let json = pm.response.json();\r",
+									"    let albums = json.data\r",
+									"    pm.expect(albums).to.be.an(\"array\");\r",
+									"    pm.expect(albums).to.have.length == 5;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"paging properties\", () => {\r",
+									"    let response = pm.response.json();  \r",
+									"    pm.expect(response.pageNumber).to.eql(1);  \r",
+									"    pm.expect(response.pageSize).to.eql(5);  \r",
+									"    pm.expect(response.totalPages).to.greaterThan(2);\r",
+									"    pm.expect(response.totalRecords).to.greaterThan(10);  \r",
+									"    pm.expect(response.data).to.have.length = 5;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/albums?pageNumber=1&pageSize=5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/search-by-letter/t (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"album has properties\", () => {\r",
+									"    let albums = pm.response.json();\r",
+									"    let album = albums[0];\r",
+									"    pm.expect(album).to.have.property('id');\r",
+									"    pm.expect(album).to.have.property('name');\r",
+									"    pm.expect(album).to.have.property('artistName');\r",
+									"    pm.expect(album).to.have.property('photo');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has Sandy Denny album\", function () {\r",
+									"    let albums = pm.response.json(); \r",
+									"    const album = albums.find(m => m.name === \"The North Star Grassman and the Ravens\");    \r",
+									"    pm.expect(album).to.be.an(\"object\", \"Could not find the ablum\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/search-by-letter/t",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"search-by-letter",
+								"t"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/search-by-letter (Fail 404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/search-by-letter/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"search-by-letter",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/search/nevermind  (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has Nevermind album\", function () {\r",
+									"    let albums = pm.response.json(); \r",
+									"    const album = albums.find(m => m.name === \"Nevermind\");    \r",
+									"    pm.expect(album).to.be.an(\"object\", \"Could not find the ablum\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/search/nevermind",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"search",
+								"nevermind"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/search/test123 (Nothing Found)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has Nevermind album\", function () {\r",
+									"    let albums = pm.response.json(); \r",
+									"     pm.expect(albums).to.have.length == 0;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/search/test123 ",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"search",
+								"test123 "
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/search/ (Fail 404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/search/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"search",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/album/8 (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"album has properties\", () => {\r",
+									"    let album = pm.response.json();\r",
+									"    pm.expect(album).to.have.property('id');\r",
+									"    pm.expect(album).to.have.property('name');\r",
+									"    pm.expect(album).to.have.property('artistId');\r",
+									"    pm.expect(album).to.have.property('artistName');\r",
+									"    pm.expect(album).to.have.property('releaseDate');\r",
+									"    pm.expect(album).to.have.property('recordedDate');\r",
+									"    pm.expect(album).to.have.property('labelId');\r",
+									"    pm.expect(album).to.have.property('labelName');\r",
+									"    pm.expect(album).to.have.property('studioId');\r",
+									"    pm.expect(album).to.have.property('studio');\r",
+									"    pm.expect(album).to.have.property('length');\r",
+									"    pm.expect(album).to.have.property('producers');\r",
+									"    pm.expect(album).to.have.property('arrangers');\r",
+									"    pm.expect(album).to.have.property('engineers');\r",
+									"    pm.expect(album).to.have.property('artwork');\r",
+									"    pm.expect(album).to.have.property('photo');\r",
+									"    pm.expect(album).to.have.property('songs');\r",
+									"    pm.expect(album).to.have.property('messages');\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has Led Zeppelin 1 album\", function () {\r",
+									"    let album = pm.response.json();    \r",
+									"    pm.expect(album).to.be.an(\"object\", \"Could not find the ablum\");\r",
+									"    pm.expect(album.name).to.eql(\"Led Zeppelin 1\")\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/album/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"album",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/album/100000000 (Not Found)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/album/100000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"album",
+								"100000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/album/ (Fail 404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/album/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"album",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/artist/1 (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"album has properties\", () => {\r",
+									"    let albums = pm.response.json();\r",
+									"    let album = albums[0];\r",
+									"    pm.expect(album).to.have.property('id');\r",
+									"    pm.expect(album).to.have.property('name');\r",
+									"    pm.expect(album).to.have.property('artistName');\r",
+									"    pm.expect(album).to.have.property('photo');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"albums present\", () => {\r",
+									"    let albums = pm.response.json();\r",
+									"    pm.expect(albums).to.be.an(\"array\");\r",
+									"    pm.expect(albums).to.have.length > 5;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/artist/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"artist",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/artist/1000000 (Not Found)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has no artist\", function () {\r",
+									"    let artist = pm.response.json(); \r",
+									"     pm.expect(artist).to.have.length == 0;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/artist/1000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"artist",
+								"1000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/artist/ (Fail 404)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/artist/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"artist",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/album/save (Insert) (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"let album = pm.response.json();   \r",
+									"\r",
+									"pm.test(\"Has album id greater than zero\", function () { \r",
+									"    pm.expect(album).to.be.an(\"object\", \"Could not find the album\");\r",
+									"    pm.expect(album.id).to.be.greaterThan(0)\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"albumId\", album.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n  \"id\": 0,\r\n  \"name\": \"How The West Was Won\",\r\n  \"artistId\": 1, \r\n  \"releaseDate\": null,\r\n  \"recordedDate\": null,\r\n  \"labelId\": null,\r\n  \"studioId\": null,   \r\n  \"length\": \"45:23\",\r\n  \"producers\": null,\r\n  \"arrangers\": null,\r\n  \"engineers\": null,\r\n  \"artwork\": null,\r\n  \"photo\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/album/save",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"album",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/album/save (Update)  (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has How The West Was Won 2\", function () {\r",
+									"    let album = pm.response.json();    \r",
+									"    pm.expect(album).to.be.an(\"object\", \"Could not find the ablum\");\r",
+									"    pm.expect(album.name).to.eql(\"How The West Was Won 2\")\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{albumId}},\r\n    \"name\": \"How The West Was Won 2\",\r\n    \"artistId\": 1,\r\n    \"artistName\": null,\r\n    \"releaseDate\": null,\r\n    \"recordedDate\": null,\r\n    \"labelId\": null,\r\n    \"labelName\": null,\r\n    \"studioId\": null,\r\n    \"studio\": null,\r\n    \"length\": \"45:23\",\r\n    \"producers\": null,\r\n    \"arrangers\": null,\r\n    \"engineers\": null,\r\n    \"artwork\": null,\r\n    \"photo\": null,\r\n    \"songs\": null,\r\n    \"afterSaveRules\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/album/save",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"album",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/api/albums/album/upload-photo/{{albumId}} (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "thesongremainsthesame.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/album/upload-photo/{{albumId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"album",
+								"upload-photo",
+								"{{albumId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/album/{{albumId}} (Delete) (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/album/{{albumId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"album",
+								"{{albumId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/search-by-letter/@ (Nothing Found)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"No Albums\", () => {\r",
+									"    let albums = pm.response.json();\r",
+									"    pm.expect(albums).to.be.an(\"array\");\r",
+									"    pm.expect(albums).to.have.length == 0;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/search-by-letter/@",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"search-by-letter",
+								"@"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Album Song",
+			"item": [
+				{
+					"name": "/api/album/songs/1 (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"album song has properties\", () => {\r",
+									"    let albumSongs = pm.response.json();\r",
+									"    let albumSong = albumSongs[0];\r",
+									"    pm.expect(albumSong).to.have.property('id');\r",
+									"    pm.expect(albumSong).to.have.property('side');\r",
+									"    pm.expect(albumSong).to.have.property('order');\r",
+									"    pm.expect(albumSong).to.have.property('albumId'); \r",
+									"    pm.expect(albumSong).to.have.property('messages'); \r",
+									"    let song = albumSong.song;\r",
+									"    pm.expect(song).to.have.property('id');\r",
+									"    pm.expect(song).to.have.property('title');\r",
+									"    pm.expect(song).to.have.property('length');\r",
+									"    pm.expect(song).to.have.property('id');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Album songs present\", () => {\r",
+									"    let albums = pm.response.json();\r",
+									"    pm.expect(albums).to.be.an(\"array\");\r",
+									"    pm.expect(albums).to.have.length == 9;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check album song order\", () => {\r",
+									"    let albums = pm.response.json();\r",
+									"    let song1 = albums[0];\r",
+									"    // pm.expect(song1.side).to.eql(1);\r",
+									"    // pm.expect(song1.order).to.eql(1);\r",
+									"    pm.expect(song1.song.title).to.eql(\"Good Times Bad Times\");\r",
+									"\r",
+									"    let song9 = albums[8];\r",
+									"    // pm.expect(song9.side).to.eql(2);\r",
+									"    // pm.expect(song9.order).to.eql(9);\r",
+									"    pm.expect(song9.song.title).to.eql(\"How Many More Times\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/album/songs/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"album",
+								"songs",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/album/songs/1000000 (Nothing Found)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"No Album songs\", () => {\r",
+									"    let albumSongs = pm.response.json();\r",
+									"    pm.expect(albumSongs).to.be.an(\"array\");\r",
+									"    pm.expect(albumSongs).to.have.length == 9;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/album/songs/1000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"album",
+								"songs",
+								"1000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/album/songs/ (Fail 404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/album/songs/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"album",
+								"songs",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/album/save (to add songs to)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"let album = pm.response.json();   \r",
+									"\r",
+									"pm.test(\"Has album id greater than zero\", function () { \r",
+									"    pm.expect(album).to.be.an(\"object\", \"Could not find the ablum\");\r",
+									"    pm.expect(album.id).to.be.greaterThan(0)\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"albumId\", album.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n  \"id\": 0,\r\n  \"name\": \"Better Days\",\r\n  \"artistId\": 1, \r\n  \"releaseDate\": null,\r\n  \"recordedDate\": null,\r\n  \"labelId\": null,\r\n  \"studioId\": null,   \r\n  \"length\": \"45:23\",\r\n  \"producers\": null,\r\n  \"arrangers\": null,\r\n  \"engineers\": null,\r\n  \"artwork\": null,\r\n  \"photo\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/album/save",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"album",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/album/songs/save (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"let albumSong = pm.response.json();   \r",
+									"\r",
+									"pm.test(\"Has album song id greater than zero\", function () { \r",
+									"    pm.expect(albumSong).to.be.an(\"object\", \"Could not find the ablum song\");\r",
+									"    pm.expect(albumSong.id).to.be.greaterThan(0)\r",
+									"});\r",
+									"\r",
+									"let song = albumSong.song\r",
+									"\r",
+									"pm.environment.set(\"albumSongId\", albumSong.id);\r",
+									"pm.environment.set(\"songId\", song.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n  \"id\": 0,\r\n  \"side\": 1,\r\n  \"order\": 1,\r\n  \"albumId\": {{albumId}},\r\n  \"song\": {\r\n    \"id\": 0,\r\n    \"title\": \"Test Song 2\",\r\n    \"length\": \"04:23\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/album/songs/save",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"album",
+								"songs",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/album/songs/song/{{albumSongId}} (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/album/songs/song/{{albumSongId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"album",
+								"songs",
+								"song",
+								"{{albumSongId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/albums/album/{{albumId}}  (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/albums/album/{{albumId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"albums",
+								"album",
+								"{{albumId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Artist",
+			"item": [
+				{
+					"name": "/api/artists?pageNumber=1&pageSize=5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"artists present\", () => {\r",
+									"    let json = pm.response.json();\r",
+									"    let artists = json.data\r",
+									"    pm.expect(artists).to.be.an(\"array\");\r",
+									"    pm.expect(artists).to.have.length == 5;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"paging properties\", () => {\r",
+									"    let response = pm.response.json();  \r",
+									"    pm.expect(response.pageNumber).to.eql(1);  \r",
+									"    pm.expect(response.pageSize).to.eql(5);  \r",
+									"    pm.expect(response.totalPages).to.greaterThan(2);\r",
+									"    pm.expect(response.totalRecords).to.greaterThan(10);  \r",
+									"    pm.expect(response.data).to.have.length = 5;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/artists?pageNumber=1&pageSize=5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"artists"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/artists (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"artists present\", () => {\r",
+									"    let artists = pm.response.json();\r",
+									"    pm.expect(artists).to.be.an(\"array\");\r",
+									"    pm.expect(artists).to.have.length > 5;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"artist has properties\", () => {\r",
+									"    let artists = pm.response.json();\r",
+									"    let artist = artists[0];\r",
+									"    pm.expect(artist).to.have.property('id');\r",
+									"    pm.expect(artist).to.have.property('name');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has Led Zeppelin\", function () {\r",
+									"    let artists = pm.response.json(); \r",
+									"    const artist = artists.find(m => m.name === \"Led Zeppelin\");    \r",
+									"    pm.expect(artist).to.be.an(\"object\", \"Could not find the artist\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/artists/lookups",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"artists",
+								"lookups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/artists/search/denny (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"artist has properties\", () => {\r",
+									"    let artists = pm.response.json();\r",
+									"    let artist = artists[0];\r",
+									"    pm.expect(artist).to.have.property('id');\r",
+									"    pm.expect(artist).to.have.property('name');\r",
+									"    pm.expect(artist).to.have.property('formationYear');\r",
+									"    pm.expect(artist).to.have.property('photo');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has Sandy Denny\", function () {\r",
+									"    let artists = pm.response.json(); \r",
+									"    const artist = artists.find(m => m.name === \"Sandy Denny\");    \r",
+									"    pm.expect(artist).to.be.an(\"object\", \"Could not find the artist\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/artists/search/denny",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"artists",
+								"search",
+								"denny"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/artists/search/test123 (Nothing Found)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"No Artists\", () => {\r",
+									"    let artists = pm.response.json();\r",
+									"    pm.expect(artists).to.be.an(\"array\");\r",
+									"    pm.expect(artists).to.have.length == 9;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/artists/search/test123",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"artists",
+								"search",
+								"test123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/artists/search/ (Fail 404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/artists/search/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"artists",
+								"search",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/artists/search-by-letter/n",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"artist has properties\", () => {\r",
+									"    let artists = pm.response.json();\r",
+									"    let artist = artists[0];\r",
+									"    pm.expect(artist).to.have.property('id');\r",
+									"    pm.expect(artist).to.have.property('name');\r",
+									"    pm.expect(artist).to.have.property('formationYear');\r",
+									"    pm.expect(artist).to.have.property('photo');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has Nirvana\", function () {\r",
+									"    let artists = pm.response.json(); \r",
+									"    const artist = artists.find(m => m.name === \"Nirvana\");    \r",
+									"    pm.expect(artist).to.be.an(\"object\", \"Could not find the artist\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/artists/search-by-letter/n",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"artists",
+								"search-by-letter",
+								"n"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/artists/search-by-letter/@ (Nothing Found)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"No Artists\", () => {\r",
+									"    let artists = pm.response.json();\r",
+									"    pm.expect(artists).to.be.an(\"array\");\r",
+									"    pm.expect(artists).to.have.length == 0;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/artists/search-by-letter/@",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"artists",
+								"search-by-letter",
+								"@"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/artists/search-by-letter/ (Fail 404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/artists/search-by-letter/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"artists",
+								"search-by-letter",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/artists/artist/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"artist has properties\", () => {\r",
+									"    let artist = pm.response.json();\r",
+									"    pm.expect(artist).to.have.property('id');\r",
+									"    pm.expect(artist).to.have.property('name');    \r",
+									"    pm.expect(artist).to.have.property('photo');\r",
+									"    pm.expect(artist).to.have.property('formationYear');\r",
+									"    pm.expect(artist).to.have.property('disbandYear');\r",
+									"    pm.expect(artist).to.have.property('countryId');\r",
+									"    pm.expect(artist).to.have.property('members');\r",
+									"    pm.expect(artist).to.have.property('albums');\r",
+									"    pm.expect(artist).to.have.property('messages');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has Led Zeppelin\", function () {\r",
+									"    let artist = pm.response.json();      \r",
+									"    pm.expect(artist).to.be.an(\"object\", \"Could not find the artist\");\r",
+									"    pm.expect(artist.name).to.eql(\"Led Zeppelin\"); \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/artists/artist/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"artists",
+								"artist",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/artists/artist/ (Fail 404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/artists/artist/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"artists",
+								"artist",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/artists/artist/save (Insert) (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"let artist = pm.response.json();   \r",
+									"\r",
+									"pm.test(\"Has artist id greater than zero\", function () { \r",
+									"    pm.expect(artist).to.be.an(\"object\", \"Could not find the artist\");\r",
+									"    pm.expect(artist.id).to.be.greaterThan(0)\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"artistId\", artist.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n  \"id\": 0,\r\n  \"name\": \"Tom Petty\",\r\n  \"photo\": null,\r\n  \"formationYear\": 1976,\r\n  \"disbandYear\": 2019,\r\n  \"countryId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/artists/artist/save",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"artists",
+								"artist",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/artists/artist/save (Update) (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has Tom Petty 2\", function () {\r",
+									"    let artist = pm.response.json();    \r",
+									"    pm.expect(artist).to.be.an(\"object\", \"Could not find the artist\");\r",
+									"    pm.expect(artist.name).to.eql(\"Tom Petty 2\")\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n  \"id\": {{artistId}},\r\n  \"name\": \"Tom Petty 2\",\r\n  \"photo\": null,\r\n  \"formationYear\": 1976,\r\n  \"disbandYear\": 2019,\r\n  \"countryId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/artists/artist/save",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"artists",
+								"artist",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/artists/artist/upload-photo/{{artistId}} (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "sandy-denny.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/artists/artist/upload-photo/{{artistId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"artists",
+								"artist",
+								"upload-photo",
+								"{{artistId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/artists/artist/delete/{{artistId}} (Delete) (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/artists/artist/{{artistId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"artists",
+								"artist",
+								"{{artistId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Member",
+			"item": [
+				{
+					"name": "/api/members/1 (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"members present\", () => {\r",
+									"    let members = pm.response.json();\r",
+									"    pm.expect(members).to.be.an(\"array\");\r",
+									"    pm.expect(members).to.have.length == 4;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"members has properties\", () => {\r",
+									"    let artists = pm.response.json();\r",
+									"    let artist = artists[0];\r",
+									"    pm.expect(artist).to.have.property('id');\r",
+									"    pm.expect(artist).to.have.property('artistId');\r",
+									"    pm.expect(artist).to.have.property('stageName');\r",
+									"    pm.expect(artist).to.have.property('firstName');\r",
+									"    pm.expect(artist).to.have.property('middleName');\r",
+									"    pm.expect(artist).to.have.property('surname');\r",
+									"    pm.expect(artist).to.have.property('photo');\r",
+									"    pm.expect(artist).to.have.property('dateOfBirth');\r",
+									"    pm.expect(artist).to.have.property('dateOfDeath');\r",
+									"    pm.expect(artist).to.have.property('birthPlaceId');\r",
+									"    pm.expect(artist).to.have.property('birthPlace'); \r",
+									"    pm.expect(artist).to.have.property('messages');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has Jimmy Page\", function () {\r",
+									"    let members = pm.response.json(); \r",
+									"    const member = members.find(m => m.stageName === \"Jimmy Page\");    \r",
+									"    pm.expect(member).to.be.an(\"object\", \"Could not find the member\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/members/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"members",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/members/100000 (Not Found)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"members present\", () => {\r",
+									"    let members = pm.response.json();\r",
+									"    pm.expect(members).to.be.an(\"array\");\r",
+									"    pm.expect(members).to.have.length == 0;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/members/100000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"members",
+								"100000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/artists/artist/save (to add members to)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"let artist = pm.response.json();   \r",
+									"\r",
+									"pm.test(\"Has artist id greater than zero\", function () { \r",
+									"    pm.expect(artist).to.be.an(\"object\", \"Could not find the artist\");\r",
+									"    pm.expect(artist.id).to.be.greaterThan(0)\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"artistId\", artist.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n  \"id\": 0,\r\n  \"name\": \"Test Group\",\r\n  \"photo\": null,\r\n  \"formationYear\": 1976,\r\n  \"disbandYear\": 2019,\r\n  \"countryId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/artists/artist/save",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"artists",
+								"artist",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/members/member/save (Insert) (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"let member = pm.response.json();   \r",
+									"\r",
+									"pm.test(\"Has member id greater than zero\", function () { \r",
+									"    pm.expect(member).to.be.an(\"object\", \"Could not find the member\");\r",
+									"    pm.expect(member.id).to.be.greaterThan(0)\r",
+									"});\r",
+									" \r",
+									"pm.environment.set(\"memberId\", member.id); "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"artistId\": {{artistId}},\r\n  \"stageName\": \"Test Member\",\r\n  \"firstName\": \"Test\",\r\n  \"middleName\": null,\r\n  \"surname\": \"Member\",\r\n  \"photo\": null,\r\n  \"dateOfBirth\": \"2021-09-29T14:19:12.947Z\",\r\n  \"dateOfDeath\": \"2021-09-30T14:19:12.947Z\",\r\n  \"birthPlaceId\": 0  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/members/member/save",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"members",
+								"member",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/members/member/save (Update) (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has Test Member 2\", function () {\r",
+									"    let member = pm.response.json();   \r",
+									"    pm.expect(member).to.be.an(\"object\", \"Could not find the artist\");\r",
+									"    pm.expect(member.stageName).to.eql(\"Test Member 2\"); \r",
+									"});\r",
+									" "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{memberId}},\r\n  \"artistId\": {{artistId}},\r\n  \"stageName\": \"Test Member 2\",\r\n  \"firstName\": \"Test\",\r\n  \"middleName\": null,\r\n  \"surname\": \"Member\",\r\n  \"photo\": null,\r\n  \"dateOfBirth\": \"2021-09-29T14:19:12.947Z\",\r\n  \"dateOfDeath\": \"2021-09-30T14:19:12.947Z\",\r\n  \"birthPlaceId\": 0  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/members/member/save",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"members",
+								"member",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/members/member/upload-photo/{{memberId}} (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "sandydenny.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/members/member/upload-photo/{{memberId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"members",
+								"member",
+								"upload-photo",
+								"{{memberId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/members?pageNumber=1&pageSize=5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"members present\", () => {\r",
+									"    let json = pm.response.json();\r",
+									"    let members = json.data\r",
+									"    pm.expect(members).to.be.an(\"array\");\r",
+									"    pm.expect(members).to.have.length == 5;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"paging properties\", () => {\r",
+									"    let response = pm.response.json();  \r",
+									"    pm.expect(response.pageNumber).to.eql(1);  \r",
+									"    pm.expect(response.pageSize).to.eql(5);  \r",
+									"    pm.expect(response.totalPages).to.greaterThan(2);\r",
+									"    pm.expect(response.totalRecords).to.greaterThan(10);  \r",
+									"    pm.expect(response.data).to.have.length = 5;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/members?pageNumber=1&pageSize=5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"members"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/members/member/{{memberId}} (Delete) (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/members/member/{{memberId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"members",
+								"member",
+								"{{memberId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/artists/artist/{{artistId}} (Delete) (Success) Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/artists/artist/{{artistId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"artists",
+								"artist",
+								"{{artistId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lookup",
+			"item": [
+				{
+					"name": "/api/countries (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"countries present\", () => {\r",
+									"    let countries = pm.response.json();\r",
+									"    pm.expect(countries).to.be.an(\"array\");\r",
+									"    pm.expect(countries).to.have.length > 4;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"countries has properties\", () => {\r",
+									"    let countries = pm.response.json();\r",
+									"    let country = countries[0];\r",
+									"    pm.expect(country).to.have.property('id');\r",
+									"    pm.expect(country).to.have.property('name');  \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has England\", function () {\r",
+									"    let countries = pm.response.json(); \r",
+									"    const member = countries.find(m => m.name === \"England\");    \r",
+									"    pm.expect(member).to.be.an(\"object\", \"Could not find the country\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/countries",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"countries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/record-labels (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"recordLabels present\", () => {\r",
+									"    let recordLabels = pm.response.json();\r",
+									"    pm.expect(recordLabels).to.be.an(\"array\");\r",
+									"    pm.expect(recordLabels).to.have.length > 4;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"recordLabels has properties\", () => {\r",
+									"    let recordLabels = pm.response.json();\r",
+									"    let recordLabel = recordLabels[0];\r",
+									"    pm.expect(recordLabel).to.have.property('id');\r",
+									"    pm.expect(recordLabel).to.have.property('name');  \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has Island Records\", function () {\r",
+									"    let recordLabels = pm.response.json(); \r",
+									"    const member = recordLabels.find(m => m.name === \"Island Records\");    \r",
+									"    pm.expect(member).to.be.an(\"object\", \"Could not find the recordLabel\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/record-labels",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"record-labels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/studios (Success)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"studios present\", () => {\r",
+									"    let studios = pm.response.json();\r",
+									"    pm.expect(studios).to.be.an(\"array\");\r",
+									"    pm.expect(studios).to.have.length > 4;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"studios has properties\", () => {\r",
+									"    let studios = pm.response.json();\r",
+									"    let studio = studios[0];\r",
+									"    pm.expect(studio).to.have.property('id');\r",
+									"    pm.expect(studio).to.have.property('name');  \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has Island Studios London, Sound Techniques London\", function () {\r",
+									"    let studios = pm.response.json(); \r",
+									"    const member = studios.find(m => m.name === \"Island Studios London, Sound Techniques London\");    \r",
+									"    pm.expect(member).to.be.an(\"object\", \"Could not find the studio\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/studios",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"studios"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

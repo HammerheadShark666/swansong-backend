@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
+    <PackageReference Include="FluentValidation" Version="10.3.3" />
+    <PackageReference Include="MailKit" Version="2.15.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SwanSong.Azure\SwanSong.Azure.csproj" />
+    <ProjectReference Include="..\SwanSong.Business\SwanSong.Business.csproj" />
+    <ProjectReference Include="..\SwanSong.Data\SwanSong.Data.csproj" />
+    <ProjectReference Include="..\SwanSong.Domain\SwanSong.Domain.csproj" />
+    <ProjectReference Include="..\SwanSong.Helper\SwanSong.Helper.csproj" />
+  </ItemGroup>
+
+</Project>
