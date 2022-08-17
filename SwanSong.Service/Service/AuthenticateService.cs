@@ -39,7 +39,7 @@ namespace SwanSong.Service
         {
             var login = _mapper.Map<Login>(loginDto);
 
-            ValidationResult result = BeforeSave(login);
+            ValidationResult result = await BeforeSaveAsync(login);
             if (!result.IsValid)
                 return GetDto(login, result.Errors, false);
              
@@ -48,7 +48,7 @@ namespace SwanSong.Service
             account = await UpdateRefreshTokenAsync(account, ipAddress, refreshToken);             
             var jwtToken = AuthenticationHelper.GenerateJwtToken(account, _jwtSettings.TokenExpiryHours, _jwtSettings.Secret);
 
-            return GetLoginDto(account, AfterSave(login, null), true, jwtToken, refreshToken.Token);
+            return GetLoginDto(account, await AfterSaveAsync(login, null), true, jwtToken, refreshToken.Token);
         } 
 
         private async Task<Account> UpdateRefreshTokenAsync(Account account, string ipAddress, RefreshToken refreshToken)

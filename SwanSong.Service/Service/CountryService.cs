@@ -42,26 +42,26 @@ namespace SwanSong.Service
         {
             Country country = await GetCountryAsync(countryDto);
 
-            ValidationResult result = BeforeSave(country);
+            ValidationResult result = await BeforeSaveAsync(country);
             if (!result.IsValid)
                 return GetDto(GetEntity(country), result.Errors, false);
 
             country = await SaveAsync(country);
 
-            return GetDto(country, AfterSave(country, CacheKeys.Country), true);
+            return GetDto(country, await AfterSaveAsync(country, CacheKeys.Country), true);
         }
 
         public async Task<CountryDto> DeleteAsync(int id)
         {
             Country country = await _unitOfWork.Countries.ByIdAsync(id);
 
-            ValidationResult result = BeforeDelete(country);
+            ValidationResult result = await BeforeDeleteAsync(country);
             if (!result.IsValid)
                 return GetDto(GetEntity(country), result.Errors, false);
 
             await DeleteAsync(country);
 
-            return GetDto(country, AfterDelete(country, CacheKeys.Country), true); 
+            return GetDto(country, await AfterDeleteAsync(country, CacheKeys.Country), true); 
         }
 
         private async Task<Country> GetCountryAsync(CountryDto countryDto)

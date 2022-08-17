@@ -22,6 +22,7 @@ using SwanSong.Service.Interfaces;
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace SwanSong.Api.Helpers.Extensions
 {
@@ -134,7 +135,7 @@ namespace SwanSong.Api.Helpers.Extensions
         {
             services.AddControllers()
                .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
-               .AddJsonOptions(x => x.JsonSerializerOptions.IgnoreNullValues = true);
+               .AddJsonOptions(x => x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);
         }
 
         public static void ConfigureMvc(this IServiceCollection services)

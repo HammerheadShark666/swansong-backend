@@ -42,26 +42,26 @@ namespace SwanSong.Service
         {
             BirthPlace birthPlace = await GetBirthPlaceAsync(birthPlaceDto); 
 
-            ValidationResult result = BeforeSave(birthPlace);
+            ValidationResult result = await BeforeSaveAsync(birthPlace);
             if (!result.IsValid)
                 return GetDto(GetEntity(birthPlace), result.Errors, false);
 
             birthPlace = await SaveAsync(birthPlace);
 
-            return GetDto(birthPlace, AfterSave(birthPlace, CacheKeys.BirthPlace), true);   
+            return GetDto(birthPlace, await AfterSaveAsync(birthPlace, CacheKeys.BirthPlace), true);   
         }
 
         public async Task<BirthPlaceDto> DeleteAsync(int id)
         {
             BirthPlace birthPlace = await _unitOfWork.BirthPlaces.ByIdAsync(id); 
 
-            ValidationResult result = BeforeDelete(birthPlace);
+            ValidationResult result = await BeforeDeleteAsync(birthPlace);
             if (!result.IsValid)
                 return GetDto(GetEntity(birthPlace), result.Errors, false); 
 
             birthPlace = await Delete(birthPlace);
 
-            return GetDto(birthPlace, AfterDelete(birthPlace, CacheKeys.BirthPlace), true); 
+            return GetDto(birthPlace, await AfterDeleteAsync(birthPlace, CacheKeys.BirthPlace), true); 
         } 
 
         private async Task<BirthPlace> GetBirthPlaceAsync(BirthPlaceDto birthPlaceDto)

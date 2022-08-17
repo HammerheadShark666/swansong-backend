@@ -65,20 +65,20 @@ namespace SwanSong.Service
         {
             Album album = await GetAlbum(albumDto);
          
-            ValidationResult result = BeforeSave(album);
+            ValidationResult result = await BeforeSaveAsync(album);
             if (!result.IsValid)
                 return GetDto(album, result.Errors, false);
 
             album = await SaveAsync(album); 
 
-            return GetDto(album, AfterSave(album, null), true);
+            return GetDto(album, await AfterSaveAsync(album, null), true);
         }
 
         public async Task<AlbumDto> DeleteAsync(long id)
         {
             Album album = await _unitOfWork.Albums.GetAsync(id);
 
-            ValidationResult result = BeforeDelete(album);
+            ValidationResult result = await BeforeDeleteAsync(album);
             if (!result.IsValid)
                 return GetDto(album, result.Errors, false);
 
@@ -87,7 +87,7 @@ namespace SwanSong.Service
             if (notDefaultImage(album.Photo))
                 await _azureStorageHelper.DeleteFileInAzureStorageContainerAsync(album.Photo, Constants.AzureStorageContainerAlbums);
 
-            return GetDto(album, AfterDelete(album, null), true);
+            return GetDto(album, await AfterDeleteAsync(album, null), true);
         }
 
         public async Task<string> UpdateAlbumPhotoAsync(long id, IFormFile file)

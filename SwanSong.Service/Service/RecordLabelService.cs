@@ -42,26 +42,26 @@ namespace SwanSong.Service
         {            
             RecordLabel recordLabel = await GetRecordLabelAsync(recordLabelDto); 
 
-            ValidationResult result = BeforeSave(recordLabel);
+            ValidationResult result = await BeforeSaveAsync(recordLabel);
             if (!result.IsValid)            
                 return GetDto(GetEntity(recordLabel), result.Errors, false);
 
             recordLabel = await SaveAsync(recordLabel);
 
-            return GetDto(recordLabel, AfterSave(recordLabel, CacheKeys.RecordLabel), true);
+            return GetDto(recordLabel, await AfterSaveAsync(recordLabel, CacheKeys.RecordLabel), true);
         }         
 
         public async Task<RecordLabelDto> DeleteAsync(int id)
         {
             RecordLabel recordLabel = await _unitOfWork.RecordLabels.ByIdAsync(id); 
 
-            ValidationResult result = BeforeDelete(recordLabel);
+            ValidationResult result = await BeforeDeleteAsync(recordLabel);
             if (!result.IsValid)           
                 return GetDto(GetEntity(recordLabel), result.Errors, false);
 
             recordLabel = await DeleteAsync(recordLabel);
 
-            return GetDto(recordLabel, AfterDelete(recordLabel, CacheKeys.RecordLabel), true);
+            return GetDto(recordLabel, await AfterDeleteAsync(recordLabel, CacheKeys.RecordLabel), true);
         } 
 
         private async Task<RecordLabel> GetRecordLabelAsync(RecordLabelDto recordLabelDto)
