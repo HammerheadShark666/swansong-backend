@@ -104,7 +104,7 @@ namespace SwanSong.xUnit.Test.Business
 
             Assert.False(validationResult.IsValid);
             Assert.Single(validationResult.Errors);
-            Assert.Equal("Test Studio already exists.##", validationResult.Errors[0].ErrorMessage);
+            Assert.Equal("Test Studio already exists.", validationResult.Errors[0].ErrorMessage);
         } 
     }
 }
