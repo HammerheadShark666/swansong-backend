@@ -26,7 +26,7 @@ jobs:
         run: dotnet build SwanSong.Api/SwanSong.Api.csproj --configuration Release 
 
       - name: Test
-        run: dotnet test SwanSong.xUnit.Test/SwanSong.xUnit.Test.csproj --logger "console;verbosity=detailed" --no-restore
+        run: dotnet test SwanSong.xUnit.Test/SwanSong.xUnit.Test.csproj --logger "console;verbosity=detailed"
 
       - name: dotnet publish
         run: dotnet publish SwanSong.Api/SwanSong.Api.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
