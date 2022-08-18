@@ -9,5 +9,7 @@ namespace SwanSong.Domain.Dto
         public DateTime? ReleaseDate { get; set; }
         public string ArtistName { get; set; }
         public string Photo { get; set; }
+        public string Length { get; set; }
+        public string Tracks { get; set; }
     }
 }

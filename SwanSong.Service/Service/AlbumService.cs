@@ -18,13 +18,13 @@ using System.Threading.Tasks;
 namespace SwanSong.Service
 {
     public class AlbumService : BaseService<Album, AlbumDto>, IAlbumService
-    { 
+    {
         public AlbumService(IMapper mapper,
                             IValidator<Album> validator,
                             IMemoryCache memoryCache,
                             IUnitOfWork unitOfWork,
                             IAzureStorageHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
-        {}
+        { }
 
         public async Task<long> CountAsync()
         {
@@ -37,39 +37,53 @@ namespace SwanSong.Service
         }
 
         public async Task<List<AlbumReadOnlyDto>> GetRandomAsync(int numberOfAlbums)
-        {
-            return _mapper.Map<List<AlbumReadOnlyDto>>(await _unitOfWork.Albums.GetRandomAsync(numberOfAlbums)).OrderBy(a => a.Name).ToList();
+        { 
+            return GetAlbumReadOnlyDtos((await _unitOfWork.Albums.GetRandomAsync(numberOfAlbums)).OrderBy(a => a.Name).ToList());
         }
+
+        public List<AlbumReadOnlyDto> GetAlbumReadOnlyDtos(List<Album> albums)
+        {
+            List<AlbumReadOnlyDto> albumsReadOnlyDtos = _mapper.Map<List<AlbumReadOnlyDto>>(albums);
+
+            foreach (AlbumReadOnlyDto albumsReadOnlyDto in albumsReadOnlyDtos)
+            {
+                List<AlbumSong> albumSongs = albums.First(a => a.Id.Equals(albumsReadOnlyDto.Id)).AlbumSongs.ToList();
+                albumsReadOnlyDto.Tracks = albumSongs.Count().ToString();
+                albumsReadOnlyDto.Length = GetAlbumLength(albumSongs.ToList());
+            } 
+
+            return albumsReadOnlyDtos;
+        } 
 
         public async Task<List<AlbumReadOnlyDto>> SearchByNameAsync(string criteria)
         {
-            return _mapper.Map<List<AlbumReadOnlyDto>>(await _unitOfWork.Albums.SearchByNameAsync(criteria)); 
+            return _mapper.Map<List<AlbumReadOnlyDto>>(await _unitOfWork.Albums.SearchByNameAsync(criteria));
         }
 
         public async Task<List<AlbumReadOnlyDto>> SearchByLetterAsync(string letter)
         {
-            return _mapper.Map<List<AlbumReadOnlyDto>>(await _unitOfWork.Albums.SearchByLetterAsync(letter)); 
+            return _mapper.Map<List<AlbumReadOnlyDto>>(await _unitOfWork.Albums.SearchByLetterAsync(letter));
         }
 
         public async Task<List<AlbumReadOnlyDto>> GetAlbumsForArtistAsync(long artistId)
         {
-            return _mapper.Map<List<AlbumReadOnlyDto>>(await _unitOfWork.Albums.GetAlbumsForArtistAsync(artistId)); 
+            return _mapper.Map<List<AlbumReadOnlyDto>>(await _unitOfWork.Albums.GetAlbumsForArtistAsync(artistId));
         }
 
         public async Task<AlbumDto> GetAsync(long id)
         {
             return _mapper.Map<AlbumDto>(await _unitOfWork.Albums.GetAsync(id));
         }
- 
+
         public async Task<AlbumDto> SaveAsync(AlbumDto albumDto)
         {
             Album album = await GetAlbum(albumDto);
-         
+
             ValidationResult result = await BeforeSaveAsync(album);
             if (!result.IsValid)
                 return GetDto(album, result.Errors, false);
 
-            album = await SaveAsync(album); 
+            album = await SaveAsync(album);
 
             return GetDto(album, await AfterSaveAsync(album, null), true);
         }
@@ -103,7 +117,7 @@ namespace SwanSong.Service
 
             await _azureStorageHelper.SaveFileToAzureStorageContainerAsync(file, Constants.AzureStorageContainerAlbums, newFileName);
             await DeleteOriginalFileAsync(originalFileName, newFileName, Constants.AzureStorageContainerAlbums);
- 
+
             return newFileName;
         }
 
@@ -111,7 +125,7 @@ namespace SwanSong.Service
         {
             Album currentAlbum = albumDto.Id == 0 ? new() : await _unitOfWork.Albums.GetAsync(albumDto.Id);
             return _mapper.Map<AlbumDto, Album>(albumDto, currentAlbum);
-        } 
+        }
 
         private async Task<Album> SaveAsync(Album album)
         {
@@ -128,7 +142,25 @@ namespace SwanSong.Service
         private async Task DeleteAsync(Album album)
         {
             _unitOfWork.Albums.Remove(album);
-            await _unitOfWork.Complete(); 
+            await _unitOfWork.Complete();
+        }
+
+        public string GetAlbumLength(List<AlbumSong> albumSongs)
+        {
+            TimeSpan time = new TimeSpan();
+
+            foreach (AlbumSong albumSong in albumSongs)
+            {
+                try
+                {
+                    string[] timeParts = albumSong.Song.Length.Split(':');
+                    TimeSpan t = new TimeSpan(0, int.Parse(timeParts[0]), int.Parse(timeParts[1]));
+                    time = time.Add(t);
+                }
+                catch { }
+            }
+
+            return time.ToString();
         }
     }
 }
