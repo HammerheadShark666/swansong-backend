@@ -26,26 +26,26 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_save_validate_studio_return_true()
+        public async void Before_save_validate_studio_return_true()
         {
-            ValidationResult validation = validator.Validate(existingStudio);
+            ValidationResult validation = await validator.ValidateAsync(existingStudio);
             Assert.True(validation.IsValid);
         }
 
         [Fact]
-        public void After_save_validate_studio_return_true()
+        public async void After_save_validate_studio_return_true()
         {
-            ValidationResult validation = validator.Validate(existingStudio, options => options
+            ValidationResult validation = await validator.ValidateAsync(existingStudio, options => options
                                                                                 .IncludeRuleSets("AfterSave"));
             Assert.False(validation.IsValid);
             Assert.Equal("The studio has been saved.", validation.Errors[0].ErrorMessage);
         }               
 
         [Fact]
-        public void Before_save_validate_studio_name_null_return_false()
+        public async void Before_save_validate_studio_name_null_return_false()
         {
             Studio Studio = new() { Id = 1, Name = "" };
-            ValidationResult validationResult = validator.Validate(Studio, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(Studio, options => options
                                                                                 .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
@@ -54,10 +54,10 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_save_validate_studio_name_empty_return_false()
+        public async void Before_save_validate_studio_name_empty_return_false()
         {
             Studio Studio = new() { Id = 1, Name = "" };
-            ValidationResult validationResult = validator.Validate(Studio, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(Studio, options => options
                                                                                 .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
@@ -66,10 +66,10 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_save_validate_studio_name_over_100_characters_return_false()
+        public async void Before_save_validate_studio_name_over_100_characters_return_false()
         {
             Studio Studio = new() { Id = 1, Name = UnitTestHelper.generateRandomString(251) };
-            ValidationResult validationResult = validator.Validate(Studio, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(Studio, options => options
                                                                             .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
@@ -78,13 +78,13 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_insert_save_validate_studio_insert_name_duplicate_return_false()
+        public async void Before_insert_save_validate_studio_insert_name_duplicate_return_false()
         {
             Studio Studio = new() { Id = 0, Name = "Test Studio" };
 
             studioRepositoryMock.Setup(p => p.ExistsAsync("Test Studio")).Returns(Task.FromResult(true));
 
-            ValidationResult validationResult = validator.Validate(Studio, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(Studio, options => options
                                                                              .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
@@ -93,30 +93,18 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_update_save_validate_studio_update_name_duplicate_return_false()
+        public async void Before_update_save_validate_studio_update_name_duplicate_return_false()
         {
             Studio Studio = new() { Id = 1, Name = "Test Studio" };
 
             studioRepositoryMock.Setup(p => p.ExistsAsync(1, "Test Studio")).Returns(Task.FromResult(true));
 
-            ValidationResult validationResult = validator.Validate(Studio, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(Studio, options => options
                                                                              .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
             Assert.Single(validationResult.Errors);
-            Assert.Equal("Test Studio already exists.", validationResult.Errors[0].ErrorMessage);
-        }
-
-        [Fact]
-        public void Before_delete_validate_studio_id_null_return_false()
-        {
-            Studio Studio = new() { Id = 0, Name = "" };
-            ValidationResult validationResult = validator.Validate(null, options => options
-                                                                            .IncludeRuleSets("BeforeDelete"));
-
-            Assert.False(validationResult.IsValid);
-            Assert.Single(validationResult.Errors);
-            Assert.Equal("Not Found", validationResult.Errors[0].ErrorMessage);
-        }
+            Assert.Equal("Test Studio already exists.##", validationResult.Errors[0].ErrorMessage);
+        } 
     }
 }

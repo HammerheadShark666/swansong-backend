@@ -25,26 +25,26 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_save_validate_record_label_return_true()
+        public async void Before_save_validate_record_label_return_true()
         {
-            ValidationResult validation = validator.Validate(existingRecordLabel);
+            ValidationResult validation = await validator.ValidateAsync(existingRecordLabel);
             Assert.True(validation.IsValid);
         }
 
         [Fact]
-        public void After_save_validate_record_label_return_true()
+        public async void After_save_validate_record_label_return_true()
         {
-            ValidationResult validation = validator.Validate(existingRecordLabel, options => options
+            ValidationResult validation = await validator.ValidateAsync(existingRecordLabel, options => options
                                                                                     .IncludeRuleSets("AfterSave"));
             Assert.False(validation.IsValid);
             Assert.Equal("The record label has been saved.", validation.Errors[0].ErrorMessage);
         }
 
         [Fact]
-        public void Before_save_validate_record_label_name_null_return_false()
+        public async void Before_save_validate_record_label_name_null_return_false()
         {
             RecordLabel recordLabel = new() { Id = 1, Name = "" };
-            ValidationResult validationResult = validator.Validate(recordLabel, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(recordLabel, options => options
                                                                                     .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
@@ -53,10 +53,10 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_save_validate_record_label_name_empty_return_false()
+        public async void Before_save_validate_record_label_name_empty_return_false()
         {
             RecordLabel recordLabel = new() { Id = 1, Name = "" };
-            ValidationResult validationResult = validator.Validate(recordLabel, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(recordLabel, options => options
                                                                                     .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
@@ -65,10 +65,10 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_save_validate_record_label_name_over_100_characters_empty_return_false()
+        public async void Before_save_validate_record_label_name_over_100_characters_empty_return_false()
         {
             RecordLabel recordLabel = new() { Id = 1, Name = UnitTestHelper.generateRandomString(101) };
-            ValidationResult validationResult = validator.Validate(recordLabel, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(recordLabel, options => options
                                                                                     .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
@@ -77,13 +77,13 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_insert_save_validate_record_label_insert_name_duplicate_return_false()
+        public async void Before_insert_save_validate_record_label_insert_name_duplicate_return_false()
         {
             RecordLabel recordLabel = new() { Id = 0, Name = "Test Label" };
 
             recordLabelRepositoryMock.Setup(p => p.ExistsAsync("Test Label")).Returns(Task.FromResult(true));
 
-            ValidationResult validationResult = validator.Validate(recordLabel, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(recordLabel, options => options
                                                                                     .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
@@ -92,30 +92,18 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_update_save_validate_record_label_update_name_duplicate_return_false()
+        public async void Before_update_save_validate_record_label_update_name_duplicate_return_false()
         {
             RecordLabel recordLabel = new() { Id = 1, Name = "Test Label" };
 
             recordLabelRepositoryMock.Setup(p => p.ExistsAsync(1, "Test Label")).Returns(Task.FromResult(true));
 
-            ValidationResult validationResult = validator.Validate(recordLabel, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(recordLabel, options => options
                                                                                     .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
             Assert.Single(validationResult.Errors);
             Assert.Equal("Test Label already exists.", validationResult.Errors[0].ErrorMessage);
-        }
-
-        [Fact]
-        public void Before_delete_validate_record_label_id_null_return_false()
-        {
-            RecordLabel recordLabel = new() { Id = 0, Name = "" };
-            ValidationResult validationResult = validator.Validate(null, options => options
-                                                                            .IncludeRuleSets("BeforeDelete"));
-
-            Assert.False(validationResult.IsValid);
-            Assert.Single(validationResult.Errors);
-            Assert.Equal("Not Found", validationResult.Errors[0].ErrorMessage);
-        }
+        } 
     }
 }

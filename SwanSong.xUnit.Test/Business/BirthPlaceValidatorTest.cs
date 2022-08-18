@@ -25,27 +25,27 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_save_validate_birth_place_return_true()
+        public async void Before_save_validate_birth_place_return_true()
         {
-            ValidationResult validation = validator.Validate(existingBirthPlace, options => options
+            ValidationResult validation = await validator.ValidateAsync(existingBirthPlace, options => options
                                                                                         .IncludeRuleSets("BeforeSave"));
             Assert.True(validation.IsValid);
         }
 
         [Fact]
-        public void After_save_validate_birth_place_return_true()
+        public async void After_save_validate_birth_place_return_true()
         {
-            ValidationResult validation = validator.Validate(existingBirthPlace, options => options
+            ValidationResult validation = await validator.ValidateAsync(existingBirthPlace, options => options
                                                                                 .IncludeRuleSets("AfterSave"));
             Assert.False(validation.IsValid);
             Assert.Equal("The birth place has been saved.", validation.Errors[0].ErrorMessage);
         }
 
         [Fact]
-        public void Before_save_validate_birth_place_name_null_return_false()
+        public async void Before_save_validate_birth_place_name_null_return_false()
         {
             BirthPlace birthPlace = new() { Id = 1, Name = "", CountryId = 1 };
-            ValidationResult validationResult = validator.Validate(birthPlace, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(birthPlace, options => options
                                                          .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
@@ -54,10 +54,10 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_save_validate_birth_place_name_empty_return_false()
+        public async void Before_save_validate_birth_place_name_empty_return_false()
         {
             BirthPlace birthPlace = new() { Id = 1, Name = "", CountryId = 1 };
-            ValidationResult validationResult = validator.Validate(birthPlace, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(birthPlace, options => options
                                                          .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
@@ -66,10 +66,10 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_save_validate_birth_place_name_over_100_characters_return_false()
+        public async void Before_save_validate_birth_place_name_over_100_characters_return_false()
         {
             BirthPlace birthPlace = new() { Id = 1, Name = UnitTestHelper.generateRandomString(101), CountryId = 1 };
-            ValidationResult validationResult = validator.Validate(birthPlace, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(birthPlace, options => options
                                                          .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
@@ -78,13 +78,13 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_insert_save_validate_birth_place_insert_name_duplicate_return_false()
+        public async void Before_insert_save_validate_birth_place_insert_name_duplicate_return_false()
         {
             BirthPlace birthPlace = new() { Id = 0, Name = "Test Birth Place", CountryId = 1 };
 
             birthPlaceRepositoryMock.Setup(p => p.ExistsAsync("Test Birth Place", 1)).Returns(Task.FromResult(true));
 
-            ValidationResult validationResult = validator.Validate(birthPlace, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(birthPlace, options => options
                                                          .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
@@ -93,30 +93,18 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_update_save_validate_birth_place_update_name_duplicate_return_false()
+        public async void Before_update_save_validate_birth_place_update_name_duplicate_return_false()
         {
             BirthPlace birthPlace = new() { Id = 1, Name = "Test Birth Place", CountryId = 1 };
 
             birthPlaceRepositoryMock.Setup(p => p.ExistsAsync(1, "Test Birth Place", 1)).Returns(Task.FromResult(true));
 
-            ValidationResult validationResult = validator.Validate(birthPlace, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(birthPlace, options => options
                                                          .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
             Assert.Single(validationResult.Errors);
             Assert.Equal("Test Birth Place already exists.", validationResult.Errors[0].ErrorMessage);
-        }
-
-        [Fact]
-        public void Before_delete_validate_birth_place_id_null_return_false()
-        {
-            BirthPlace birthPlace = new() { Id = 0, Name = "" };
-            ValidationResult validationResult = validator.Validate(null, options => options
-                                                         .IncludeRuleSets("BeforeDelete"));
-
-            Assert.False(validationResult.IsValid);
-            Assert.Single(validationResult.Errors);
-            Assert.Equal("Not Found", validationResult.Errors[0].ErrorMessage);
-        }
+        }         
     }
 }
