@@ -26,27 +26,27 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_save_validate_country_return_true()
+        public async void Before_save_validate_country_return_true()
         {
-            ValidationResult validation = validator.Validate(existingCountry, options => options
+            ValidationResult validation = await validator.ValidateAsync(existingCountry, options => options
                                                                                 .IncludeRuleSets("BeforeSave"));
             Assert.True(validation.IsValid);
         }
 
         [Fact]
-        public void After_save_validate_country_return_true()
+        public async void After_save_validate_country_return_true()
         {
-            ValidationResult validation = validator.Validate(existingCountry, options => options
+            ValidationResult validation = await validator.ValidateAsync(existingCountry, options => options
                                                                                 .IncludeRuleSets("AfterSave"));
             Assert.False(validation.IsValid);
             Assert.Equal("The country has been saved.", validation.Errors[0].ErrorMessage);
         }
 
         [Fact]
-        public void Before_save_validate_country_name_null_return_false()
+        public async void Before_save_validate_country_name_null_return_false()
         {
             Country country = new() { Id = 1, Name = "" };
-            ValidationResult validationResult = validator.Validate(country, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(country, options => options
                                                                                 .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
@@ -55,10 +55,10 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_save_validate_country_name_empty_return_false()
+        public async void Before_save_validate_country_name_empty_return_false()
         {
             Country country = new() { Id = 1, Name = "" };
-            ValidationResult validationResult = validator.Validate(country, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(country, options => options
                                                                                 .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
@@ -67,10 +67,10 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_save_validate_country_name_over_50_characters_return_false()
+        public async void Before_save_validate_country_name_over_50_characters_return_false()
         {
             Country country = new() { Id = 1, Name = UnitTestHelper.generateRandomString(51) };
-            ValidationResult validationResult = validator.Validate(country, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(country, options => options
                                                                                 .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
@@ -79,13 +79,13 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_insert_save_validate_country_insert_name_duplicate_return_false()
+        public async void Before_insert_save_validate_country_insert_name_duplicate_return_false()
         {
             Country country = new() { Id = 0, Name = "Test Country" };
 
             countryRepositoryMock.Setup(p => p.ExistsAsync("Test Country")).Returns(Task.FromResult(true));
 
-            ValidationResult validationResult = validator.Validate(country, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(country, options => options
                                                                                 .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
@@ -94,30 +94,18 @@ namespace SwanSong.xUnit.Test.Business
         }
 
         [Fact]
-        public void Before_update_save_validate_country_update_name_duplicate_return_false()
+        public async void Before_update_save_validate_country_update_name_duplicate_return_false()
         {
             Country country = new() { Id = 1, Name = "Test Country" };
 
             countryRepositoryMock.Setup(p => p.ExistsAsync(1, "Test Country")).Returns(Task.FromResult(true));
 
-            ValidationResult validationResult = validator.Validate(country, options => options
+            ValidationResult validationResult = await validator.ValidateAsync(country, options => options
                                                                                 .IncludeRuleSets("BeforeSave"));
 
             Assert.False(validationResult.IsValid);
             Assert.Single(validationResult.Errors);
             Assert.Equal("Test Country already exists.", validationResult.Errors[0].ErrorMessage);
-        }
-
-        [Fact]
-        public void Before_delete_validate_country_id_null_return_false()
-        {
-            Country country = new() { Id = 0, Name = "" };
-            ValidationResult validationResult = validator.Validate(null, options => options
-                                                                            .IncludeRuleSets("BeforeDelete"));
-
-            Assert.False(validationResult.IsValid);
-            Assert.Single(validationResult.Errors);
-            Assert.Equal("Not Found", validationResult.Errors[0].ErrorMessage);
-        }
+        } 
     }
 }
