@@ -10,7 +10,7 @@ namespace SwanSong.Data.Repository
 {
     public class AlbumRepository : BaseRepository<Album>, IAlbumRepository
     {
-        public AlbumRepository(SwanSongContext context) : base(context) {}
+        public AlbumRepository(SwanSongContext context) : base(context) { }
 
         public async Task<List<Album>> GetAllAsync(int pageNumber, int pageSize)
         {
@@ -23,7 +23,10 @@ namespace SwanSong.Data.Repository
 
         public async Task<List<Album>> GetRandomAsync(int numberOfAlbums)
         {
-            return await _context.Albums.OrderByDescending(x => Guid.NewGuid()).Take(numberOfAlbums).ToListAsync();
+            return await _context.Albums
+                .Include(a => a.Artist)
+                .Include(s => s.AlbumSongs).ThenInclude(t => t.Song)
+                .OrderByDescending(x => Guid.NewGuid()).Take(numberOfAlbums).ToListAsync(); 
         }
 
         public async Task<long> CountAsync()
