@@ -30,7 +30,7 @@ namespace SwanSong.Service
                             IUnitOfWork unitOfWork,
                             IOptions<AppSettings> appSettings,
                             IOptions<SendGridSettings> sendGridSettings,
-                            IAzureStorageHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
+                            IAzureStorageBlobHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
         {
             _appSettings = appSettings.Value;
             _sendGridSettings = sendGridSettings;

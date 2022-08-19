@@ -23,7 +23,7 @@ namespace SwanSong.Service
                             IValidator<Album> validator,
                             IMemoryCache memoryCache,
                             IUnitOfWork unitOfWork,
-                            IAzureStorageHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
+                            IAzureStorageBlobHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
         { }
 
         public async Task<long> CountAsync()
@@ -99,7 +99,7 @@ namespace SwanSong.Service
             await DeleteAsync(album);
 
             if (notDefaultImage(album.Photo))
-                await _azureStorageHelper.DeleteFileInAzureStorageContainerAsync(album.Photo, Constants.AzureStorageContainerAlbums);
+                await _azureStorageHelper.DeleteBlobInAzureStorageContainerAsync(album.Photo, Constants.AzureStorageContainerAlbums);
 
             return GetDto(album, await AfterDeleteAsync(album, null), true);
         }
@@ -115,7 +115,7 @@ namespace SwanSong.Service
 
             AlbumDto albumDto = _mapper.Map<AlbumDto>(await _unitOfWork.Albums.UpdateAlbumPhotoAsync(id, newFileName));
 
-            await _azureStorageHelper.SaveFileToAzureStorageContainerAsync(file, Constants.AzureStorageContainerAlbums, newFileName);
+            await _azureStorageHelper.SaveBlobToAzureStorageContainerAsync(file, Constants.AzureStorageContainerAlbums, newFileName);
             await DeleteOriginalFileAsync(originalFileName, newFileName, Constants.AzureStorageContainerAlbums);
 
             return newFileName;

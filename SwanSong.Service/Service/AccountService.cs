@@ -17,7 +17,7 @@ namespace SwanSong.Service
                               IValidator<Account> validator,
                               IMemoryCache memoryCache,
                               IUnitOfWork unitOfWork,
-                              IAzureStorageHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
+                              IAzureStorageBlobHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
         { }
 
         public async Task<AccountDto> SaveAsync(AccountDto accountDto)

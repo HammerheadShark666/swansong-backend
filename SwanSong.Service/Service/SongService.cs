@@ -19,7 +19,7 @@ namespace SwanSong.Service
                            IValidator<Song> validator,
                            IMemoryCache memoryCache,
                            IUnitOfWork unitOfWork,
-                           IAzureStorageHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
+                           IAzureStorageBlobHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
         { }
       
         public async Task<SongDto> DeleteAsync(int id)

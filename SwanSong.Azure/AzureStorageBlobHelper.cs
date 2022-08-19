@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 
 namespace SwanSong.Azure.Storage
 {
-    public class AzureStorageHelper : Base, IAzureStorageHelper
+    public class AzureStorageBlobHelper : Base, IAzureStorageBlobHelper
     {
-        public AzureStorageHelper(IOptions<AzureSettings> azureSettings) : base(azureSettings)
+        public AzureStorageBlobHelper(IOptions<AzureSettings> azureSettings) : base(azureSettings)
         { }
 
-        public async Task SaveFileToAzureStorageContainerAsync(IFormFile file, string containerName, string fileName)
+        public async Task SaveBlobToAzureStorageContainerAsync(IFormFile file, string containerName, string fileName)
         {
-            Stream myBlob = new MemoryStream();
-            myBlob = file.OpenReadStream();
+            Stream fileStream = new MemoryStream();
+            fileStream = file.OpenReadStream();
             var blobClient = new BlobContainerClient(GetStorageConnection(), containerName);
             var blob = blobClient.GetBlobClient(fileName);
-            await blob.UploadAsync(myBlob);
+            await blob.UploadAsync(fileStream);
             return;
         }
 
-        public async Task DeleteFileInAzureStorageContainerAsync(string fileName, string containerName)
+        public async Task DeleteBlobInAzureStorageContainerAsync(string fileName, string containerName)
         {
             if (fileName == null) return;
 

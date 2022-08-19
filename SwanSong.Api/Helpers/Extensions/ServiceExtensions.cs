@@ -115,7 +115,7 @@ namespace SwanSong.Api.Helpers.Extensions
             services.AddScoped<ISongRepository, SongRepository>();
             services.AddScoped<ISongService, SongService>(); 
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-            services.AddScoped<IAzureStorageHelper, AzureStorageHelper>();
+            services.AddScoped<IAzureStorageBlobHelper, AzureStorageBlobHelper>();
             services.AddValidatorsFromAssemblyContaining<AlbumValidator>(); 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
