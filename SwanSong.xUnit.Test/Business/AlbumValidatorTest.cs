@@ -103,18 +103,7 @@ namespace SwanSong.xUnit.Test.Business
                                                                                 .IncludeRuleSets("BeforeSave"));
             Assert.False(validation.IsValid);
             Assert.Equal("Test Album already exists.", validation.Errors[0].ErrorMessage);
-        }
-
-        [Fact]
-        public async void Before_save_validate_album_album_length_invalid_return_false()
-        {
-            Album album = CreateAlbum();
-            album.Length = "44";
-            ValidationResult validation = await validator.ValidateAsync(album, options => options
-                                                                                .IncludeRuleSets("BeforeSave"));
-            Assert.False(validation.IsValid);
-            Assert.Equal("Length must be in format mm:ss, e.g. 45:23", validation.Errors[0].ErrorMessage);
-        }
+        }         
 
         [Fact]
         public async void Before_save_validate_album_release_date_less_than_1900_01_01_return_false()
@@ -205,8 +194,7 @@ namespace SwanSong.xUnit.Test.Business
                 RecordedDate = new DateTime(1990, 12, 1),
                 ReleaseDate = new DateTime(1991, 6, 1),
                 LabelId = 1,
-                StudioId = 1,
-                Length = "45:21",
+                StudioId = 1, 
                 Producers = "Test Producers",
                 Arrangers = "Test Arrangers",
                 Engineers = "Test Engineers",

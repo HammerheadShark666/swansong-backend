@@ -27,13 +27,7 @@ namespace SwanSong.Business.Validator
                 RuleFor(album => album.ArtistId) 
                     .NotNull()
                     .GreaterThan(0)
-                    .WithMessage("Artist is required.");
-
-                When(album => album.Length != null, () => {
-                    RuleFor(album => album.Length)
-                        .Matches(@"(?:[012345]\d):(?:[012345]\d)")
-                        .WithMessage("Length must be in format mm:ss, e.g. 45:23");
-                });
+                    .WithMessage("Artist is required."); 
 
                 RuleFor(album => album.ReleaseDate)
                     .GreaterThan(new DateTime(1900, 1, 1))
