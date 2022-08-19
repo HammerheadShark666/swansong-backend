@@ -33,7 +33,7 @@ namespace SwanSong.Data
               .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<AlbumSong>()
-                .HasOne<Song>(s => s.Song);
+                .HasOne<Song>(s => s.Song);             
 
             modelBuilder.Entity<Country>().HasData(DefaultData.Lookups.GetCountryDefaultData());
             modelBuilder.Entity<RecordLabel>().HasData(DefaultData.Lookups.GetRecordLabelDefaultData());
