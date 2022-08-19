@@ -21,7 +21,7 @@ namespace SwanSong.Service
                               IValidator<SwanSong.Domain.Model.Profile.ProfilePasswordChange> validator,
                               IMemoryCache memoryCache,
                               IUnitOfWork unitOfWork,
-                              IAzureStorageHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
+                              IAzureStorageBlobHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
         { }
         
         public async Task<ProfilePasswordChangeDto> UpdatePasswordAsync(ProfilePasswordChangeDto profilePasswordChangeDto)

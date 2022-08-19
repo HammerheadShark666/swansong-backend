@@ -30,7 +30,7 @@ namespace SwanSong.Service
                             IMemoryCache memoryCache,
                             IUnitOfWork unitOfWork,
                             IOptions<JwtSettings> jwtSettings,
-                            IAzureStorageHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
+                            IAzureStorageBlobHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
         {
             _jwtSettings = jwtSettings.Value; 
         }

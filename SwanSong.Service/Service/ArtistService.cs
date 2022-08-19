@@ -23,7 +23,7 @@ namespace SwanSong.Service
                              IValidator<Artist> validator,
                              IMemoryCache memoryCache,
                              IUnitOfWork unitOfWork,
-                             IAzureStorageHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
+                             IAzureStorageBlobHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
         {}
 
         public async Task<long> CountAsync()
@@ -67,7 +67,7 @@ namespace SwanSong.Service
 
             ArtistDto artistDto = _mapper.Map<ArtistDto>(await _unitOfWork.Artists.UpdateArtistPhotoAsync(id, newFileName));
             
-            await _azureStorageHelper.SaveFileToAzureStorageContainerAsync(file, Constants.AzureStorageContainerArtists, newFileName);
+            await _azureStorageHelper.SaveBlobToAzureStorageContainerAsync(file, Constants.AzureStorageContainerArtists, newFileName);
             await DeleteOriginalFileAsync(originalFileName, newFileName, Constants.AzureStorageContainerArtists);
 
             return newFileName;
@@ -97,7 +97,7 @@ namespace SwanSong.Service
             artist = await DeleteAsync(artist);
             
             if(notDefaultImage(artist.Photo))
-                await _azureStorageHelper.DeleteFileInAzureStorageContainerAsync(artist.Photo, Constants.AzureStorageContainerArtists);
+                await _azureStorageHelper.DeleteBlobInAzureStorageContainerAsync(artist.Photo, Constants.AzureStorageContainerArtists);
             
             await DeleteMembersAsync(artist.Members);
             
@@ -139,7 +139,7 @@ namespace SwanSong.Service
         private async Task DeleteMembersAsync(List<Member> members)
         {
             foreach (Member member in members)
-                await _azureStorageHelper.DeleteFileInAzureStorageContainerAsync(member.Photo, Constants.AzureStorageContainerMembers);
+                await _azureStorageHelper.DeleteBlobInAzureStorageContainerAsync(member.Photo, Constants.AzureStorageContainerMembers);
 
             return;
         }

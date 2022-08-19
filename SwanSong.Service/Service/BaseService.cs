@@ -19,11 +19,11 @@ namespace SwanSong.Service
         public readonly IMemoryCache _memoryCache;
         public readonly IUnitOfWork _unitOfWork;
         public readonly IMapper _mapper;
-        public readonly IAzureStorageHelper _azureStorageHelper;
+        public readonly IAzureStorageBlobHelper _azureStorageHelper;
 
         public record EditPhoto(bool photoWasChanged, string originalPhotoName);
 
-        public BaseService(IValidator<T> validator, IMemoryCache memoryCache, IUnitOfWork unitOfWork, IMapper mapper, IAzureStorageHelper azureStorageHelper)
+        public BaseService(IValidator<T> validator, IMemoryCache memoryCache, IUnitOfWork unitOfWork, IMapper mapper, IAzureStorageBlobHelper azureStorageHelper)
         {
             _validator = validator;
             _memoryCache = memoryCache;
@@ -99,7 +99,7 @@ namespace SwanSong.Service
         {
             EditPhoto editPhoto = wasPhotoEdited(originalFileName, newFileName);
             if (editPhoto.photoWasChanged)
-                await _azureStorageHelper.DeleteFileInAzureStorageContainerAsync(editPhoto.originalPhotoName, container);
+                await _azureStorageHelper.DeleteBlobInAzureStorageContainerAsync(editPhoto.originalPhotoName, container);
         }
 
         public bool notDefaultImage(string fileName)

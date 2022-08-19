@@ -24,7 +24,7 @@ namespace SwanSong.Service
                             IMemoryCache memoryCache,
                             IUnitOfWork unitOfWork,
                             IOptions<AppSettings> appSettings,
-                            IAzureStorageHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
+                            IAzureStorageBlobHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
         {
             _appSettings = appSettings.Value; 
         }          

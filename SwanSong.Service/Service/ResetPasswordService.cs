@@ -32,7 +32,7 @@ namespace SwanSong.Service
                             IOptions<JwtSettings> jwtSettings,
                             IOptions<AppSettings> appSettings,
                             IOptions<SendGridSettings> sendGridSettings,
-                            IAzureStorageHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
+                            IAzureStorageBlobHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
         {
             _jwtSettings = jwtSettings.Value;
             _appSettings = appSettings.Value;
