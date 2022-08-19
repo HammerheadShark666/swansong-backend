@@ -1,29 +1,42 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using System.IO;
+using SwanSong.Api.Helpers.Extensions;
+using SwanSong.Api.Middleware;
 
-namespace SwanSong.Api
+var builder = WebApplication.CreateBuilder(args);
+ 
+builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        { 
-            BuildWebHost(args).Run();
-        }
+    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+    config.AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+});
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-             .ConfigureAppConfiguration(ConfigConfiguration)
-             .UseStartup<Startup>()
-             .Build();
+builder.Services.ConfigureMvc();
+builder.Services.ConfigureDbContext(builder.Configuration);
+builder.Services.ConfigureCors();
+builder.Services.ConfigureControllers();
+builder.Services.ConfigureAutoMapper();
+builder.Services.ConfigureSwagger();
+builder.Services.ConfigureConfigSettings(builder.Configuration);
+builder.Services.ConfigureDI();
+builder.Services.ConfigureVersioning();
 
-        static void ConfigConfiguration(WebHostBuilderContext ctx, IConfigurationBuilder config)
-        {
-            config.SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{ctx.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
-        }
-    }
-}
+var app = builder.Build();
+
+app.UseDeveloperExceptionPage();
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SwanSong.Api v1"));
+
+app.UseRouting();
+
+app.UseCors(x => x
+    .SetIsOriginAllowed(origin => true)
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials());
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
+app.UseMiddleware<JwtMiddleware>();
+app.UseEndpoints(x => x.MapControllers());
+
+app.Run();

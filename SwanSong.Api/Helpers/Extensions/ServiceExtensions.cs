@@ -78,11 +78,11 @@ namespace SwanSong.Api.Helpers.Extensions
         }
 
         public static void ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
-        {
+        { 
             services.AddDbContext<SwanSongContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("SwanSongSiteContextConnection"),
-                                        b => b.MigrationsAssembly(typeof(SwanSongContext).Assembly.FullName)); 
+                                        b => b.MigrationsAssembly(typeof(SwanSongContext).Assembly.FullName));
             });
         }
 
