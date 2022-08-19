@@ -64,10 +64,7 @@ namespace SwanSong.Domain
         public long ArtistId { get; set; }
 
         public virtual Artist Artist { get; set;}       
-
-        [Column(TypeName = "nvarchar(10)")]      
-        public string Length { get; set; }
-
+         
         [Column(TypeName = "nvarchar(250)")]
         public string Producers { get; set; }
 

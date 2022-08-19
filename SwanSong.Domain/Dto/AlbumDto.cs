@@ -16,7 +16,6 @@ namespace SwanSong.Domain.Dto
         public string LabelName { get; set; }
         public int? StudioId { get; set; }
         public Studio Studio { get; set; }         
-        public string Length { get; set; }         
         public string Producers { get; set; } 
         public string Arrangers { get; set; }         
         public string Engineers { get; set; }         
