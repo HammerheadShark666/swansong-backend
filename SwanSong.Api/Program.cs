@@ -9,7 +9,8 @@ builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
 {
     config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
     config.AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
-});
+    config.AddEnvironmentVariables();
+}); 
 
 builder.Services.ConfigureMvc();
 builder.Services.ConfigureDbContext(builder.Configuration);
@@ -22,7 +23,7 @@ builder.Services.ConfigureDI();
 builder.Services.ConfigureVersioning();
 
 var app = builder.Build();
-
+ 
 app.UseDeveloperExceptionPage();
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SwanSong.Api v1"));

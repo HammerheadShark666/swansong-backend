@@ -81,10 +81,10 @@ namespace SwanSong.Api.Helpers.Extensions
         public static void ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
         {
             //configuration.GetConnectionString("SQLAZURECONNSTR_SwanSong")
-
+            //Environment.GetEnvironmentVariable(Constants.DatabaseConnectionStringUat)
             services.AddDbContext<SwanSongContext>(options =>
             {
-                options.UseSqlServer(Environment.GetEnvironmentVariable(Constants.DatabaseConnectionStringUat),
+                options.UseSqlServer(configuration.GetConnectionString(Constants.DatabaseConnectionStringUat),
                                         b => b.MigrationsAssembly(typeof(SwanSongContext).Assembly.FullName));
             });
         }
