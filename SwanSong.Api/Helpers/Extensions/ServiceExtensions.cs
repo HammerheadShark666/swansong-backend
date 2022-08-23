@@ -80,13 +80,9 @@ namespace SwanSong.Api.Helpers.Extensions
         public static void ConfigureDbContext(this IServiceCollection services, ConfigurationManager configuration)
         {  
             services.AddDbContext<SwanSongContext>(options =>
-            {
-                //options.UseSqlServer(System.Environment.GetEnvironmentVariable(Constants.DatabaseConnectionStringUat),
-                //                        b => b.MigrationsAssembly(typeof(SwanSongContext).Assembly.FullName));
-
+            { 
                 options.UseSqlServer(configuration.GetConnectionString(Constants.DatabaseConnectionStringUat),
-                                        b => b.MigrationsAssembly(typeof(SwanSongContext).Assembly.FullName));
-                
+                                        b => b.MigrationsAssembly(typeof(SwanSongContext).Assembly.FullName));                
             });
         }
 

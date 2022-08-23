@@ -18,6 +18,6 @@
         public const string FileExtensionJpg = "jpg";
 
         public const string DatabaseConnectionStringUat = "SQLAZURECONNSTR_SWANSONG";
-        public const string AzureStorageConnectionStringUat = "CUSTOMCONNSTR_AZURE_STORAGE";
+        public const string AzureStorageConnectionStringUat = "SWANSONG_AZURE_STORAGE_CONNECTION_STRING";
     }
 }
