@@ -13,7 +13,9 @@
       "launchBrowser": true,
       "launchUrl": "swagger/index.html",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CUSTOMCONNSTR_AZURE_STORAGE": "DefaultEndpointsProtocol=https;AccountName=swansonguat;AccountKey=3F3XaslXzSVWShvlVj91f6lw6F+UdmGfSxprSijzreZciE8PKHWyXbAocS76sj7KYpQx09r1LSg8+AStvS11BQ==;EndpointSuffix=core.windows.net",
+        "SQLAZURECONNSTR_SWANSONG": "Initial Catalog=SwanSongDB; Data Source=localhost, 1440; Persist Security Info=True;User ID=SA;Password=Rcu9OP443mc#3xx"
       }
     },
     "SwanSong.Api": {

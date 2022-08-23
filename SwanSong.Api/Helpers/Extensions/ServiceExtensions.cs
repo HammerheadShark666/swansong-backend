@@ -8,14 +8,13 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.OpenApi.Models;
 using SwanSong.Azure.Storage;
 using SwanSong.Azure.Storage.Interfaces;
-using SwanSong.Business.Validator; 
+using SwanSong.Business.Validator;
 using SwanSong.Data;
 using SwanSong.Data.Repository;
 using SwanSong.Data.Repository.Interfaces;
 using SwanSong.Data.UnitOfWork;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain.Model.Settings;
-using SwanSong.Domain.Model.Settings.Azure;
 using SwanSong.Helper;
 using SwanSong.Service;
 using SwanSong.Service.Helper;
@@ -79,12 +78,10 @@ namespace SwanSong.Api.Helpers.Extensions
         }
 
         public static void ConfigureDbContext(this IServiceCollection services, ConfigurationManager configuration)
-        {
-            //configuration.GetConnectionString("SQLAZURECONNSTR_SwanSong")
-            //Environment.GetEnvironmentVariable(Constants.DatabaseConnectionStringUat)
+        {  
             services.AddDbContext<SwanSongContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString(Constants.DatabaseConnectionStringUat),
+                options.UseSqlServer(System.Environment.GetEnvironmentVariable(Constants.DatabaseConnectionStringUat),
                                         b => b.MigrationsAssembly(typeof(SwanSongContext).Assembly.FullName));
             });
         }
@@ -127,10 +124,9 @@ namespace SwanSong.Api.Helpers.Extensions
         }
 
         public static void ConfigureConfigSettings(this IServiceCollection services, IConfiguration configuration)
-        {
+        { 
             services.Configure<AppSettings>(configuration.GetSection("AppSettings")); 
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
-            services.Configure<AzureSettings>(configuration.GetSection("AzureSettings"));
             services.Configure<SendGridSettings>(configuration.GetSection("SendGridSettings"));
         }
 

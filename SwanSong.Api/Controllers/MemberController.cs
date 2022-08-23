@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SwanSong.Domain.Dto;
 using SwanSong.Domain.Model.Settings;
-using SwanSong.Domain.Model.Settings.Azure;
 using SwanSong.Helper;
 using SwanSong.Helper.Filter;
 using SwanSong.Service.Interfaces;

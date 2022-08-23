@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SwanSong.Domain\SwanSong.Domain.csproj" />
+    <ProjectReference Include="..\SwanSong.Helper\SwanSong.Helper.csproj" />
   </ItemGroup>
 
 
