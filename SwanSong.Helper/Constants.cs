@@ -17,7 +17,7 @@
 
         public const string FileExtensionJpg = "jpg";
 
-
-        public const string DatabaseConnectionStringUat = "SQLAZURECONNSTR_SwanSong";
+        public const string DatabaseConnectionStringUat = "SQLAZURECONNSTR_SWANSONG";
+        public const string AzureStorageConnectionStringUat = "CUSTOMCONNSTR_AZURE_STORAGE";
     }
 }

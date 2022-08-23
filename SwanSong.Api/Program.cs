@@ -39,5 +39,5 @@ app.UseCors(x => x
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseMiddleware<JwtMiddleware>();
 app.UseEndpoints(x => x.MapControllers());
-
+ 
 app.Run();

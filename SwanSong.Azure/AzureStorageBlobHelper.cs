@@ -1,8 +1,6 @@
 ﻿using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
 using SwanSong.Azure.Storage.Interfaces;
-using SwanSong.Domain.Model.Settings.Azure;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -10,7 +8,7 @@ namespace SwanSong.Azure.Storage
 {
     public class AzureStorageBlobHelper : Base, IAzureStorageBlobHelper
     {
-        public AzureStorageBlobHelper(IOptions<AzureSettings> azureSettings) : base(azureSettings)
+        public AzureStorageBlobHelper() : base()
         { }
 
         public async Task SaveBlobToAzureStorageContainerAsync(IFormFile file, string containerName, string fileName)
