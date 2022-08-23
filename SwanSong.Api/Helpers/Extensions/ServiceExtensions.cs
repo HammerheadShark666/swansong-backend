@@ -78,7 +78,7 @@ namespace SwanSong.Api.Helpers.Extensions
             }); 
         }
 
-        public static void ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
+        public static void ConfigureDbContext(this IServiceCollection services, ConfigurationManager configuration)
         {
             //configuration.GetConnectionString("SQLAZURECONNSTR_SwanSong")
             //Environment.GetEnvironmentVariable(Constants.DatabaseConnectionStringUat)
