@@ -81,8 +81,12 @@ namespace SwanSong.Api.Helpers.Extensions
         {  
             services.AddDbContext<SwanSongContext>(options =>
             {
-                options.UseSqlServer(System.Environment.GetEnvironmentVariable(Constants.DatabaseConnectionStringUat),
+                //options.UseSqlServer(System.Environment.GetEnvironmentVariable(Constants.DatabaseConnectionStringUat),
+                //                        b => b.MigrationsAssembly(typeof(SwanSongContext).Assembly.FullName));
+
+                options.UseSqlServer(configuration.GetConnectionString(Constants.DatabaseConnectionStringUat),
                                         b => b.MigrationsAssembly(typeof(SwanSongContext).Assembly.FullName));
+                
             });
         }
 
