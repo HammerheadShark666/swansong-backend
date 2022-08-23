@@ -16,5 +16,8 @@
         public static string DefaultMemberPhotoFileName = "default-member-image.jpg";
 
         public const string FileExtensionJpg = "jpg";
+
+
+        public const string DatabaseConnectionStringUat = "SQLAZURECONNSTR_SwanSong";
     }
 }

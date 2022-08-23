@@ -16,6 +16,7 @@ using SwanSong.Data.UnitOfWork;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain.Model.Settings;
 using SwanSong.Domain.Model.Settings.Azure;
+using SwanSong.Helper;
 using SwanSong.Service;
 using SwanSong.Service.Helper;
 using SwanSong.Service.Interfaces;
@@ -78,10 +79,12 @@ namespace SwanSong.Api.Helpers.Extensions
         }
 
         public static void ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
-        { 
+        {
+            //configuration.GetConnectionString("SQLAZURECONNSTR_SwanSong")
+
             services.AddDbContext<SwanSongContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("SQLAZURECONNSTR_SwanSong"),
+                options.UseSqlServer(Environment.GetEnvironmentVariable(Constants.DatabaseConnectionStringUat),
                                         b => b.MigrationsAssembly(typeof(SwanSongContext).Assembly.FullName));
             });
         }
