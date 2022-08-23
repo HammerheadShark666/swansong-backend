@@ -47,6 +47,8 @@ SwanSong.ApiDatabase.db
 # appSettings
 appSettings.Production.json
 appSettings.Development.json
+/properties/launchSettings.json
+
 
 **/bin/*
 **/obj/*
