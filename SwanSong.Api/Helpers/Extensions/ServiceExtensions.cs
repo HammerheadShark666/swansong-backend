@@ -81,7 +81,7 @@ namespace SwanSong.Api.Helpers.Extensions
         {  
             services.AddDbContext<SwanSongContext>(options =>
             { 
-                options.UseSqlServer(configuration.GetConnectionString(Constants.DatabaseConnectionStringUat),
+                options.UseSqlServer(configuration.GetConnectionString(Constants.DatabaseConnectionString),
                                         b => b.MigrationsAssembly(typeof(SwanSongContext).Assembly.FullName));                
             });
         }
@@ -121,14 +121,7 @@ namespace SwanSong.Api.Helpers.Extensions
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddMemoryCache();
-        }
-
-        public static void ConfigureConfigSettings(this IServiceCollection services, IConfiguration configuration)
-        { 
-            services.Configure<AppSettings>(configuration.GetSection("AppSettings")); 
-            services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
-            services.Configure<SendGridSettings>(configuration.GetSection("SendGridSettings"));
-        }
+        }         
 
         public static void ConfigureControllers(this IServiceCollection services)
         {

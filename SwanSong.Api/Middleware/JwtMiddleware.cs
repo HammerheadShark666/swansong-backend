@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SwanSong.Data;
-using SwanSong.Domain.Model.Settings;
 using SwanSong.Helper;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,13 +12,11 @@ namespace SwanSong.Api.Middleware
 {
     public class JwtMiddleware
     {
-        private readonly RequestDelegate _next;
-        private readonly JwtSettings _jwtSettings;
+        private readonly RequestDelegate _next; 
         
-        public JwtMiddleware(RequestDelegate next, IOptions<JwtSettings> jwtSettings)
+        public JwtMiddleware(RequestDelegate next)
         {
-            _next = next;
-            _jwtSettings = jwtSettings.Value;            
+            _next = next;     
         }
 
         public async Task Invoke(HttpContext context, SwanSongContext swanSongContext)
@@ -38,7 +34,7 @@ namespace SwanSong.Api.Middleware
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
+                var key = Encoding.ASCII.GetBytes(EnvironmentVariablesHelper.JwtSettingsSercret());
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,

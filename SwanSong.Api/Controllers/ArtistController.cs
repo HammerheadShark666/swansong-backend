@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using SwanSong.Domain.Dto;
-using SwanSong.Domain.Model.Settings;
 using SwanSong.Helper;
 using SwanSong.Helper.Filter;
 using SwanSong.Service.Interfaces;
@@ -23,13 +21,11 @@ namespace SwanSong.Api.Controllers
     public class ArtistController : BaseController<ArtistDto>
     {
         private readonly ILogger<AlbumsController> _logger;      
-        private readonly IArtistService _artistService;
-        private readonly IOptions<AppSettings> _appSettings; 
+        private readonly IArtistService _artistService; 
 
-        public ArtistController(ILogger<AlbumsController> logger, IHttpContextAccessor httpContextAccessor, IArtistService artistService, IOptions<AppSettings> appSettings) : base(httpContextAccessor)
+        public ArtistController(ILogger<AlbumsController> logger, IHttpContextAccessor httpContextAccessor, IArtistService artistService) : base(httpContextAccessor)
         {
-            _logger = logger;
-            _appSettings = appSettings;
+            _logger = logger; 
             _artistService = artistService; 
         }
 

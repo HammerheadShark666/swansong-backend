@@ -17,8 +17,7 @@ builder.Services.ConfigureDbContext(builder.Configuration);
 builder.Services.ConfigureCors();
 builder.Services.ConfigureControllers();
 builder.Services.ConfigureAutoMapper();
-builder.Services.ConfigureSwagger();
-builder.Services.ConfigureConfigSettings(builder.Configuration);
+builder.Services.ConfigureSwagger(); 
 builder.Services.ConfigureDI();
 builder.Services.ConfigureVersioning();
 

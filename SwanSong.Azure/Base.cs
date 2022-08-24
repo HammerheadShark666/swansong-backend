@@ -1,5 +1,4 @@
 ﻿using SwanSong.Helper;
-using System;
 
 namespace SwanSong.Azure.Storage
 {
@@ -10,7 +9,7 @@ namespace SwanSong.Azure.Storage
 
         public string GetStorageConnection()
         {
-            return Environment.GetEnvironmentVariable(Constants.AzureStorageConnectionStringUat);
+            return EnvironmentVariablesHelper.AzureStorageConnectionString();
         }
     }
 }
