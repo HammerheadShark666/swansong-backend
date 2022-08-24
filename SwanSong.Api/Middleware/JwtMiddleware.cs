@@ -14,13 +14,11 @@ namespace SwanSong.Api.Middleware
 {
     public class JwtMiddleware
     {
-        private readonly RequestDelegate _next;
-        private readonly JwtSettings _jwtSettings;
+        private readonly RequestDelegate _next; 
         
-        public JwtMiddleware(RequestDelegate next, IOptions<JwtSettings> jwtSettings)
+        public JwtMiddleware(RequestDelegate next)
         {
-            _next = next;
-            _jwtSettings = jwtSettings.Value;            
+            _next = next;     
         }
 
         public async Task Invoke(HttpContext context, SwanSongContext swanSongContext)
@@ -38,7 +36,7 @@ namespace SwanSong.Api.Middleware
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
+                var key = Encoding.ASCII.GetBytes(EnvironmentVariablesHelper.JwtSettingsSercret());
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,

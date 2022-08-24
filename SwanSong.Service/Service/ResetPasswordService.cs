@@ -20,21 +20,18 @@ using BC = BCrypt.Net.BCrypt;
 namespace SwanSong.Service
 {
     public class ResetPasswordService : BaseService<ResetPassword, ResetPasswordDto>, IResetPasswordService
-    {
-        private readonly JwtSettings _jwtSettings;
+    {        
         private readonly AppSettings _appSettings;
         private readonly IOptions<SendGridSettings> _sendGridSettings;
 
         public ResetPasswordService(IMapper mapper,
                             IValidator<ResetPassword> validator,
                             IMemoryCache memoryCache,
-                            IUnitOfWork unitOfWork,
-                            IOptions<JwtSettings> jwtSettings,
+                            IUnitOfWork unitOfWork,                            
                             IOptions<AppSettings> appSettings,
                             IOptions<SendGridSettings> sendGridSettings,
                             IAzureStorageBlobHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
-        {
-            _jwtSettings = jwtSettings.Value;
+        {            
             _appSettings = appSettings.Value;
             _sendGridSettings = sendGridSettings;
         }
@@ -87,7 +84,7 @@ namespace SwanSong.Service
         private Account ResetToken(Account account)
         {
             account.ResetToken = AuthenticationHelper.CreateRandomToken();
-            account.ResetTokenExpires = DateTime.Now.AddDays(_jwtSettings.ResetPasswordTokenExpiryDays);
+            account.ResetTokenExpires = DateTime.Now.AddDays(EnvironmentVariablesHelper.JwtSettingsRefreshTokenTtl());
             return account;
         }
 

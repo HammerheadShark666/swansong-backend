@@ -22,18 +22,13 @@ using BC = BCrypt.Net.BCrypt;
 namespace SwanSong.Service
 {
     public class AuthenticateService : BaseService<Login, LoginDto>, IAuthenticateService
-    {
-        private readonly JwtSettings _jwtSettings; 
-
+    { 
         public AuthenticateService(IMapper mapper,
                             IValidator<Login> validator,
                             IMemoryCache memoryCache,
-                            IUnitOfWork unitOfWork,
-                            IOptions<JwtSettings> jwtSettings,
+                            IUnitOfWork unitOfWork,                            
                             IAzureStorageBlobHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
-        {
-            _jwtSettings = jwtSettings.Value; 
-        }
+        {}
 
         public async Task<LoginDto> AuthenticateAsync(LoginDto loginDto, string ipAddress)
         {
@@ -46,7 +41,7 @@ namespace SwanSong.Service
             var account = await _unitOfWork.Accounts.GetAsync(loginDto.Email);
             var refreshToken = GenerateRefreshToken(account, ipAddress);
             account = await UpdateRefreshTokenAsync(account, ipAddress, refreshToken);             
-            var jwtToken = AuthenticationHelper.GenerateJwtToken(account, _jwtSettings.TokenExpiryMinutes, _jwtSettings.Secret);
+            var jwtToken = AuthenticationHelper.GenerateJwtToken(account, EnvironmentVariablesHelper.JwtSettingsTokenExpiryMinutes(), EnvironmentVariablesHelper.JwtSettingsSercret());
 
             return GetLoginDto(account, await AfterSaveAsync(login, null), true, jwtToken, refreshToken.Token);
         } 
@@ -72,7 +67,7 @@ namespace SwanSong.Service
             _unitOfWork.Accounts.Update(account);
             await _unitOfWork.Complete();
 
-            var jwtToken = AuthenticationHelper.GenerateJwtToken(account, _jwtSettings.TokenExpiryMinutes, _jwtSettings.Secret);
+            var jwtToken = AuthenticationHelper.GenerateJwtToken(account, EnvironmentVariablesHelper.JwtSettingsTokenExpiryMinutes(), EnvironmentVariablesHelper.JwtSettingsSercret());
 
             return CreateJwtRefreshTokenDto(account, jwtToken, newRefreshToken.Token);
         }
@@ -81,18 +76,18 @@ namespace SwanSong.Service
         {
             account.RefreshTokens.RemoveAll(x =>
                                     !x.IsActive &&
-                                    x.Created.AddDays(_jwtSettings.RefreshTokenTTL) <= DateTime.Now);
+                                    x.Created.AddDays(EnvironmentVariablesHelper.JwtSettingsRefreshTokenTtl()) <= DateTime.Now);
         }
 
         private RefreshToken GenerateRefreshToken(Account account, string ipAddress)
         {
-            var refreshTokenExpires = DateTime.Now.AddDays(_jwtSettings.RefreshTokenExpiryDays);
+            var refreshTokenExpires = DateTime.Now.AddDays(EnvironmentVariablesHelper.JwtSettingsRefreshTokenExpiryDays());
             return AuthenticationHelper.GenerateRefreshToken(ipAddress, refreshTokenExpires);
         } 
 
         private RefreshToken GetNewRefreshToken(string ipAddress)
         {
-            var refreshTokenExpires = DateTime.Now.AddDays(_jwtSettings.RefreshTokenExpiryDays);
+            var refreshTokenExpires = DateTime.Now.AddDays(EnvironmentVariablesHelper.JwtSettingsRefreshTokenExpiryDays());
             return AuthenticationHelper.GenerateRefreshToken(ipAddress, refreshTokenExpires);
         }
 

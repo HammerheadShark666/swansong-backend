@@ -13,7 +13,7 @@ namespace SwanSong.Helper
                                                    new EmailAddress(to), 
                                                    subject, "", html);
 
-            var client = new SendGridClient(Environment.GetEnvironmentVariable(Constants.SendGridApiKey));
+            var client = new SendGridClient(EnvironmentVariablesHelper.SendGridApiKey());
             var response = await client.SendEmailAsync(msg);
         } 
     }
