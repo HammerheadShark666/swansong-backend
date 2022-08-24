@@ -20,11 +20,15 @@
         public const string DatabaseConnectionString = "SQLAZURECONNSTR_SWANSONG";
         public const string AzureStorageConnectionString = "SWANSONG_AZURE_STORAGE_CONNECTION_STRING";
         public const string SendGridApiKey = "SWANSONG_SENDGRID_CONNECTION_STRING";
+        public const string SendGridDefaultFromEmail = "SWANSONG_SENDGRID_DEFAULT_FROM_EMAIL";
 
         public const string JwtSettingsSercret = "SWANSONG_JWT_SETTINGS_SECRET";
         public const string JwtSettingsRefreshTokenTtl = "SWANSONG_JWT_SETTINGS_REFRESH_TOKEN_TTL";
         public const string JwtSettingsTokenExpiryMinutes = "SWANSONG_JWT_SETTINGS_TOKEN_EXPIRY_MINUTES";
         public const string JwtSettingsRefreshTokenExpiryDays = "SWANSONG_JWT_SETTINGS_REFRESH_TOKEN_EXPIRY_DAYS";
         public const string JwtSettingsPasswordTokenExpiryDays = "SWANSONG_JWT_SETTINGS_RESET_PASSWORD_TOKEN_EXPIRY_DAYS";
+
+        public const string AppSettingsFrontEndBaseUrl = "SWANSONG_APP_SETTINGS_FRONT_END_BASE_URL";
+
     }
 }

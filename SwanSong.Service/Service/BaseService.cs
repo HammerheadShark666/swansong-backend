@@ -5,7 +5,6 @@ using Microsoft.Extensions.Caching.Memory;
 using SwanSong.Azure.Storage.Interfaces;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain.Dto;
-using SwanSong.Domain.Model.Settings;
 using SwanSong.Helper;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -71,9 +70,9 @@ namespace SwanSong.Service
             return (afterDeleteRules != null && afterDeleteRules.Errors.Count > 0) ? afterDeleteRules.Errors : new();
         }
 
-        public void Send(SendGridSettings sendGridSettings, string email, string subject, string html)
+        public void Send(string email, string subject, string html)
         {
-            SendGridEmailHelper.SendEmail(sendGridSettings, email, subject, $@"{html}");
+            SendGridEmailHelper.SendEmail(email, subject, $@"{html}");
         }
 
         public D GetDto(T entity, List<ValidationFailure> rules, bool isValid)

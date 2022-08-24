@@ -2,13 +2,11 @@
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Options;
 using SwanSong.Azure.Storage.Interfaces;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain;
 using SwanSong.Domain.Dto;
 using SwanSong.Domain.Model.Authentication;
-using SwanSong.Domain.Model.Settings;
 using SwanSong.Service.Interfaces;
 using System;
 using System.Threading.Tasks;
@@ -16,18 +14,13 @@ using System.Threading.Tasks;
 namespace SwanSong.Service
 {
     public class RegisterVerifyEmailService : BaseService<RegisterVerifyEmail, RegisterVerifyEmailDto>, IRegisterVerifyEmailService
-    {
-        private readonly AppSettings _appSettings; 
-
+    { 
         public RegisterVerifyEmailService(IMapper mapper,
                             IValidator<RegisterVerifyEmail> validator,
                             IMemoryCache memoryCache,
-                            IUnitOfWork unitOfWork,
-                            IOptions<AppSettings> appSettings,
+                            IUnitOfWork unitOfWork, 
                             IAzureStorageBlobHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
-        {
-            _appSettings = appSettings.Value; 
-        }          
+        {}          
          
         public async Task<RegisterVerifyEmailDto> VerifyEmailAsync(RegisterVerifyEmailDto registerVerifyEmailDto)
         { 

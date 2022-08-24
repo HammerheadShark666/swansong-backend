@@ -1,5 +1,4 @@
 ﻿using SwanSong.Helper;
-using System;
 
 namespace SwanSong.Azure.Storage
 {

@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using SwanSong.Domain.Dto;
-using SwanSong.Domain.Model.Settings;
 using SwanSong.Helper;
 using SwanSong.Helper.Filter;
 using SwanSong.Service.Interfaces;
@@ -23,13 +21,11 @@ namespace SwanSong.Api.Controllers
     public class MembersController : BaseController<MemberDto>
     {
         private readonly ILogger<MembersController> _logger;      
-        private readonly IMemberService _memberService;
-        private readonly IOptions<AppSettings> _appSettings; 
+        private readonly IMemberService _memberService; 
 
-        public MembersController(ILogger<MembersController> logger, IHttpContextAccessor httpContextAccessor, IMemberService memberService, IOptions<AppSettings> appSettings) : base(httpContextAccessor)
+        public MembersController(ILogger<MembersController> logger, IHttpContextAccessor httpContextAccessor, IMemberService memberService) : base(httpContextAccessor)
         {
-            _logger = logger;
-            _appSettings = appSettings;
+            _logger = logger; 
             _memberService = memberService; 
         }
 

@@ -2,13 +2,11 @@
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Options;
 using SwanSong.Azure.Storage.Interfaces;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain;
 using SwanSong.Domain.Dto;
 using SwanSong.Domain.Model.Authentication;
-using SwanSong.Domain.Model.Settings;
 using SwanSong.Helper;
 using SwanSong.Helpers.Authentication;
 using SwanSong.Service.Interfaces;
@@ -20,21 +18,13 @@ using BC = BCrypt.Net.BCrypt;
 namespace SwanSong.Service
 {
     public class RegisterService : BaseService<Register, RegisterDto>, IRegisterService
-    { 
-        private readonly AppSettings _appSettings;
-        private readonly IOptions<SendGridSettings> _sendGridSettings;
-
+    {  
         public RegisterService(IMapper mapper,
                             IValidator<Register> validator,
                             IMemoryCache memoryCache,
-                            IUnitOfWork unitOfWork,
-                            IOptions<AppSettings> appSettings,
-                            IOptions<SendGridSettings> sendGridSettings,
+                            IUnitOfWork unitOfWork, 
                             IAzureStorageBlobHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
-        {
-            _appSettings = appSettings.Value;
-            _sendGridSettings = sendGridSettings;
-        }
+        { }
 
         public async Task<RegisterDto> RegisterAsync(RegisterDto registerDto)
         {
@@ -65,11 +55,11 @@ namespace SwanSong.Service
 
         private void SendVerificationEmail(string toEmail, string verificationToken)
         { 
-            string message = !string.IsNullOrEmpty(_appSettings.ClientBaseUrl)
-                                  ? EmailMessages.VerifyEmailAddressEmail(_appSettings.ClientBaseUrl, verificationToken)
+            string message = !string.IsNullOrEmpty(EnvironmentVariablesHelper.AppSettingsFrontEndBaseUrl())
+                                  ? EmailMessages.VerifyEmailAddressEmail(EnvironmentVariablesHelper.AppSettingsFrontEndBaseUrl(), verificationToken)
                                   : EmailMessages.VerifyEmailAddressNoVerifyUrlEmail(verificationToken);
 
-            Send(_sendGridSettings.Value, toEmail, ConstantMessages.RegistrationVerifyEmailSubject, message);
+            Send(toEmail, ConstantMessages.RegistrationVerifyEmailSubject, message);
         }
          
         public async Task<Account> SaveAccountAsync(Account account)

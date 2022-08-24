@@ -2,14 +2,12 @@
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Options;
 using SwanSong.Azure.Storage.Interfaces;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain;
 using SwanSong.Domain.Dto;
 using SwanSong.Domain.Exceptions;
 using SwanSong.Domain.Model.Authentication;
-using SwanSong.Domain.Model.Settings;
 using SwanSong.Helper;
 using SwanSong.Helpers.Authentication;
 using SwanSong.Service.Interfaces;
@@ -20,21 +18,13 @@ using BC = BCrypt.Net.BCrypt;
 namespace SwanSong.Service
 {
     public class ResetPasswordService : BaseService<ResetPassword, ResetPasswordDto>, IResetPasswordService
-    {        
-        private readonly AppSettings _appSettings;
-        private readonly IOptions<SendGridSettings> _sendGridSettings;
-
+    {     
         public ResetPasswordService(IMapper mapper,
                             IValidator<ResetPassword> validator,
                             IMemoryCache memoryCache,
-                            IUnitOfWork unitOfWork,                            
-                            IOptions<AppSettings> appSettings,
-                            IOptions<SendGridSettings> sendGridSettings,
+                            IUnitOfWork unitOfWork,            
                             IAzureStorageBlobHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
-        {            
-            _appSettings = appSettings.Value;
-            _sendGridSettings = sendGridSettings;
-        }
+        {}
 
         public async Task ForgotPasswordAsync(ForgotPasswordRequest model)
         {
@@ -84,17 +74,17 @@ namespace SwanSong.Service
         private Account ResetToken(Account account)
         {
             account.ResetToken = AuthenticationHelper.CreateRandomToken();
-            account.ResetTokenExpires = DateTime.Now.AddDays(EnvironmentVariablesHelper.JwtSettingsRefreshTokenTtl());
+            account.ResetTokenExpires = DateTime.Now.AddDays(EnvironmentVariablesHelper.JwtSettingsPasswordTokenExpiryDays());
             return account;
         }
 
         private void SendPasswordResetEmail(string toEmail, string resetToken)
         { 
-            string message = !string.IsNullOrEmpty(_appSettings.ClientBaseUrl)
-                                 ? EmailMessages.PasswordResetEmail(_appSettings.ClientBaseUrl, resetToken)
+            string message = !string.IsNullOrEmpty(EnvironmentVariablesHelper.AppSettingsFrontEndBaseUrl())
+                                 ? EmailMessages.PasswordResetEmail(EnvironmentVariablesHelper.AppSettingsFrontEndBaseUrl(), resetToken)
                                  : EmailMessages.PasswordResetNoResetUrlEmail(resetToken);
 
-            Send(_sendGridSettings.Value, toEmail, ConstantMessages.ResetPasswordSubject, message);
+            Send(toEmail, ConstantMessages.ResetPasswordSubject, message);
         }
     }
 }

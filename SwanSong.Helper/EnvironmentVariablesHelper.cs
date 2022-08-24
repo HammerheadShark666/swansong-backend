@@ -4,9 +4,19 @@ namespace SwanSong.Helper
 {
     public class EnvironmentVariablesHelper
     {
+        public static string AppSettingsFrontEndBaseUrl()
+        {
+            return Environment.GetEnvironmentVariable(Constants.AppSettingsFrontEndBaseUrl);
+        }
+
         public static string SendGridApiKey()
         {
             return Environment.GetEnvironmentVariable(Constants.SendGridApiKey);
+        }
+
+        public static string SendGridDefaultFromEmail()
+        {
+            return Environment.GetEnvironmentVariable(Constants.SendGridDefaultFromEmail);
         }
 
         public static string AzureStorageConnectionString()

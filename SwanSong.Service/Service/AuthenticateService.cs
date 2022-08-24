@@ -2,14 +2,12 @@
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Options;
 using SwanSong.Azure.Storage.Interfaces;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain;
 using SwanSong.Domain.Dto;
 using SwanSong.Domain.Exceptions;
 using SwanSong.Domain.Model.Authentication;
-using SwanSong.Domain.Model.Settings;
 using SwanSong.Helper;
 using SwanSong.Helpers.Authentication;
 using SwanSong.Service.Interfaces;
@@ -17,7 +15,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BC = BCrypt.Net.BCrypt;
 
 namespace SwanSong.Service
 {
