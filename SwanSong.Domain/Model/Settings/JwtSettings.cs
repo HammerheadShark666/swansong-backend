@@ -4,7 +4,7 @@
     {
         public string Secret { get; set; }
         public int RefreshTokenTTL { get; set; }
-        public int TokenExpiryHours { get; set; }
+        public int TokenExpiryMinutes { get; set; }
         public int RefreshTokenExpiryDays { get; set; }
         public int ResetPasswordTokenExpiryDays { get; set; }
     }

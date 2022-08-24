@@ -46,7 +46,7 @@ namespace SwanSong.Service
             var account = await _unitOfWork.Accounts.GetAsync(loginDto.Email);
             var refreshToken = GenerateRefreshToken(account, ipAddress);
             account = await UpdateRefreshTokenAsync(account, ipAddress, refreshToken);             
-            var jwtToken = AuthenticationHelper.GenerateJwtToken(account, _jwtSettings.TokenExpiryHours, _jwtSettings.Secret);
+            var jwtToken = AuthenticationHelper.GenerateJwtToken(account, _jwtSettings.TokenExpiryMinutes, _jwtSettings.Secret);
 
             return GetLoginDto(account, await AfterSaveAsync(login, null), true, jwtToken, refreshToken.Token);
         } 
@@ -72,7 +72,7 @@ namespace SwanSong.Service
             _unitOfWork.Accounts.Update(account);
             await _unitOfWork.Complete();
 
-            var jwtToken = AuthenticationHelper.GenerateJwtToken(account, _jwtSettings.TokenExpiryHours, _jwtSettings.Secret);
+            var jwtToken = AuthenticationHelper.GenerateJwtToken(account, _jwtSettings.TokenExpiryMinutes, _jwtSettings.Secret);
 
             return CreateJwtRefreshTokenDto(account, jwtToken, newRefreshToken.Token);
         }
