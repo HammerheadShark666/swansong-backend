@@ -19,5 +19,6 @@
 
         public const string DatabaseConnectionStringUat = "SQLAZURECONNSTR_SWANSONG";
         public const string AzureStorageConnectionStringUat = "SWANSONG_AZURE_STORAGE_CONNECTION_STRING";
+        public const string SendGridApiKey = "SWANSONG_SENDGRID_CONNECTION_STRING";
     }
 }

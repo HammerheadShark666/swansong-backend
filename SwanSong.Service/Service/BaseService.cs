@@ -73,7 +73,7 @@ namespace SwanSong.Service
 
         public void Send(SendGridSettings sendGridSettings, string email, string subject, string html)
         {
-            EmailHelper.SendEmail(sendGridSettings, email, subject, $@"{html}");
+            SendGridEmailHelper.SendEmail(sendGridSettings, email, subject, $@"{html}");
         }
 
         public D GetDto(T entity, List<ValidationFailure> rules, bool isValid)

@@ -20,11 +20,13 @@ namespace SwanSong.Helpers.Authentication
         }
 
         public static string CreateRandomToken()
-        {
-            using RNGCryptoServiceProvider rngCryptoServiceProvider = new();
-            var randomBytes = new byte[40];
-            rngCryptoServiceProvider.GetBytes(randomBytes); 
-            return BitConverter.ToString(randomBytes).Replace("-", "");
+        {            
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                var randomNumber = new byte[40];
+                rng.GetBytes(randomNumber);
+                return Convert.ToBase64String(randomNumber).Replace("-", "");
+            } 
         }
 
         public static RefreshToken GenerateRefreshToken(string ipAddress, DateTime expires)
@@ -38,7 +40,7 @@ namespace SwanSong.Helpers.Authentication
             };
         }
 
-        public static string GenerateJwtToken(Account account, int expiryHours, string secret)
+        public static string GenerateJwtToken(Account account, int expiryMinutes, string secret)
         {
             JwtSecurityTokenHandler tokenHandler = new();
             var key = Encoding.ASCII.GetBytes(secret);
@@ -49,7 +51,7 @@ namespace SwanSong.Helpers.Authentication
                     new Claim(JwtRegisteredClaimNames.Email, account.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 }),
-                Expires = DateTime.Now.AddHours(expiryHours), 
+                Expires = DateTime.Now.AddMinutes(expiryMinutes),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
