@@ -35,7 +35,7 @@ jobs:
         run: | 
           npm run start:dev &
           sleep 60
-          newman run "SwanSong.postman_collection.json"
+          newman run "SwanSong.postman_collection.json" --env-var "baseUrl=https://swansong-api-uat.azurewebsites.net/" --env-var "token=" --env-var "albumId=" --env-var "albumSongId=" --env-var "songId=" --env-var "artistId=" --env-var "memberId=" 
         
       - name: dotnet publish
         run: dotnet publish SwanSong.Api/SwanSong.Api.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
