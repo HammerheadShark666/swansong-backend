@@ -27,7 +27,16 @@ jobs:
 
       - name: Test
         run: dotnet test SwanSong.xUnit.Test/SwanSong.xUnit.Test.csproj --logger "console;verbosity=detailed"
-
+        
+      - name: Install newman
+        run: npm install -g newman
+        
+      - name: Run the API and Postman's tests
+        run: | 
+          npm run start:dev &
+          sleep 60
+          newman run "SwanSong.postman_collection.json"
+        
       - name: dotnet publish
         run: dotnet publish SwanSong.Api/SwanSong.Api.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
