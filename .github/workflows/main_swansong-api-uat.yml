@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build, test and deploy ASP.Net Core app to Azure Web App - swansong-api-uat
+name: Build, test and deploy .Net app to Azure Web App - swansong-api-uat
 
 on:
   push:
@@ -16,28 +16,28 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up .NET Core
+      - name: Set up .NET
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '6.0'
           include-prerelease: true
 
-      - name: Build with dotnet
+      - name: Build
         run: dotnet build SwanSong.Api/SwanSong.Api.csproj --configuration Release 
 
-      - name: Test
+      - name: Unit Tests
         run: dotnet test SwanSong.xUnit.Test/SwanSong.xUnit.Test.csproj --logger "console;verbosity=detailed"
         
-      - name: Install newman
+      - name: Install newman utility
         run: npm install -g newman
         
-      - name: Run the API and Postman's tests
+      - name: Integration Tests
         run: | 
           npm run start:dev &
-          sleep 60
+          sleep 30
           newman run "SwanSong.postman_collection.json" --env-var "baseUrl=https://swansong-api-uat.azurewebsites.net/" --env-var "token=" --env-var "albumId=" --env-var "albumSongId=" --env-var "songId=" --env-var "artistId=" --env-var "memberId=" 
         
-      - name: dotnet publish
+      - name: Publish
         run: dotnet publish SwanSong.Api/SwanSong.Api.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
@@ -50,7 +50,7 @@ jobs:
     runs-on: windows-latest
     needs: build
     environment:
-      name: 'Production'
+      name: 'Development'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
