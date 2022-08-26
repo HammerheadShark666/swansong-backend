@@ -334,7 +334,6 @@
 									"    pm.expect(album).to.have.property('labelName');\r",
 									"    pm.expect(album).to.have.property('studioId');\r",
 									"    pm.expect(album).to.have.property('studio');\r",
-									"    pm.expect(album).to.have.property('length');\r",
 									"    pm.expect(album).to.have.property('producers');\r",
 									"    pm.expect(album).to.have.property('arrangers');\r",
 									"    pm.expect(album).to.have.property('engineers');\r",
