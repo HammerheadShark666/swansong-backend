@@ -7,11 +7,47 @@ namespace SwanSong.Helper
         public static string VerifyEmailAddressEmail(string baseUrl, string verificationToken)
         {
             var verifyUrl = String.Format(Constants.VerifyUrl, baseUrl, verificationToken);
+  
+            string email = $@"<html xmlns='http://www.w3.org/1999/xhtml'>
+                        <head>
+                            <title></title>
+                        </head>
+                        <body>
+                            <div width='100%' height='300px' style='background-color:aliceblue;padding-bottom:50px'>
+                                <table width='100%' style='background-color:aliceblue;'>       
+                                   <tr>       
+                                       <td width='100%'; style='padding-left:20%'>
+                                          <h2 style = 'padding-top:50px'>SwanSong</h2>   
+                                       </td>   
+                                    </tr>
+                                   <tr>        
+                                        <td width='100%'; style='padding-left:23%'>        
+                                            <h3>
+                                                Nearly there. <br />
+                                                Let's confirm your email address.
+                                            </h3>         
+                                        </td>         
+                                    </tr>         
+                                    <tr>         
+                                        <td width='100%'; style='padding-left:23%'>        
+                                              <p style='color:darkcyan;'>By clicking on the following link, you are confirming your email address.</p>
+                                        </td>              
+                                    </tr>  
+                                    <tr>         
+                                        <td style='padding-top: 50px; text-align: center;' width='100%'; height='100%'>
+                                            <a style='color:crimson;' href='{verifyUrl}'>Confirm Email Address</a>
+                                        </td>
+                                    </tr>
+                             </table>   
+                             <br/>
+                             <br/>
+                           </div>
+                        </body>
+                    </html>";
 
-            return $@"<h4>Verify Email</h4>
-                      <p>Thanks for registering!</p>
-                      <p>Please click the below link to verify your email address:</p>
-                      <p><a href=""{verifyUrl}"">{verifyUrl}</a></p>";
+            email = email.Replace("{verifyUrl}", verifyUrl);
+
+            return email;
         }
 
         public static string VerifyEmailAddressNoVerifyUrlEmail(string verificationToken)
@@ -26,9 +62,45 @@ namespace SwanSong.Helper
         {
             var resetUrl = String.Format(Constants.ResetUrl, baseUrl, passwordResetToken);
 
-            return $@"<h4>Reset Password Email</h4>
-                      <p>Please click the below link to reset your password, the link will be valid for 1 day:</p>
-                      <p><a href=""{resetUrl}"">{resetUrl}</a></p>";
+            string email = $@"<html xmlns='http://www.w3.org/1999/xhtml'>
+                        <head>
+                            <title></title>
+                        </head>
+                        <body>
+                            <div width='100%' height='300px' style='background-color:aliceblue;padding-bottom:50px'>
+                                <table width='100%' style='background-color:aliceblue;'>       
+                                   <tr>       
+                                       <td width='100%'; style='padding-left:20%'>
+                                          <h2 style = 'padding-top:50px'>SwanSong</h2>   
+                                       </td>   
+                                    </tr>
+                                   <tr>        
+                                        <td width='100%'; style='padding-left:23%'>        
+                                            <h3>
+                                                Reset Password Email
+                                            </h3>         
+                                        </td>         
+                                    </tr>         
+                                    <tr>         
+                                        <td width='100%'; style='padding-left:23%'>        
+                                              <p style='color:darkcyan;'>Please click the below link to reset your password, the link will be valid for 1 day.</p>
+                                        </td>              
+                                    </tr>  
+                                    <tr>         
+                                        <td style='padding-top: 10px; text-align: center;' width='100%'; height='100%'>
+                                            <a style='color:crimson;' href='{resetUrl}'>Confirm Password Reset</a>
+                                        </td>
+                                    </tr>
+                             </table>   
+                             <br/>
+                             <br/>
+                           </div>
+                        </body>
+                    </html>";
+
+            email = email.Replace("{resetUrl}", resetUrl);
+
+            return email; 
         }
 
         public static string PasswordResetNoResetUrlEmail(string passwordResetToken)
