@@ -14,7 +14,6 @@ using SwanSong.Data.Repository;
 using SwanSong.Data.Repository.Interfaces;
 using SwanSong.Data.UnitOfWork;
 using SwanSong.Data.UnitOfWork.Interfaces;
-using SwanSong.Domain.Model.Settings;
 using SwanSong.Helper;
 using SwanSong.Service;
 using SwanSong.Service.Helper;
@@ -78,12 +77,11 @@ namespace SwanSong.Api.Helpers.Extensions
         }
 
         public static void ConfigureDbContext(this IServiceCollection services, ConfigurationManager configuration)
-        {  
+        {
             services.AddDbContext<SwanSongContext>(options =>
-            { 
                 options.UseSqlServer(configuration.GetConnectionString(Constants.DatabaseConnectionString),
-                                        b => b.MigrationsAssembly(typeof(SwanSongContext).Assembly.FullName));                
-            });
+                options => options.EnableRetryOnFailure()
+                .MigrationsAssembly(typeof(SwanSongContext).Assembly.FullName))); 
         }
 
         public static void ConfigureDI(this IServiceCollection services)
@@ -118,7 +116,7 @@ namespace SwanSong.Api.Helpers.Extensions
             services.AddScoped<IAzureStorageBlobHelper, AzureStorageBlobHelper>();
             services.AddValidatorsFromAssemblyContaining<AlbumValidator>(); 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>(); 
 
             services.AddMemoryCache();
         }         

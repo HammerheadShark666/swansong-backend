@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Http;
 using SwanSong.Azure.Storage.Interfaces;
 using System.IO;
@@ -16,8 +17,8 @@ namespace SwanSong.Azure.Storage
             Stream fileStream = new MemoryStream();
             fileStream = file.OpenReadStream();
             var blobClient = new BlobContainerClient(GetStorageConnection(), containerName);
-            var blob = blobClient.GetBlobClient(fileName);
-            await blob.UploadAsync(fileStream);
+            var blob = blobClient.GetBlobClient(fileName);            
+		    await blob.UploadAsync(fileStream, new BlobHttpHeaders { ContentType = "image/jpeg" });
             return;
         }
 

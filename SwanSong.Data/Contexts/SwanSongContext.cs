@@ -5,12 +5,9 @@ using SwanSong.Domain;
 namespace SwanSong.Data
 {
     public class SwanSongContext : DbContext
-    {
-        public SwanSongContext(DbContextOptions<SwanSongContext> options)
-            : base(options)
-        {
-        }
-
+    { 
+        public SwanSongContext(DbContextOptions<SwanSongContext> options): base(options) {}
+ 
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<BirthPlace> BirthPlaces { get; set; }
