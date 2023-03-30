@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SwanSong.Data;
 
 namespace SwanSong.Data.Migrations
 {
     [DbContext(typeof(SwanSongContext))]
-    partial class SwanSongContextModelSnapshot : ModelSnapshot
+    [Migration("20230330155926_remove-test-migration")]
+    partial class removetestmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

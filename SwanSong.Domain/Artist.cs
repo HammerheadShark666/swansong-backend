@@ -26,7 +26,7 @@ namespace SwanSong.Domain
 
         [Column(TypeName = "int")]        
         public int? CountryId { get; set; }
-
+         
         public Country Country { get; set; }
 
         public virtual List<Album> Albums { get; set; } 

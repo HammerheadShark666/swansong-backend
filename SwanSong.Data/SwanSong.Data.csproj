@@ -14,10 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SwanSong.Domain\SwanSong.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\SwanSong.Helper\SwanSong.Helper.csproj" />
   </ItemGroup>
 
 </Project>

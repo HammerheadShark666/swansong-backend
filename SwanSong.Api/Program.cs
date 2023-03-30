@@ -1,21 +1,26 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using SwanSong.Api.Helpers.Extensions;
 using SwanSong.Api.Middleware;
-
-var builder = WebApplication.CreateBuilder(args);
+using SwanSong.Data;
+using SwanSong.Helper;
  
+var builder = WebApplication.CreateBuilder(args);
+
 builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
 {
     config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
     config.AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
     config.AddEnvironmentVariables();
-}); 
+});
 
 builder.Services.ConfigureMvc();
+builder.Services.ConfigureControllers();
 builder.Services.ConfigureDbContext(builder.Configuration);
 builder.Services.ConfigureCors();
-builder.Services.ConfigureControllers();
 builder.Services.ConfigureAutoMapper();
 builder.Services.ConfigureSwagger(); 
 builder.Services.ConfigureDI();
