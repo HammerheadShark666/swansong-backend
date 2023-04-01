@@ -44,11 +44,8 @@ obj
 # Generated SQLite db
 SwanSong.ApiDatabase.db
 
-# appSettings
-appSettings.Production.json
-appSettings.Development.json
+# appSettings 
 /properties/launchSettings.json
-
 
 **/bin/*
 **/obj/*
