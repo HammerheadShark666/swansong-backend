@@ -114,5 +114,11 @@ namespace SwanSong.Api.Controllers
         {
             return Ok(await _albumService.GetRandomAsync(10));
         }
+
+        [HttpGet("random4")]
+        public async Task<ActionResult<List<AlbumReadOnlyDto>>> GetRandom4Async()
+        {
+            return Ok(await _albumService.GetRandomAsync(10));
+        }
     }
 }
