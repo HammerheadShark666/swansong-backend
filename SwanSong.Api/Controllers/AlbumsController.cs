@@ -101,18 +101,6 @@ namespace SwanSong.Api.Controllers
             {
                 return BadRequest(ConstantMessages.NoFileToSave);
             }
-        }
-
-        [HttpGet("random2")]
-        public async Task<ActionResult<List<AlbumReadOnlyDto>>> GetRandom2Async()
-        {
-            return Ok(await _albumService.GetRandomAsync(10));
-        }
-
-        [HttpGet("random3")]
-        public async Task<ActionResult<List<AlbumReadOnlyDto>>> GetRandom3Async()
-        {
-            return Ok(await _albumService.GetRandomAsync(10));
-        }
+        } 
     }
 }
