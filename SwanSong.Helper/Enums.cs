@@ -1,12 +1,11 @@
-﻿namespace SwanSong.Helper
+﻿namespace SwanSong.Helper;
+
+public class Enums
 {
-    public class Enums
+    public enum MessageSeverity
     {
-        public enum MessageSeverity
-        {
-            error,
-            warning,
-            info
-        }
+        error,
+        warning,
+        info
     }
 }

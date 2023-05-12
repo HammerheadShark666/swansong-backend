@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.9'
 
 services:
   swansong.api:
@@ -6,14 +6,16 @@ services:
     build:
       context: .
       dockerfile: SwanSong.Api/Dockerfile
-
-  sqldb:
-    image: mcr.microsoft.com/mssql/server:2019-latest
+    depends_on:
+        - sqldb
+  sqldb:   
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: sql-server-2022-2
     environment:
-      - SA_PASSWORD=Rcu9OP443mc#3xx
-      - ACCEPT_EULA=Y
+        - MSSQL_SA_PASSWORD=Rcu9OP443mc#3xx
+        - ACCEPT_EULA=Y
     ports:
-      - "1440:1433"
+        - "1433:1433"
 
   mailhog:
     image: mailhog/mailhog:latest
