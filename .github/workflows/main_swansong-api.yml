@@ -34,7 +34,8 @@ jobs:
       - name: Integration Tests
         run: | 
           npm run start:dev &
-          sleep 30
+          sleep 30 |        
+          netstat -tulpn           
           newman run "SwanSong.postman_collection.json" --env-var "baseUrl=https://swansong-api.azurewebsites.net/" --env-var "token=" --env-var "albumId=" --env-var "albumSongId=" --env-var "songId=" --env-var "artistId=" --env-var "memberId=" 
         
       - name: Publish
