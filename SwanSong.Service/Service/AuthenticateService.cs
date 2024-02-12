@@ -118,9 +118,7 @@ public class AuthenticateService : IAuthenticateService
 
     private JwtRefreshTokenActionResponse CreateJwtRefreshTokenResponse(Account account, string jwtToken, string token)
     {
-        var response = _mapper.Map<JwtRefreshTokenActionResponse>(account);
-        response = response with { JwtToken = jwtToken, RefreshToken = token };
-        return response; 
+        return new JwtRefreshTokenActionResponse(account.IsAuthenticated, jwtToken, token, account.Role.ToString(), new System.Collections.Generic.List<Domain.Dto.Message>(), true );
     } 
 
     private LoginActionResponse GetLoginActionResponse(Account account, FluentValidation.Results.ValidationResult validationResult, bool isValid, string jwtToken, string refreshToken)
