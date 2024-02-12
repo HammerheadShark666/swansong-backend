@@ -1,39 +1,47 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SwanSong.Domain.Dto;
-using SwanSong.Domain.Model.Profile;
+using Microsoft.Extensions.Logging;
+using SwanSong.Domain;
+using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
+using SwanSong.Helper.Exceptions;
 using SwanSong.Service.Interfaces;
+using System;
 using System.Net.Mime;
 using System.Threading.Tasks;
 
-namespace SwanSong.Api.Controllers
+namespace SwanSong.Api.Controllers;
+
+[ApiVersion("1.0")]
+[ApiController]
+[Produces(MediaTypeNames.Application.Json)]
+[Consumes(MediaTypeNames.Application.Json)]
+[Route("api/profile/password-change")]
+public class ProfilePasswordChangeController : Controller
 {
-    [ApiVersion("1.0")]
-    [ApiController]
-    [Produces(MediaTypeNames.Application.Json)]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [Route("api/profile/password-change")]
-    public class ProfilePasswordChangeController : BaseController<ProfilePasswordChange>
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IProfilePasswordChangeService _profilePasswordChangeService;
+    private readonly ILogger<ProfilePasswordChangeController> _logger; 
+
+    public ProfilePasswordChangeController(IProfilePasswordChangeService profilePasswordChangeService, IHttpContextAccessor httpContextAccessor, ILogger<ProfilePasswordChangeController> logger)
     {
-        private readonly IProfilePasswordChangeService _profilePasswordChangeService;
-        private readonly IMapper _mapper;
+        _httpContextAccessor = httpContextAccessor;
+        _profilePasswordChangeService = profilePasswordChangeService;
+        _logger = logger;
+    }
+     
 
-        public ProfilePasswordChangeController(IProfilePasswordChangeService profilePasswordChangeService, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
-        {
-            _profilePasswordChangeService = profilePasswordChangeService;
-            _mapper = mapper;
-        }
-         
+    [Authorize]
+    [HttpPost("")]
+    public async Task<ActionResult<ProfilePasswordChangeActionResponse>> UpdatePasswordAsync(ProfilePasswordChangeRequest profilePasswordChangeRequest)
+    {
+        profilePasswordChangeRequest = profilePasswordChangeRequest with { Id = LoggedInAccount().Id, Email = LoggedInAccount().Email };
+        return Ok(await _profilePasswordChangeService.UpdatePasswordAsync(profilePasswordChangeRequest));
+    }
 
-        [Authorize]
-        [HttpPost("")]
-        public async Task<ActionResult<ProfilePasswordChangeDto>> UpdatePasswordAsync(ProfilePasswordChangeDto profilePasswordChangeDto)
-        {
-            profilePasswordChangeDto.Id = LoggedInAccount.Id;
-            profilePasswordChangeDto.Email = LoggedInAccount.Email;
-            profilePasswordChangeDto = await _profilePasswordChangeService.UpdatePasswordAsync(profilePasswordChangeDto);
-            return profilePasswordChangeDto.IsValid ? Ok(profilePasswordChangeDto) : BadRequest(profilePasswordChangeDto.Messages);
-        }
+    private Account LoggedInAccount()
+    {
+        var context = _httpContextAccessor.HttpContext;
+        return (Account)context.Items["Account"];
     }
 }

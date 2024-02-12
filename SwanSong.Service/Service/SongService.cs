@@ -1,46 +1,79 @@
 ﻿using AutoMapper;
-using FluentValidation;
-using FluentValidation.Results;
 using Microsoft.Extensions.Caching.Memory;
-using SwanSong.Azure.Storage.Interfaces;
+using SwanSong.Data.Helper;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain;
-using SwanSong.Domain.Dto;
+using SwanSong.Domain.Dto.Response;
+using SwanSong.Domain.Helper;
 using SwanSong.Helper;
+using SwanSong.Helper.Exceptions;
+using SwanSong.Helper.Interfaces;
 using SwanSong.Service.Interfaces;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwanSong.Service
+namespace SwanSong.Service;
+
+public class SongService : ISongService
 {
-    public class SongService : BaseService<Song, SongDto>, ISongService
+    public readonly IMemoryCache _memoryCache;
+    public readonly IUnitOfWork _unitOfWork;
+    public readonly IMapper _mapper;
+    public readonly IValidatorHelper<Song> _validatorHelper;
+    public SongService(IMapper mapper,
+                       IValidatorHelper<Song> validatorHelper,
+                       IMemoryCache memoryCache,
+                       IUnitOfWork unitOfWork)
     {
-        public SongService(IMapper mapper,
-                           IValidator<Song> validator,
-                           IMemoryCache memoryCache,
-                           IUnitOfWork unitOfWork,
-                           IAzureStorageBlobHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
-        { }
-      
-        public async Task<SongDto> DeleteAsync(int id)
-        {
-            Song song = await _unitOfWork.Songs.GetByIdAsync(id);
-
-            ValidationResult result = await BeforeDeleteAsync(song);
-            if (!result.IsValid)
-                return GetDto(song, result.Errors, false);
-
-            song = await DeleteAsync(song);
-
-            return GetDto(song, await AfterDeleteAsync(song, CacheKeys.Studio), true);
-        } 
-
-        private async Task<Song> DeleteAsync(Song song)
-        {
-            _unitOfWork.Songs.Remove(song);
-            await _unitOfWork.Complete();
-
-            return song;
-        } 
+        _validatorHelper = validatorHelper;
+        _memoryCache = memoryCache;
+        _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
+
+    #region Public Functions
+
+    public async Task<SongActionResponse> DeleteAsync(long id)
+    {
+        var song = await GetSongAsync(id);
+
+        await BeforeDelete(song);
+        await DeleteAsync(song);
+
+        return await AfterDelete(song);
+    }
+
+    #endregion
+
+    #region Private Functions
+
+    private async Task BeforeDelete(Song song)
+    {
+        await _validatorHelper.ValidateAsync(song, Constants.ValidationEventBeforeDelete);
+    }
+
+    private async Task<SongActionResponse> AfterDelete(Song song)
+    {
+        var afterDeleteValidate = await _validatorHelper.AfterEventAsync(song, Constants.ValidationEventAfterDelete);
+        return new SongActionResponse(song.Id, ResponseHelper.GetMessages(afterDeleteValidate.Errors), true);
+    } 
+
+    private async Task DeleteAsync(Song song)
+    {
+        _unitOfWork.Songs.Delete(song);
+        await DataHelper.CompleteContextAction(null, _memoryCache, _unitOfWork);
+    }
+
+    private async Task<Song> GetSongAsync(long id)
+    {
+        var song = await _unitOfWork.Songs.ByIdAsync(id);
+        if (song == null)
+        {
+            throw new SongNotFoundException("Song not found.");
+        }
+
+        return song;
+    }
+
+    #endregion
+
 }

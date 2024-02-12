@@ -7,64 +7,69 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace SwanSong.Helpers.Authentication
-{
-    public class AuthenticationHelper
-    {      
-        public static string IpAddress(HttpRequest request, HttpContext httpContext)
-        {
-            if (request.Headers.ContainsKey("X-Forwarded-For"))
-                return request.Headers["X-Forwarded-For"];
-            else
-                return httpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
-        }
+namespace SwanSong.Helpers.Authentication;
 
-        public static string CreateRandomToken()
-        {            
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                var randomNumber = new byte[40];
-                rng.GetBytes(randomNumber);
-                return CleanToken(randomNumber);
-            } 
-        }
-
-        public static string CleanToken(byte[] randomNumber )
+public class AuthenticationHelper
+{      
+    public static string IpAddress(HttpRequest request, HttpContext httpContext)
+    {
+        if (request.Headers.ContainsKey("X-Forwarded-For"))
         {
-            return Convert.ToBase64String(randomNumber).Replace('+', '-')
-                                                       .Replace('/', '_')
-                                                       .Replace("=", "4")
-                                                       .Replace("?", "G")
-                                                       .Replace("/", "X");
+            return request.Headers["X-Forwarded-For"];
         }
+         
+        return httpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+    }
 
-        public static RefreshToken GenerateRefreshToken(string ipAddress, DateTime expires)
+    public static string CreateRandomToken()
+    {            
+        using (var rng = RandomNumberGenerator.Create())
         {
-            return new RefreshToken
-            {
-                Token = AuthenticationHelper.CreateRandomToken(),
-                Expires = expires,
-                Created = DateTime.Now,
-                CreatedByIp = ipAddress
-            };
-        }
+            var randomNumber = new byte[40];
+            rng.GetBytes(randomNumber);
+            return CleanToken(randomNumber);
+        } 
+    }
 
-        public static string GenerateJwtToken(Account account, int expiryMinutes, string secret)
+    public static string CleanToken(byte[] randomNumber )
+    {
+        return Convert.ToBase64String(randomNumber).Replace('+', '-')
+                                                   .Replace('/', '_')
+                                                   .Replace("=", "4")
+                                                   .Replace("?", "G")
+                                                   .Replace("/", "X");
+    }
+
+    public static RefreshToken GenerateRefreshToken(string ipAddress, DateTime expires)
+    {
+        return new RefreshToken
         {
-            JwtSecurityTokenHandler tokenHandler = new();
-            var key = Encoding.ASCII.GetBytes(secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[] {
-                    new Claim("id", account.Id.ToString()),
-                    new Claim(JwtRegisteredClaimNames.Email, account.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-                }),
-                Expires = DateTime.Now.AddMinutes(expiryMinutes),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
-        }
+            Token = AuthenticationHelper.CreateRandomToken(),
+            Expires = expires,
+            Created = DateTime.Now,
+            CreatedByIp = ipAddress
+        };
+    }
+
+    public static string GenerateJwtToken(Account account, int expiryMinutes, string secret)
+    {
+        JwtSecurityTokenHandler tokenHandler = new();
+
+        var key = Encoding.ASCII.GetBytes(secret);
+
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(new[] {
+                      new Claim("id", account.Id.ToString()),
+                      new Claim(JwtRegisteredClaimNames.Email, account.Email),
+                      new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            }),
+            Expires = DateTime.Now.AddMinutes(expiryMinutes),
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        };
+
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+
+        return tokenHandler.WriteToken(token);
     }
 }

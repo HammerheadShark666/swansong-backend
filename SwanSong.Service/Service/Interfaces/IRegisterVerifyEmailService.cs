@@ -1,10 +1,10 @@
-﻿using SwanSong.Domain.Dto;
+﻿using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
 using System.Threading.Tasks;
 
-namespace SwanSong.Service.Interfaces
+namespace SwanSong.Service.Interfaces;
+
+public interface IRegisterVerifyEmailService
 {
-    public interface IRegisterVerifyEmailService
-    {
-        Task<RegisterVerifyEmailDto> VerifyEmailAsync(RegisterVerifyEmailDto registerVerifyEmailDto);
-    }
+    Task<RegisterVerifyEmailActionResponse> VerifyEmailAsync(RegisterVerifyEmailRequest registerVerifyEmailRequest);
 }

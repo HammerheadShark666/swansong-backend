@@ -1,93 +1,144 @@
 ﻿using AutoMapper;
-using FluentValidation;
-using FluentValidation.Results;
 using Microsoft.Extensions.Caching.Memory;
+using SwanSong.Data.Helper;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain;
-using SwanSong.Domain.Dto;
+using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
+using SwanSong.Domain.Helper;
 using SwanSong.Helper;
+using SwanSong.Helper.Exceptions;
+using SwanSong.Helper.Interfaces;
 using SwanSong.Service.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
-using SwanSong.Azure.Storage.Interfaces;
+using System.Threading.Tasks;
 
-namespace SwanSong.Service
+namespace SwanSong.Service;
+
+public class StudioService : IStudioService
 {
-    public class StudioService : BaseService<Studio, StudioDto>, IStudioService
-    {       
-        public StudioService(IMapper mapper,
-                             IValidator<Studio> validator,
-                             IMemoryCache memoryCache,
-                             IUnitOfWork unitOfWork,
-                             IAzureStorageBlobHelper azureStorageHelper) : base(validator, memoryCache, unitOfWork, mapper, azureStorageHelper)
-        { }
+    private readonly IMemoryCache _memoryCache;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
+    private readonly IValidatorHelper<Studio> _validatorHelper;
 
-        public async Task<List<StudioReadOnlyDto>> GetAllAsync()
-        {
-            return await _memoryCache.GetOrCreateAsync<List<StudioReadOnlyDto>>(CacheKeys.Studio, async cache =>
-            {
-                cache.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
-                return _mapper.Map<List<StudioReadOnlyDto>>(await _unitOfWork.Studios.AllAsync()).OrderBy(s => s.Name).ToList();
-            });
-        }
-
-        public async Task<StudioDto> GetAsync(int id)
-        {
-            return _mapper.Map<StudioDto>(await _unitOfWork.Studios.ByIdAsync(id));
-        }
-
-        public async Task<StudioDto> SaveAsync(StudioDto studioDto)
-        {
-            Studio studio = await GetStudioAsync(studioDto); 
-
-            ValidationResult result = await BeforeSaveAsync(studio);
-            if (!result.IsValid)
-                return GetDto(GetEntity(studio), result.Errors, false);
-             
-            studio = await SaveAsync(studio); 
-
-            return GetDto(studio, await AfterSaveAsync(studio, CacheKeys.Studio), true);
-        }                
-
-        public async Task<StudioDto> DeleteAsync(int id)
-        {
-            Studio studio = await _unitOfWork.Studios.ByIdAsync(id);      
-
-            ValidationResult result = await BeforeDeleteAsync(studio);
-            if (!result.IsValid)
-                return GetDto(GetEntity(studio), result.Errors, false);             
-
-            studio = await DeleteAsync(studio);
-
-            return GetDto(studio, await AfterDeleteAsync(studio, CacheKeys.Studio), true);
-        }  
-
-        private async Task<Studio> GetStudioAsync(StudioDto studioDto)
-        {
-            Studio currentStudio = studioDto.Id > 0 ? new() : await _unitOfWork.Studios.ByIdAsync(studioDto.Id);
-            return _mapper.Map<StudioDto, Studio>(studioDto, currentStudio);
-        }
-
-        private async Task<Studio> SaveAsync(Studio studio)
-        {
-            if (studio.Id == 0)
-                _unitOfWork.Studios.Add(studio);
-            else
-                _unitOfWork.Studios.Update(studio);
-
-            await _unitOfWork.Complete();
-
-            return studio;
-        }
-
-        private async Task<Studio> DeleteAsync(Studio studio)
-        {
-            _unitOfWork.Studios.Remove(studio);
-            await _unitOfWork.Complete();
-
-            return studio;
-        }
+    public StudioService(IMapper mapper,
+                         IValidatorHelper<Studio> validatorHelper,
+                         IMemoryCache memoryCache,
+                         IUnitOfWork unitOfWork)
+    {
+        _validatorHelper = validatorHelper;
+        _memoryCache = memoryCache;
+        _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
+
+    #region Public Functions
+
+    public async Task<List<StudioResponse>> GetAllAsync()
+    {
+        return await _memoryCache.GetOrCreateAsync<List<StudioResponse>>(CacheKeys.Studio, async cache =>
+        {
+            cache.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
+            return _mapper.Map<List<StudioResponse>>(await _unitOfWork.Studios.AllAsync()).OrderBy(c => c.Name).ToList();
+        });
+    } 
+
+    public async Task<StudioActionResponse> AddAsync(StudioAddRequest studioAddRequest)
+    {
+        var studio = _mapper.Map<Studio>(studioAddRequest);
+
+        await BeforeSaveAsync(studio);
+        await SaveAddAsync(studio, CacheKeys.Studio);
+
+        return await AfterSaveAsync(studio); 
+    }
+
+    public async Task<StudioActionResponse> UpdateAsync(StudioUpdateRequest studioUpdateRequest)
+    {  
+        var studio = await UpdateStudioAsync(studioUpdateRequest);
+
+        await BeforeSaveAsync(studio);
+        await SaveUpdateAsync(studio, CacheKeys.Studio);
+
+        return await AfterSaveAsync(studio); 
+    }
+
+    public async Task<StudioActionResponse> DeleteAsync(int id)
+    {
+        var studio = await GetStudioAsync(id);
+
+        await BeforeDeleteAsync(studio);
+        await DeleteAsync(studio, CacheKeys.Studio);
+
+        return await AfterDeleteAsync(studio);
+    }
+
+    #endregion
+
+    #region Private Functions
+
+    private async Task<Studio> UpdateStudioAsync(StudioUpdateRequest studioUpdateRequest)
+    {
+        var studio = await GetStudioAsync(studioUpdateRequest.Id);
+        studio.Name = studioUpdateRequest.Name;
+
+        return studio;
+    }
+
+    private async Task BeforeSaveAsync(Studio studio)
+    {
+        await _validatorHelper.ValidateAsync(studio, Constants.ValidationEventBeforeSave);
+    }
+
+    private async Task<StudioActionResponse> AfterSaveAsync(Studio studio)
+    {
+        var afterSaveValidate = await _validatorHelper.AfterEventAsync(studio, Constants.ValidationEventAfterSave); 
+        return new StudioActionResponse(studio.Id, studio.Name, ResponseHelper.GetMessages(afterSaveValidate.Errors), true);
+    }    
+
+    private async Task BeforeDeleteAsync(Studio studio)
+    {
+        await _validatorHelper.ValidateAsync(studio, Constants.ValidationEventBeforeDelete);
+    }
+
+    private async Task<StudioActionResponse> AfterDeleteAsync(Studio studio)
+    {
+        var afterDeleteValidate = await _validatorHelper.AfterEventAsync(studio, Constants.ValidationEventAfterDelete);
+        return new StudioActionResponse(studio.Id, studio.Name, ResponseHelper.GetMessages(afterDeleteValidate.Errors), true);
+    }
+
+    private async Task SaveAddAsync(Studio studio, string cacheKey)
+    {
+        await _unitOfWork.Studios.AddAsync(studio);
+        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork); 
+    }
+
+    private async Task SaveUpdateAsync(Studio studio, string cacheKey)
+    {
+        _unitOfWork.Studios.Update(studio);
+        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork); 
+    }
+
+    private async Task DeleteAsync(Studio studio, string cacheKey)
+    {
+        _unitOfWork.Studios.Delete(studio);
+        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork); 
+    } 
+
+    private async Task<Studio> GetStudioAsync(int id)
+    {
+        var studio = await _unitOfWork.Studios.ByIdAsync(id);
+        if (studio == null)
+        {
+            throw new StudioNotFoundException("Studio not found.");
+        }
+
+        return studio;
+    }
+
+    #endregion
+
 }

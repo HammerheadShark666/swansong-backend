@@ -1,10 +1,10 @@
-﻿using SwanSong.Domain.Dto;
+﻿using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
 using System.Threading.Tasks;
 
-namespace SwanSong.Service.Interfaces
+namespace SwanSong.Service.Interfaces;
+
+public interface IRegisterService
 {
-    public interface IRegisterService
-    {
-        Task<RegisterDto> RegisterAsync(RegisterDto registerDto); 
-    }
+    Task<RegisterActionResponse> RegisterAsync(RegisterRequest registerRequest); 
 }

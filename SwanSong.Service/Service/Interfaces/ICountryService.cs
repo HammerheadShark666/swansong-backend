@@ -1,14 +1,14 @@
-﻿using SwanSong.Domain.Dto;
+﻿using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwanSong.Service.Interfaces
+namespace SwanSong.Service.Interfaces;
+
+public interface ICountryService
 {
-    public interface ICountryService
-    {
-        Task<List<CountryReadOnlyDto>> GetAllAsync();
-        Task<CountryDto> GetAsync(int id);
-        Task<CountryDto> SaveAsync(CountryDto labelDto); 
-        Task<CountryDto> DeleteAsync(int id);
-    }
+    Task<List<CountryResponse>> GetAllAsync(); 
+    Task<CountryActionResponse> AddAsync(CountryAddRequest countryAddRequest);
+    Task<CountryActionResponse> UpdateAsync(CountryUpdateRequest countryUpdateRequest);
+    Task<CountryActionResponse> DeleteAsync(int id);
 }

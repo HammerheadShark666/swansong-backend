@@ -1,60 +1,67 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SwanSong.Data.DefaultData;
 using SwanSong.Data.Repository.Interfaces;
 using SwanSong.Domain;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SwanSong.Data.Repository
+namespace SwanSong.Data.Repository;
+
+public class AlbumSongRepository : IAlbumSongRepository
 {
-    public class AlbumSongRepository : BaseRepository<AlbumSong>, IAlbumSongRepository
+    private readonly SwanSongContext _context;
+
+    public AlbumSongRepository(SwanSongContext context)
     {
-        public AlbumSongRepository(SwanSongContext context) : base(context) {}
+        _context = context;
+    }
 
-        public async Task<IEnumerable<AlbumSong>> GetAlbumSongsAsync(long albumId)
-        {
-            return await _context.AlbumSongs
-                                    .Include(e => e.Song)
-                                    .Where(e => e.AlbumId.Equals(albumId))
-                                    .OrderBy(e => e.Order).ToListAsync();
-        }
+    public async Task<IEnumerable<AlbumSong>> GetAlbumSongsAsync(long albumId)
+    {
+        return await _context.AlbumSongs
+                                .Include(e => e.Song)
+                                .Where(e => e.AlbumId.Equals(albumId))
+                                .OrderBy(e => e.Order).ToListAsync();
+    } 
 
-        public async Task<AlbumSong> GetAsync(long albumId, long songId)
-        {
-            var albumSong = await _context.AlbumSongs.FindAsync(albumId);
+    public async Task<bool> ExistsAsync(long? albumId, string title)
+    {
+        return await _context.AlbumSongs
+                               .Where(a => a.Song.Title.ToUpper().Equals(title.ToUpper())
+                                    && a.AlbumId.Equals(albumId))
+                               .AnyAsync();
+    } 
 
-            var song = await _context.AlbumSongs
-                                        .Include(e => e.Song)
-                                        .Where(a => a.AlbumId.Equals(albumId)
-                                            && a.Song.Id.Equals(songId))
-                                        .FirstOrDefaultAsync();
+    public async Task<bool> ExistsAsync(long id, long? albumId, string title)
+    {
+        return await _context.AlbumSongs
+                               .Where(a => a.Song.Title.ToUpper().Equals(title.ToUpper())
+                                    && a.AlbumId.Equals(albumId)
+                                        && !a.Id.Equals(id))
+                               .AnyAsync();
+    } 
 
-            return song;
-        }
+    public async Task AddAsync(AlbumSong albumSong)
+    {
+        await _context.AlbumSongs.AddAsync(albumSong);
+    }
 
-        public async Task<AlbumSong> GetAsync(long id)
-        {
-            return await _context.AlbumSongs
-                                    .Include(e => e.Song)
-                                    .Where(e => e.Id.Equals(id))
-                                    .FirstOrDefaultAsync();
-        }
+    public void Update(AlbumSong albumSong)
+    {
+        _context.AlbumSongs.Update(albumSong);
+    }
 
-        public async Task<bool> ExistsAsync(long? albumId, string title)
-        {
-            return await _context.AlbumSongs
-                                   .Where(a => a.Song.Title.ToUpper().Equals(title.ToUpper())
-                                        && a.AlbumId.Equals(albumId))
-                                   .AnyAsync();
-        } 
+    public void Delete(AlbumSong albumSong)
+    {
+        _context.AlbumSongs.Remove(albumSong);
+    }
 
-        public async Task<bool> ExistsAsync(long id, long? albumId, string title)
-        {
-            return await _context.AlbumSongs
-                                   .Where(a => a.Song.Title.ToUpper().Equals(title.ToUpper())
-                                        && a.AlbumId.Equals(albumId)
-                                            && !a.Id.Equals(id))
-                                   .AnyAsync();
-        }
+    public async Task<AlbumSong> ByIdAsync(long id)
+    {
+        return await _context.AlbumSongs
+                        .Include(e => e.Song)
+                        .Where(e => e.Id.Equals(id))
+                        .FirstOrDefaultAsync(); 
     }
 }

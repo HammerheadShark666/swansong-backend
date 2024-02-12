@@ -18,10 +18,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwanSong.Data", "SwanSong.Data\SwanSong.Data.csproj", "{99B75BCD-AF23-4C8E-9BF3-B42367598667}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{E431F38D-BC4D-4175-AC4E-97CB46F8ED6C}"
+	ProjectSection(SolutionItems) = preProject
+		SwanSong.postman_collection.json = SwanSong.postman_collection.json
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{C16D609B-A6F7-4792-901B-0B0C24EBBD9B}"
-EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D173A3DC-7219-4E82-9471-93538F5047AB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwanSong.Azure", "SwanSong.Azure\SwanSong.Azure.csproj", "{80E7C629-D232-4116-AEF2-1CF0F6807E56}"
 EndProject
@@ -66,10 +67,6 @@ Global
 		{99B75BCD-AF23-4C8E-9BF3-B42367598667}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99B75BCD-AF23-4C8E-9BF3-B42367598667}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99B75BCD-AF23-4C8E-9BF3-B42367598667}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D173A3DC-7219-4E82-9471-93538F5047AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D173A3DC-7219-4E82-9471-93538F5047AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D173A3DC-7219-4E82-9471-93538F5047AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D173A3DC-7219-4E82-9471-93538F5047AB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{80E7C629-D232-4116-AEF2-1CF0F6807E56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{80E7C629-D232-4116-AEF2-1CF0F6807E56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80E7C629-D232-4116-AEF2-1CF0F6807E56}.Release|Any CPU.ActiveCfg = Release|Any CPU

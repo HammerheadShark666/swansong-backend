@@ -1,23 +1,23 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using SwanSong.Domain.Dto;
+using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
 using SwanSong.Helper.Filter;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwanSong.Service.Interfaces
+namespace SwanSong.Service.Interfaces;
+
+public interface IMemberService
 {
-    public interface IMemberService
-    {
-        Task<long> CountAsync();
-        Task<List<MemberReadOnlyDto>> GetAllAsync(PaginationFilter filter);
-        Task<List<MemberReadOnlyDto>> GetRandomAsync(int numberOfMember);
-        Task<List<MemberReadOnlyDto>> SearchByNameAsync(string criteria);
-        Task<List<MemberReadOnlyDto>> SearchByLetterAsync(string letter);
-        Task<List<MemberDto>> GetMembersByArtistAsync(long artistId);
-        Task<MemberDto> SaveAsync(MemberDto memberDto);        
-        Task<MemberDto> DeleteAsync(long id);
-        Task<MemberDto> GetAsync(long id);
-        Task<string> UpdateMemberPhotoAsync(long id, IFormFile file);
-    }
+    Task<long> CountAsync();
+    Task<List<MemberResponse>> GetAllAsync(PaginationFilter filter);
+    Task<List<MemberResponse>> GetRandomAsync(int numberOfMember);
+    Task<List<MemberResponse>> SearchByNameAsync(string criteria);
+    Task<List<MemberResponse>> SearchByLetterAsync(string letter);
+    Task<List<MemberResponse>> GetMembersByArtistAsync(long artistId);
+    Task<MemberActionResponse> AddAsync(MemberAddRequest memberAddRequest);
+    Task<MemberActionResponse> UpdateAsync(MemberUpdateRequest memberUpdateRequest);
+    Task<MemberActionResponse> DeleteAsync(long id);
+    Task<MemberResponse> GetAsync(long id);
+    Task<MemberPhotoActionResponse> UpdateMemberPhotoAsync(long id, IFormFile file);
 }

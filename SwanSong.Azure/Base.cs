@@ -1,15 +1,13 @@
 ﻿using SwanSong.Helper;
 
-namespace SwanSong.Azure.Storage
-{
-    public class Base
-    {
-        public Base(){
-        }
+namespace SwanSong.Azure.Storage;
 
-        public string GetStorageConnection()
-        {
-            return EnvironmentVariablesHelper.AzureStorageConnectionString();
-        }
+public class Base
+{
+    public Base(){}
+
+    public string GetStorageConnection()
+    {
+        return EnvironmentVariablesHelper.AzureStorageConnectionString;
     }
 }

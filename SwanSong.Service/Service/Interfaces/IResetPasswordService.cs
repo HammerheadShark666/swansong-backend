@@ -1,13 +1,13 @@
-﻿using SwanSong.Domain.Dto;
-using SwanSong.Domain.Model.Authentication;
+﻿using SwanSong.Domain.Model.Authentication;
+using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
 using System.Threading.Tasks;
 
-namespace SwanSong.Service.Interfaces
+namespace SwanSong.Service.Interfaces;
+
+public interface IResetPasswordService
 {
-    public interface IResetPasswordService
-    {
-        Task ForgotPasswordAsync(ForgotPasswordRequest model);
-        Task ValidateResetTokenAsync(ValidateResetTokenRequest model);
-        Task<ResetPasswordDto> ResetPasswordAsync(ResetPasswordDto resetPasswordDto);
-    }
+    Task ForgotPasswordAsync(ForgotPasswordRequest model);
+    Task ValidateResetTokenAsync(ValidateResetTokenRequest model);
+    Task<ResetPasswordActionResponse> ResetPasswordAsync(ResetPasswordRequest resetPasswordRequest);
 }

@@ -18,9 +18,7 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<SwanSongCo
 
         var builder = new DbContextOptionsBuilder<SwanSongContext>();
 
-        var connectionString = configuration.GetConnectionString(Constants.DatabaseConnectionString); 
-
-        builder.UseSqlServer(connectionString);
+        builder.UseSqlServer(configuration.GetConnectionString(Constants.DatabaseConnectionString));
 
         return new SwanSongContext(builder.Options);
     }

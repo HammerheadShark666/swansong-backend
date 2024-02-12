@@ -1,104 +1,100 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SwanSong.Domain.Dto;
+using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
 using SwanSong.Helper;
 using SwanSong.Helper.Filter;
+using SwanSong.Helper.Exceptions;
 using SwanSong.Service.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading.Tasks;
 
-namespace SwanSong.Api.Controllers
+namespace SwanSong.Api.Controllers;
+
+[ApiVersion("1.0")]
+[Authorize]
+[Route("api/members")]
+[ApiController]
+[ApiConventionType(typeof(DefaultApiConventions))]
+[Produces(MediaTypeNames.Application.Json)]
+[Consumes(MediaTypeNames.Application.Json)]
+public class MembersController : Controller
 {
-    [ApiVersion("1.0")]
-    [Authorize]
-    [Route("api/members")]
-    [ApiController]
-    [ApiConventionType(typeof(DefaultApiConventions))]
-    [Produces(MediaTypeNames.Application.Json)]
-    [Consumes(MediaTypeNames.Application.Json)]
-    public class MembersController : BaseController<MemberDto>
+    private readonly ILogger<MembersController> _logger;      
+    private readonly IMemberService _memberService; 
+
+    public MembersController(ILogger<MembersController> logger, IMemberService memberService)
     {
-        private readonly ILogger<MembersController> _logger;      
-        private readonly IMemberService _memberService; 
+        _logger = logger; 
+        _memberService = memberService; 
+    }
 
-        public MembersController(ILogger<MembersController> logger, IHttpContextAccessor httpContextAccessor, IMemberService memberService) : base(httpContextAccessor)
-        {
-            _logger = logger; 
-            _memberService = memberService; 
-        }
+    [HttpGet("")]
+    public async Task<ActionResult<List<MemberResponse>>> GetAllAsync([FromQuery] PaginationFilter filter)
+    {
+        var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+        var pagedData = await _memberService.GetAllAsync(validFilter);
+        var totalRecords = await _memberService.CountAsync();
 
-        [HttpGet("")]
-        public async Task<ActionResult<List<MemberReadOnlyDto>>> GetAllAsync([FromQuery] PaginationFilter filter)
-        {
-            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
-            var pagedData = await _memberService.GetAllAsync(validFilter);
-            var totalRecords = await _memberService.CountAsync();
+        return Ok(PagingHelper.CreatePagedReponse<MemberResponse>(pagedData, validFilter, totalRecords));
+    }
 
-            return Ok(PagingHelper.CreatePagedReponse<MemberReadOnlyDto>(pagedData, validFilter, totalRecords));
-        }
+    [HttpGet("random")]
+    public async Task<ActionResult<List<MemberResponse>>> GetRandomAsync()
+    {
+        return Ok(await _memberService.GetRandomAsync(10));
+    }
 
-        [HttpGet("random")]
-        public async Task<ActionResult<List<MemberReadOnlyDto>>> GetRandomAsync()
-        {
-            return Ok(await _memberService.GetRandomAsync(10));
-        }
- 
-        [HttpGet("member/{id}")]
-        public async Task<ActionResult<MemberDto>> GetMemberAsync(long id)
-        {
-            MemberDto memberDto = await _memberService.GetAsync(id);
-            return ActionResponse(memberDto);
-        }
- 
-        [HttpGet("search/{criteria}")]
-        public async Task<ActionResult<List<MemberReadOnlyDto>>> SearchAsync(string criteria)
-        {
-            return Ok(await _memberService.SearchByNameAsync(criteria));
-        }
- 
-        [HttpGet("search-by-letter/{letter}")]
-        public async Task<ActionResult<List<MemberReadOnlyDto>>> SearchByLetterAsync(string letter)
-        {
-            return Ok(await _memberService.SearchByLetterAsync(letter));
-        }
+    [HttpGet("member/{id}")]
+    public async Task<ActionResult<MemberResponse>> GetMemberAsync(long id)
+    { 
+        return await _memberService.GetAsync(id);
+    }
 
-        [HttpGet("{artistId}")]
-        public async Task<ActionResult<List<MemberDto>>> ArtistMembersAsync(long artistId)
-        {
-            return await _memberService.GetMembersByArtistAsync(artistId);
-        }
- 
-        [HttpPost("member/save")]
-        public async Task<ActionResult<MemberDto>> SaveAsync([FromBody] MemberDto memberDto)
-        {
-            memberDto = await _memberService.SaveAsync(memberDto);
-            return memberDto.IsValid ? Ok(memberDto) : BadRequest(memberDto.Messages);
-        }
+    [HttpGet("search/{criteria}")]
+    public async Task<ActionResult<List<MemberResponse>>> SearchAsync(string criteria)
+    {
+        return Ok(await _memberService.SearchByNameAsync(criteria));
+    }
 
-        [HttpDelete("member/{id}")]
-        public async Task<ActionResult<MemberDto>> DeleteAsync(long id)
-        {
-            var memberDto = await _memberService.DeleteAsync(id);
-            return memberDto.IsValid ? Ok(memberDto) : BadRequest(memberDto.Messages);
-        }
+    [HttpGet("search-by-letter/{letter}")]
+    public async Task<ActionResult<List<MemberResponse>>> SearchByLetterAsync(string letter)
+    {
+        return Ok(await _memberService.SearchByLetterAsync(letter));
+    }
 
-        [HttpPost("member/upload-photo/{id}")]
-        [Consumes("multipart/form-data")]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SavePhotoAsync(long id)
-        {
-            if (Request.Form.Files.Count > 0)
-            {
-                string fileName = await _memberService.UpdateMemberPhotoAsync(id, Request.Form.Files[0]);
-                return Ok(fileName);
-            }
-            else
-            {
-                return BadRequest(ConstantMessages.NoFileToSave);
-            }
-        }
+    [HttpGet("{artistId}")]
+    public async Task<ActionResult<List<MemberResponse>>> MemberMembersAsync(long artistId)
+    {
+        return await _memberService.GetMembersByArtistAsync(artistId);
+    }
 
+    [HttpPost("member/add")]
+    public async Task<ActionResult<MemberActionResponse>> AddAsync([FromBody] MemberAddRequest memberAddRequest)
+    {
+        return Ok(await _memberService.AddAsync(memberAddRequest));
+    }
+
+    [HttpPost("member/update")]
+    public async Task<ActionResult<MemberActionResponse>> UpdateAsync([FromBody] MemberUpdateRequest memberUpdateRequest)
+    {
+        return Ok(await _memberService.UpdateAsync(memberUpdateRequest));
+    }
+
+    [HttpDelete("member/{id}")]
+    public async Task<ActionResult<MemberResponse>> DeleteAsync(long id)
+    {
+        return Ok(await _memberService.DeleteAsync(id));
+    }
+
+    [HttpPost("member/upload-photo/{id}")]
+    [Consumes("multipart/form-data")]
+    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> SavePhotoAsync(long id)
+    {
+        return Ok(await _memberService.UpdateMemberPhotoAsync(id, Request.Form.Files[0]));
     }
 }
