@@ -1,14 +1,14 @@
-﻿using SwanSong.Domain.Dto;
+﻿using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwanSong.Service.Interfaces
+namespace SwanSong.Service.Interfaces;
+
+public interface IStudioService
 {
-    public interface IStudioService
-    {
-        Task<List<StudioReadOnlyDto>> GetAllAsync();
-        Task<StudioDto> GetAsync(int id);
-        Task<StudioDto> SaveAsync(StudioDto studioDto);
-        Task<StudioDto> DeleteAsync(int id);
-    }
+    Task<List<StudioResponse>> GetAllAsync(); 
+    Task<StudioActionResponse> AddAsync(StudioAddRequest studioAddRequest);
+    Task<StudioActionResponse> UpdateAsync(StudioUpdateRequest studioUpdateRequest);
+    Task<StudioActionResponse> DeleteAsync(int id);
 }

@@ -1,14 +1,14 @@
-﻿using SwanSong.Domain.Dto;
+﻿using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwanSong.Service.Interfaces
+namespace SwanSong.Service.Interfaces;
+
+public interface IBirthPlaceService
 {
-    public interface IBirthPlaceService
-    {
-        Task<List<BirthPlaceDto>> GetAllAsync();
-        Task<BirthPlaceDto> GetAsync(int id);
-        Task<BirthPlaceDto> SaveAsync(BirthPlaceDto birthPlaceDto);
-        Task<BirthPlaceDto> DeleteAsync(int id);
-    }
+    Task<List<BirthPlaceResponse>> GetAllAsync(); 
+    Task<BirthPlaceActionResponse> AddAsync(BirthPlaceAddRequest birthPlaceAddRequest);
+    Task<BirthPlaceActionResponse> UpdateAsync(BirthPlaceUpdateRequest birthPlaceUpdateRequest);
+    Task<BirthPlaceActionResponse> DeleteAsync(int id);
 }

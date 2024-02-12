@@ -1,22 +1,23 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SwanSong.Domain.Dto;
+using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
 using SwanSong.Helper.Filter;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwanSong.Service.Interfaces
+namespace SwanSong.Service.Interfaces;
+
+public interface IAlbumService
 {
-    public interface IAlbumService
-    {
-        Task<List<AlbumReadOnlyDto>> SearchByNameAsync(string criteria);
-        Task<List<AlbumReadOnlyDto>> SearchByLetterAsync(string letter);
-        Task<List<AlbumReadOnlyDto>> GetAlbumsForArtistAsync(long artistId);
-        Task<long> CountAsync();
-        Task<List<AlbumReadOnlyDto>> GetAllAsync(PaginationFilter filter);
-        Task<List<AlbumReadOnlyDto>> GetRandomAsync(int numberOfAlbums);
-        Task<AlbumDto> GetAsync(long id);
-        Task<AlbumDto> SaveAsync(AlbumDto album);
-        Task<AlbumDto> DeleteAsync(long id);
-        Task<string> UpdateAlbumPhotoAsync(long id, IFormFile file);
-    }
+    Task<List<AlbumLookUpResponse>> SearchByNameAsync(string criteria);
+    Task<List<AlbumLookUpResponse>> SearchByLetterAsync(string letter);
+    Task<List<AlbumLookUpResponse>> GetAlbumsForArtistAsync(long artistId);
+    Task<long> CountAsync();
+    Task<List<AlbumLookUpResponse>> GetAllAsync(PaginationFilter filter);
+    Task<List<AlbumLookUpResponse>> GetRandomAsync(int numberOfAlbums);
+    Task<AlbumResponse> GetAsync(long id); 
+    Task<AlbumPhotoActionResponse> UpdateAlbumPhotoAsync(long id, IFormFile file);
+    Task<AlbumActionResponse> DeleteAsync(long id); 
+    Task<AlbumActionResponse> AddAsync(AlbumAddRequest albumAddRequest);
+    Task<AlbumActionResponse> UpdateAsync(AlbumUpdateRequest albumUpdateRequest);
 }

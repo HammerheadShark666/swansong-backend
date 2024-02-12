@@ -1,11 +1,11 @@
-﻿using SwanSong.Domain.Dto;
+﻿using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
 using System.Threading.Tasks;
 
-namespace SwanSong.Service.Interfaces
+namespace SwanSong.Service.Interfaces;
+
+public interface IAuthenticateService
 {
-    public interface IAuthenticateService
-    {
-        Task<LoginDto> AuthenticateAsync(LoginDto loginDto, string ipAddress);
-        Task<JwtRefreshTokenDto> RefreshTokenAsync(string token, string ipAddress);
-    }
+    Task<LoginActionResponse> AuthenticateAsync(LoginRequest loginRequest, string ipAddress);
+    Task<JwtRefreshTokenActionResponse> RefreshTokenAsync(string token, string ipAddress);
 }

@@ -1,64 +1,74 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using SwanSong.Api.Helpers.Extensions;
 using SwanSong.Domain.Dto;
+using SwanSong.Domain.Dto.Response;
 using SwanSong.Domain.Exceptions;
+using SwanSong.Helper.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using static SwanSong.Helper.Enums;
 
-namespace SwanSong.Api.Middleware
+namespace SwanSong.Api.Middleware;
+
+public class ErrorHandlerMiddleware
 {
-    public class ErrorHandlerMiddleware
+    private readonly RequestDelegate _next;
+    private readonly ILogger _logger;
+
+    public ErrorHandlerMiddleware(RequestDelegate next, ILogger<ErrorHandlerMiddleware> logger)
     {
-        private readonly RequestDelegate _next;
-        private readonly ILogger _logger;
+        _next = next;
+        _logger = logger;
+    }
 
-        public ErrorHandlerMiddleware(RequestDelegate next, ILogger<ErrorHandlerMiddleware> logger)
+    public async Task Invoke(HttpContext context)
+    {
+        try
         {
-            _next = next;
-            _logger = logger;
+            await _next(context);
         }
+        catch (Exception error)
+        { 
+            var response = context.Response;
+            response.ContentType = "application/json";
+            MessageResponse messageResponse = null;
 
-        public async Task Invoke(HttpContext context)
-        {
-            try
+            switch (error)
             {
-                await _next(context);
-            }
-            catch (Exception error)
-            {
-                var result = "Error";
-                var errors = new Object[] { };
-                var response = context.Response;
-                response.ContentType = "application/json";
-                MessageDto messageDto = null;
-
-                switch (error)
-                {
-                    case AppException e:
-                        // custom application error
+                case FailedValidationException e:
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
-                        messageDto = new MessageDto(e.Message, "error");
-                        result = Newtonsoft.Json.JsonConvert.SerializeObject(new Object[] { messageDto });
+                        messageResponse = new MessageResponse(e.FailedValidationResponse.Messages, MessageSeverity.error.ToString());
                         break;
-                    case KeyNotFoundException e:
-                        // not found error
+                case AlbumNotFoundException:
+                case AlbumSongNotFoundException:
+                case ArtistNotFoundException:
+                case BirthPlaceNotFoundException:
+                case CountryNotFoundException:
+                case MemberNotFoundException:
+                case RecordLabelNotFoundException:
+                case SongNotFoundException:
+                case StudioNotFoundException:
                         response.StatusCode = (int)HttpStatusCode.NotFound;
-                        result = Newtonsoft.Json.JsonConvert.SerializeObject(error);
+                        messageResponse = new MessageResponse(new List<Message>() { new Message(error.Message, MessageSeverity.error.ToString()) }, MessageSeverity.error.ToString());
                         break;
-                    default:
-                        // unhandled error
-                        _logger.LogError(error, error.Message);
-                        response.StatusCode = (int)HttpStatusCode.InternalServerError; 
-                        messageDto = new MessageDto(error.Message, MessageSeverity.error.ToString());
-                        result = Newtonsoft.Json.JsonConvert.SerializeObject(new Object[] { messageDto });
+                case AppException e:
+                        response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        messageResponse = new MessageResponse(new List<Message>() { new Message(e.Message, MessageSeverity.error.ToString()) }, MessageSeverity.error.ToString());
                         break;
-                }
+                case KeyNotFoundException e:
+                        response.StatusCode = (int)HttpStatusCode.NotFound;
+                        break;
+                default:
+                         _logger.LogError(error, error.Message);
+                        response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        messageResponse = new MessageResponse(new List<Message>() { new Message(error.Message, MessageSeverity.error.ToString()) }, MessageSeverity.error.ToString());
+                        break;
+            } 
 
-                await response.WriteAsync(result);
-            }
+            await response.WriteAsync(messageResponse.SerializeWithCamelCase());
         }
     }
 }

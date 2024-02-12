@@ -1,40 +1,44 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SwanSong.Domain;
-using SwanSong.Domain.Dto;
+using Microsoft.Extensions.Logging;
+using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
+using SwanSong.Helper.Exceptions;
 using SwanSong.Helpers.Authentication;
 using SwanSong.Service.Interfaces;
+using System;
 using System.Net.Mime;
 using System.Threading.Tasks;
 
-namespace SwanSong.Api.Controllers
+namespace SwanSong.Api.Controllers;
+
+[ApiVersion("1.0")]
+[ApiController] 
+[Produces(MediaTypeNames.Application.Json)]
+[Consumes(MediaTypeNames.Application.Json)]
+[Route("api")]
+public class AuthenticateController : Controller
 {
-    [ApiVersion("1.0")]
-    [ApiController] 
-    [Produces(MediaTypeNames.Application.Json)]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [Route("api")]
-    public class AuthenticateController : BaseController<Account>
+    private readonly ILogger<ProfileController> _logger;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IAuthenticateService _authenticateService;
+
+    public AuthenticateController(IAuthenticateService authenticateService, IHttpContextAccessor httpContextAccessor, ILogger<ProfileController> logger)
+    {
+        _httpContextAccessor = httpContextAccessor;
+        _authenticateService = authenticateService;
+        _logger = logger;
+    } 
+
+    [HttpPost("login")]
+    public async Task<ActionResult<LoginActionResponse>> LoginAsync(LoginRequest loginRequest)
     { 
-        private readonly IAuthenticateService _authenticateService;  
+        return Ok(await _authenticateService.AuthenticateAsync(loginRequest, AuthenticationHelper.IpAddress(Request, HttpContext)));
+    } 
 
-        public AuthenticateController(IAuthenticateService authenticateService, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
-        { 
-            _authenticateService = authenticateService; 
-        }
-
-        [HttpPost("login")]
-        public async Task<ActionResult<LoginDto>> LoginAsync(LoginDto loginDto)
-        {
-            loginDto = await _authenticateService.AuthenticateAsync(loginDto, AuthenticationHelper.IpAddress(Request, HttpContext));
-            return loginDto.IsValid ? Ok(loginDto) : BadRequest(loginDto.Messages);
-        } 
-
-        [HttpPost("refresh-token")]
-        public async Task<ActionResult<JwtRefreshTokenDto>> RefreshTokenAsync(JwtRefreshTokenDto jwtRefreshTokenDto)
-        {
-            jwtRefreshTokenDto = await _authenticateService.RefreshTokenAsync(jwtRefreshTokenDto.RefreshToken, AuthenticationHelper.IpAddress(Request, HttpContext));
-            return jwtRefreshTokenDto.IsValid ? Ok(jwtRefreshTokenDto) : BadRequest(jwtRefreshTokenDto.Messages);
-        }
+    [HttpPost("refresh-token")]
+    public async Task<ActionResult<JwtRefreshTokenActionResponse>> RefreshTokenAsync(JwtRefreshTokenRequest jwtRefreshTokenRequest)
+    {
+        return Ok(await _authenticateService.RefreshTokenAsync(jwtRefreshTokenRequest.RefreshToken, AuthenticationHelper.IpAddress(Request, HttpContext)));
     }
 }

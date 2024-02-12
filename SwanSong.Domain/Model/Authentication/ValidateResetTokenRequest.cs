@@ -1,10 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SwanSong.Domain.Model.Authentication
+namespace SwanSong.Domain.Model.Authentication;
+
+public class ValidateResetTokenRequest
 {
-    public class ValidateResetTokenRequest
-    {
-        [Required]
-        public string Token { get; set; }
-    }
+    [Required]
+    public string Token { get; set; }
 }

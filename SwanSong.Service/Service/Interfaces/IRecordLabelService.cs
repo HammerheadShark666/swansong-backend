@@ -1,14 +1,14 @@
-﻿using SwanSong.Domain.Dto;
+﻿using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwanSong.Service.Interfaces
+namespace SwanSong.Service.Interfaces;
+
+public interface IRecordLabelService
 {
-    public interface IRecordLabelService
-    {
-        Task<List<RecordLabelReadOnlyDto>> GetAllAsync();
-        Task<RecordLabelDto> GetAsync(int id);
-        Task<RecordLabelDto> SaveAsync(RecordLabelDto labelDto); 
-        Task<RecordLabelDto> DeleteAsync(int id);
-    }
+    Task<List<RecordLabelResponse>> GetAllAsync(); 
+    Task<RecordLabelActionResponse> AddAsync(RecordLabelAddRequest recordLabelAddRequest);
+    Task<RecordLabelActionResponse> UpdateAsync(RecordLabelUpdateRequest recordLabelUpdateRequest);
+    Task<RecordLabelActionResponse> DeleteAsync(int id);
 }

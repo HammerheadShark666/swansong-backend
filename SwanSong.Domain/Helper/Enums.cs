@@ -1,13 +1,12 @@
-﻿namespace SwanSong.Domain.Helper
+﻿namespace SwanSong.Domain.Helper;
+
+public class Enums
 {
-    public class Enums
+    public enum Role
     {
-        public enum Role
-        {
-            SuperAdmin,
-            Admin,
-            Moderator,
-            User 
-        }
-    }    
-}
+        SuperAdmin,
+        Admin,
+        Moderator,
+        User 
+    }
+}    

@@ -1,61 +1,62 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using SwanSong.Domain;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SwanSong.Domain.Model.Authentication;
+using SwanSong.Domain.Dto.Request;
+using SwanSong.Helper;
+using SwanSong.Helper.Exceptions;
 using SwanSong.Service.Interfaces;
+using System;
+using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
-using System.Linq;
-using SwanSong.Domain.Dto;
-using SwanSong.Helper;
 
-namespace SwanSong.Api.Controllers
+namespace SwanSong.Api.Controllers;
+
+[ApiVersion("1.0")]
+[ApiController]
+[Produces(MediaTypeNames.Application.Json)]
+[Consumes(MediaTypeNames.Application.Json)]
+[Route("api/forgot-password")]
+public class ResetPasswordController : Controller
 {
-    [ApiVersion("1.0")]
-    [ApiController]
-    [Produces(MediaTypeNames.Application.Json)]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [Route("api/forgot-password")]
-    public class ResetPasswordController : BaseController<Account>
-    {        
-        private readonly IResetPasswordService _resetPasswordService;
+    private readonly ILogger<ResetPasswordController> _logger;
+    private readonly IResetPasswordService _resetPasswordService;
 
-        public ResetPasswordController(IResetPasswordService resetPasswordService, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
-        { 
-            _resetPasswordService = resetPasswordService; 
-        }
+    public ResetPasswordController(IResetPasswordService resetPasswordService, ILogger<ResetPasswordController> logger)
+    { 
+        _resetPasswordService = resetPasswordService;
+        _logger = logger;
+    }
 
-        [HttpPost("")]
-        public async Task<IActionResult> ForgotPasswordAsync(ForgotPasswordRequest model)
+    [HttpPost("")]
+    public async Task<IActionResult> ForgotPasswordAsync(ForgotPasswordRequest model)
+    {
+        await _resetPasswordService.ForgotPasswordAsync(model);
+        return Ok(new { message = ConstantMessages.PasswordResetEmailInstruction });
+    }
+
+    [HttpPost("validate-reset-token")]
+    public async Task<IActionResult> ValidateResetTokenAsync(ValidateResetTokenRequest model)
+    {
+        await _resetPasswordService.ValidateResetTokenAsync(model);
+        return Ok(new { message = ConstantMessages.TokenValid });
+    }
+
+    [HttpPost("reset-password")]
+    public async Task<IActionResult> ResetPasswordAsync(ResetPasswordRequest resetPasswordRequest)
+    {
+        if (!ModelState.IsValid)
         {
-            await _resetPasswordService.ForgotPasswordAsync(model);
-            return Ok(new { message = ConstantMessages.PasswordResetEmailInstruction });
-        }
+            return BadRequest(new { message = GetMessages() });
+        }                
 
-        [HttpPost("validate-reset-token")]
-        public async Task<IActionResult> ValidateResetTokenAsync(ValidateResetTokenRequest model)
-        {
-            await _resetPasswordService.ValidateResetTokenAsync(model);
-            return Ok(new { message = ConstantMessages.TokenValid });
-        }
+        return Ok(await _resetPasswordService.ResetPasswordAsync(resetPasswordRequest));
+    }
 
-        [HttpPost("reset-password")]
-        public async Task<IActionResult> ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
-        {
-            if (ModelState.IsValid)
-            { 
-                resetPasswordDto = await _resetPasswordService.ResetPasswordAsync(resetPasswordDto);
-                return resetPasswordDto.IsValid ? Ok(resetPasswordDto) : BadRequest(resetPasswordDto.Messages);
-            }
-            else
-            {
-                string messages = string.Join("; ", ModelState.Values
-                                        .SelectMany(x => x.Errors)
-                                        .Select(x => x.ErrorMessage));
-
-                return BadRequest(new { message = messages });
-            }
-            
-        }
+    private string GetMessages()
+    {
+        return string.Join("; ", ModelState.Values
+                                    .SelectMany(x => x.Errors)
+                                    .Select(x => x.ErrorMessage));
     }
 }

@@ -1,11 +1,11 @@
-﻿using SwanSong.Domain.Dto;
+﻿using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
 using System.Threading.Tasks;
 
-namespace SwanSong.Service.Interfaces
+namespace SwanSong.Service.Interfaces;
+
+public interface IProfileService
 {
-    public interface IProfileService
-    {
-        Task<ProfileDto> UpdateAsync(int id, ProfileDto profileDto);
-        Task<ProfileDto> GetAsync(int id);
-    }
+    Task<ProfileActionResponse> UpdateAsync(int id, ProfileRequest profileRequest);
+    Task<ProfileResponse> GetAsync(int id);
 }

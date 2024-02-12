@@ -1,43 +1,52 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SwanSong.Domain.Dto;
+using Microsoft.Extensions.Logging;
+using SwanSong.Domain;
+using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
+using SwanSong.Helper.Exceptions;
 using SwanSong.Service.Interfaces;
+using System;
 using System.Net.Mime;
 using System.Threading.Tasks;
 
-namespace SwanSong.Api.Controllers
+namespace SwanSong.Api.Controllers;
+
+[ApiVersion("1.0")]
+[ApiController]
+[Produces(MediaTypeNames.Application.Json)]
+[Consumes(MediaTypeNames.Application.Json)]
+[Route("api/profile")]
+public class ProfileController : Controller
 {
-    [ApiVersion("1.0")]
-    [ApiController]
-    [Produces(MediaTypeNames.Application.Json)]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [Route("api/profile")]
-    public class ProfileController : BaseController<ProfileDto>
+    private readonly ILogger<ProfileController> _logger;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IProfileService _profileService; 
+
+    public ProfileController(IProfileService profileService, IHttpContextAccessor httpContextAccessor, ILogger<ProfileController> logger)
     {
-        private readonly IProfileService _profileService;
-        private readonly IMapper _mapper;
+        _httpContextAccessor = httpContextAccessor;
+        _profileService = profileService; 
+        _logger = logger;
+    }
 
-        public ProfileController(IProfileService profileService, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
-        {
-            _profileService = profileService;
-            _mapper = mapper;
-        }
+    [Authorize]
+    [HttpPost("update")]
+    public async Task<ActionResult<ProfileActionResponse>> UpdateAsync(ProfileRequest profileRequest)
+    {
+        return Ok(await _profileService.UpdateAsync(LoggedInAccount().Id, profileRequest));
+    }
 
-        [Authorize]
-        [HttpPost("update")]
-        public async Task<ActionResult<ProfileDto>> UpdateAsync(ProfileDto profileDto)
-        {
-            profileDto = await _profileService.UpdateAsync(LoggedInAccount.Id, profileDto);
-            return profileDto.IsValid ? Ok(profileDto) : BadRequest(profileDto.Messages); 
-        }
+    [Authorize]
+    [HttpGet("")]
+    public async Task<ActionResult<ProfileResponse>> ProfileAsync()
+    { 
+        return Ok(await _profileService.GetAsync(LoggedInAccount().Id)); 
+    }
 
-        [Authorize]
-        [HttpGet("")]
-        public async Task<ActionResult<ProfileDto>> ProfileAsync()
-        {
-            ProfileDto profileDto = await _profileService.GetAsync(LoggedInAccount.Id);
-            return ActionResponse(profileDto);
-        }
+    private Account LoggedInAccount()
+    {
+        var context = _httpContextAccessor.HttpContext;
+        return (Account)context.Items["Account"];
     }
 }

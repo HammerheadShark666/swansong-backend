@@ -1,58 +1,55 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SwanSong.Domain;
-using SwanSong.Domain.Dto;
-using SwanSong.Helper;
+using SwanSong.Domain.Dto.Request;
+using SwanSong.Domain.Dto.Response;
+using SwanSong.Helper.Exceptions;
 using SwanSong.Service.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading.Tasks;
 
-namespace SwanSong.Api.Controllers
+namespace SwanSong.Api.Controllers;
+
+[Authorize]
+[ApiVersion("1.0")]
+[Route("api/album/songs")]
+[ApiController]
+[ApiConventionType(typeof(DefaultApiConventions))]
+[Produces(MediaTypeNames.Application.Json)]
+[Consumes(MediaTypeNames.Application.Json)]
+public class AlbumSongController : Controller
 {
-    [Authorize]
-    [ApiVersion("1.0")]
-    [Route("api/album/songs")]
-    [ApiController]
-    [ApiConventionType(typeof(DefaultApiConventions))]
-    [Produces(MediaTypeNames.Application.Json)]
-    [Consumes(MediaTypeNames.Application.Json)]
-    public class AlbumSongController : BaseController<AlbumSongDto>
+    private readonly ILogger<AlbumSongController> _logger;
+    private readonly IAlbumSongService _albumSongService; 
+
+    public AlbumSongController(ILogger<AlbumSongController> logger, IAlbumSongService albumSongService)
+    { 
+        _logger = logger;
+        _albumSongService = albumSongService; 
+    } 
+     
+    [HttpGet("{albumId}")]
+    public async Task<ActionResult<List<AlbumSongResponse>>> SearchAsync(long albumId)
     {
-        private readonly ILogger<AlbumSongController> _logger;
-        private readonly IAlbumSongService _albumSongService; 
+        return Ok(await _albumSongService.GetAlbumSongsAsync(albumId));            
+    }
 
-        public AlbumSongController(ILogger<AlbumSongController> logger, IAlbumSongService albumSongService, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
-        {
-            _logger = logger;
-            _albumSongService = albumSongService; 
-        } 
-         
-        [HttpGet("{albumId}")]
-        public async Task<ActionResult<List<AlbumSongDto>>> SearchAsync(long albumId)
-        {
-            return Ok(await _albumSongService.GetAlbumSongsAsync(albumId));            
-        } 
+    [HttpPost("song/add")]
+    public async Task<ActionResult<AlbumSongActionResponse>> AddAsync([FromBody] AlbumSongAddRequest albumSongAddRequest)
+    {         
+         return Ok(await _albumSongService.AddAsync(albumSongAddRequest));
+    }
 
-        [HttpPost("save")]
-        public async Task<ActionResult<AlbumSongDto>> SaveAsync([FromBody] AlbumSongDto song)
-        {
-            if (song == null)
-                return BadRequest(ConstantMessages.AlbumSongNotSent);
+    [HttpPost("song/update")]
+    public async Task<ActionResult<AlbumSongActionResponse>> UpdateAsync([FromBody] AlbumSongUpdateRequest albumSongUpdateRequest)
+    {
+        return Ok(await _albumSongService.UpdateAsync(albumSongUpdateRequest));
+    }
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);            
-
-            AlbumSongDto albumSongDto = await _albumSongService.SaveAsync(song);
-            return albumSongDto.IsValid ? Ok(albumSongDto) : BadRequest(albumSongDto.Messages);
-        }
-
-        [HttpDelete("song/{id}")]
-        public async Task<ActionResult<AlbumSongDto>> DeleteAlbumSongAsync(long id)
-        {
-            AlbumSongDto albumSongDto = await _albumSongService.DeleteAsync(id);
-            return albumSongDto.IsValid ? Ok(albumSongDto) : BadRequest(albumSongDto.Messages);
-        }
+    [HttpDelete("song/{id}")]
+    public async Task<ActionResult<AlbumSongActionResponse>> DeleteAsync(long id)
+    {
+        return Ok(await _albumSongService.DeleteAsync(id));        
     }
 }

@@ -1,36 +1,52 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SwanSong.Data.Repository.Interfaces;
 using SwanSong.Domain;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwanSong.Data.Repository
+namespace SwanSong.Data.Repository;
+
+public class RecordLabelRepository : IRecordLabelRepository
 {
-    public class RecordLabelRepository : BaseRepository<RecordLabel>, IRecordLabelRepository
+    private readonly SwanSongContext _context;
+
+    public RecordLabelRepository(SwanSongContext context)
     {
-        public RecordLabelRepository(SwanSongContext context) : base(context) {}
-        
-        public async Task<RecordLabel> GetAsync(string name)
-        {
-            return await _context.RecordLabels.FirstOrDefaultAsync(a => a.Name.Equals(name)); 
-        }
+        _context = context;
+    }
 
-        public async Task<bool> RecordLabelHasAlbumsAsync(int id)
-        {
-            return await _context.RecordLabels
-                                    .Include(e => e.Albums)
-                                    .Where(a => a.Id.Equals(id))
-                                    .CountAsync(e => e.Albums.Count > 0) > 0;
-        }
+    public async Task<bool> ExistsAsync(string name)
+    {
+        return await _context.RecordLabels.AnyAsync(a => a.Name.Equals(name));
+    }
 
-        public async Task<bool> ExistsAsync(string name)
-        {
-            return await _context.RecordLabels.AnyAsync(a => a.Name.Equals(name));
-        }
+    public async Task<bool> ExistsAsync(int ignoreId, string name)
+    {
+        return await _context.RecordLabels.AnyAsync(a => a.Name.Equals(name) && !a.Id.Equals(ignoreId));
+    }
 
-        public async Task<bool> ExistsAsync(int ignoreId, string name)
-        {
-            return await _context.RecordLabels.AnyAsync(a => a.Name.Equals(name) && !a.Id.Equals(ignoreId));
-        }
+    public async Task AddAsync(RecordLabel recordLabel)
+    {
+        await _context.RecordLabels.AddAsync(recordLabel);
+    }
+
+    public void Update(RecordLabel recordLabel)
+    {
+        _context.RecordLabels.Update(recordLabel);
+    }
+
+    public void Delete(RecordLabel recordLabel)
+    {
+        _context.RecordLabels.Remove(recordLabel);
+    }
+
+    public async Task<IEnumerable<RecordLabel>> AllAsync()
+    {
+        return await _context.RecordLabels.ToListAsync();
+    }
+
+    public async Task<RecordLabel> ByIdAsync(int id)
+    {
+        return await _context.RecordLabels.FindAsync(id);
     }
 }

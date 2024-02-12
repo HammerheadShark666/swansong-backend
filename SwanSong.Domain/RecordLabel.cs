@@ -2,26 +2,25 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SwanSong.Domain
+namespace SwanSong.Domain;
+
+public class RecordLabel : BaseEntity
 {
-    public class RecordLabel : BaseEntity
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
+
+    [Column(TypeName = "nvarchar(100)")]
+    [Required]
+    public string Name { get; set; }
+
+    public ICollection<Album> Albums { get; set; }
+
+    public RecordLabel()
+    { }
+
+    public RecordLabel(int id)
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        [Column(TypeName = "nvarchar(100)")]
-        [Required]
-        public string Name { get; set; }
-
-        public ICollection<Album> Albums { get; set; }
-
-        public RecordLabel()
-        { }
-
-        public RecordLabel(int id)
-        {
-            Id = id;
-        }
+        Id = id;
     }
 }

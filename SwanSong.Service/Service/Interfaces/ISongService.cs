@@ -1,12 +1,9 @@
-﻿using FluentValidation.Results;
-using SwanSong.Domain.Dto;
-using System.Collections.Generic;
+﻿using SwanSong.Domain.Dto.Response;
 using System.Threading.Tasks;
 
-namespace SwanSong.Service.Interfaces
+namespace SwanSong.Service.Interfaces;
+
+public interface ISongService
 {
-    public interface ISongService
-    {  
-        Task<SongDto> DeleteAsync(int id);
-    }
+    Task<SongActionResponse> DeleteAsync(long id);
 }
