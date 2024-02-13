@@ -21,8 +21,10 @@ public class AlbumSongRepository : IAlbumSongRepository
     {
         return await _context.AlbumSongs
                                 .Include(e => e.Song)
-                                .Where(e => e.AlbumId.Equals(albumId))
-                                .OrderBy(e => e.Order).ToListAsync();
+                                    .Where(e => e.AlbumId.Equals(albumId))
+                                .OrderBy(e => e.Side)
+                                    .ThenBy(e => e.Order)
+                                .ToListAsync();
     } 
 
     public async Task<bool> ExistsAsync(long? albumId, string title)
@@ -31,7 +33,7 @@ public class AlbumSongRepository : IAlbumSongRepository
                                .Where(a => a.Song.Title.ToUpper().Equals(title.ToUpper())
                                     && a.AlbumId.Equals(albumId))
                                .AnyAsync();
-    } 
+    }
 
     public async Task<bool> ExistsAsync(long id, long? albumId, string title)
     {
@@ -39,6 +41,16 @@ public class AlbumSongRepository : IAlbumSongRepository
                                .Where(a => a.Song.Title.ToUpper().Equals(title.ToUpper())
                                     && a.AlbumId.Equals(albumId)
                                         && !a.Id.Equals(id))
+                               .AnyAsync();
+    }
+
+    public async Task<bool> TrackPositionExistsAsync(long albumId, long songId, int? side, int? order)
+    {
+        return await _context.AlbumSongs
+                               .Where(a => a.AlbumId.Equals(albumId)
+                                    && !a.SongId.Equals(songId)
+                                        && a.Side.Equals(side)
+                                            && a.Order.Equals(order))
                                .AnyAsync();
     } 
 
@@ -61,7 +73,7 @@ public class AlbumSongRepository : IAlbumSongRepository
     {
         return await _context.AlbumSongs
                         .Include(e => e.Song)
-                        .Where(e => e.Id.Equals(id))
+                            .Where(e => e.Id.Equals(id))
                         .FirstOrDefaultAsync(); 
     }
 }
