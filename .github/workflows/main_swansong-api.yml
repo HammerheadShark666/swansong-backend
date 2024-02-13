@@ -107,7 +107,7 @@ jobs:
         with:
           apiKey: ${{ secrets.POSTMAN_API_KEY }}
           collection: 4654363-93b176ce-c2bc-43e1-9735-ea3c5706a1e3
-          environment: 4654363-af478bb0-dd2a-416c-a4a8-bc748a664349
+          environment: 4654363-0ce9dc60-ef0b-42f0-9fc2-df89586c97ea
       # - name: Install Postman CLI
       #   run: |
       #     curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
