@@ -33,6 +33,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Postman Integration Testing
 		thesongremainsthesame.jpg = thesongremainsthesame.jpg
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PostmanCollections", "PostmanCollections", "{9DE5C9D9-568D-4350-8BB6-E383FFD1C7DA}"
+	ProjectSection(SolutionItems) = preProject
+		PostmanCollections\SwanSong.postman_collection.json = PostmanCollections\SwanSong.postman_collection.json
+		PostmanCollections\SwanSong.postman_globals = PostmanCollections\SwanSong.postman_globals
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
