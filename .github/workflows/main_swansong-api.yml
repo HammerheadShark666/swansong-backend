@@ -27,6 +27,9 @@ jobs:
       - name: Unit Tests
         run: dotnet test SwanSong.xUnit.Test/SwanSong.xUnit.Test.csproj --logger "console;verbosity=detailed"
 
+      - name: Nstat
+        run: netstat -tulpn
+
       - uses: matt-ball/newman-action@master
         with:
           apiKey: ${{ secrets.POSTMAN_API_KEY }}
