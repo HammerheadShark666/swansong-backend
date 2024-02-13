@@ -2410,7 +2410,8 @@
 											"    pm.expect(jsonData.id).to.be.greaterThan(0)\r",
 											"});\r",
 											"\r",
-											"pm.environment.set(\"studioId\", jsonData.id);"
+											"pm.environment.set(\"studioId\", jsonData.id);\r",
+											"pm.environment.set(\"studioUpdateName\", jsonData.name);"
 										],
 										"type": "text/javascript"
 									}
@@ -2700,7 +2701,8 @@
 											"    pm.expect(jsonData.id).to.be.greaterThan(0)\r",
 											"});\r",
 											"\r",
-											"pm.environment.set(\"recordLabelId\", jsonData.id);"
+											"pm.environment.set(\"recordLabelId\", jsonData.id);\r",
+											"pm.environment.set(\"recordLabelUpdateName\", jsonData.name);"
 										],
 										"type": "text/javascript"
 									}
@@ -2801,7 +2803,7 @@
 											"});\r",
 											"   \r",
 											"pm.test(\"The response contains a valid record label name in the response\", function () { \r",
-											"    pm.expect(contains(jsonData, \"name\" , pm.environment.get(\"recordLabelUpdateName\"))).to.be.true;\r",
+											"    pm.expect(utils.isItemInArray(jsonData, \"name\" , pm.environment.get(\"recordLabelUpdateName\"))).to.be.true;\r",
 											"});"
 										],
 										"type": "text/javascript"
