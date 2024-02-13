@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Microsoft.IdentityModel.Tokens;
 using SwanSong.Data.Repository.Interfaces;
 using SwanSong.Domain;
 using System.Text.RegularExpressions;
@@ -24,6 +23,10 @@ public class AlbumSongValidator : BaseValidator<AlbumSong>
             RuleFor(albumSong => albumSong).MustAsync(async (albumSong, cancellation) => {
                 return await AlbumSongNameExists(albumSong);
             }).WithMessage(albumSong => $"{albumSong.Song.Title} already exists.");
+
+            RuleFor(albumSong => albumSong).MustAsync(async (albumSong, cancellation) => {
+                return await AlbumSongSideOrderExists(albumSong);
+            }).WithMessage(albumSong => $"Side and track position already exists.");
 
             RuleFor(albumSong => albumSong)
                 .Must(SongLengthValid)
@@ -56,6 +59,11 @@ public class AlbumSongValidator : BaseValidator<AlbumSong>
         return albumSong.Id == 0
             ? !(await _albumSongRepository.ExistsAsync(albumSong.AlbumId, albumSong.Song.Title))
             : !(await _albumSongRepository.ExistsAsync(albumSong.Id, albumSong.AlbumId, albumSong.Song.Title));             
+    }
+
+    protected async Task<bool> AlbumSongSideOrderExists(AlbumSong albumSong)
+    {
+        return !(await _albumSongRepository.TrackPositionExistsAsync(albumSong.AlbumId, albumSong.SongId, albumSong.Side, albumSong.Order));
     }
 
     protected static bool SongLengthValid(AlbumSong albumSong)
