@@ -14,16 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Postman CLI
-        run: |
-          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-      - name: Login to Postman CLI
-        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
-      - name: Run API tests
-        run: |
-          postman collection run "4654363-93b176ce-c2bc-43e1-9735-ea3c5706a1e3" -e "4654363-af478bb0-dd2a-416c-a4a8-bc748a664349"
-
+      - uses: actions/checkout@v3      
       - name: Set up .NET
         uses: actions/setup-dotnet@v1
         with:
@@ -35,6 +26,17 @@ jobs:
 
       - name: Unit Tests
         run: dotnet test SwanSong.xUnit.Test/SwanSong.xUnit.Test.csproj --logger "console;verbosity=detailed"
+
+
+      - name: Install Postman CLI
+        run: |
+          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - name: Login to Postman CLI
+        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+      - name: Run API tests
+        run: |
+          postman collection run "4654363-93b176ce-c2bc-43e1-9735-ea3c5706a1e3" -e "4654363-af478bb0-dd2a-416c-a4a8-bc748a664349"
+
         
       # - name: Install newman utility
       #   run: npm install -g newman
