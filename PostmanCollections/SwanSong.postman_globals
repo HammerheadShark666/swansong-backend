@@ -1,0 +1,129 @@
+{
+	"id": "e81d834a-2b5d-489b-8550-c0b9156d7e6d",
+	"values": [
+		{
+			"key": "globalCountryActionResponseSchema",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "albums_schema",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "albums_paging_schema",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "album_schema",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "album_actions_schema",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "action_response_schema",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "album_upload_photo_schema",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "album_delete_schema",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "lookup_schema",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "contains",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "album_song_schema",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "album_song_add_schema",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "album_song_delete_schema",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "artist_paging_schema",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "artists_schema",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "artist_schema",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "members_schema",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "lookup_action_schema",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "lookup_action_validation_schema",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "lookup_action_validation_schema_2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2024-02-13T17:03:54.562Z",
+	"_postman_exported_using": "Postman/10.23.0"
+}
