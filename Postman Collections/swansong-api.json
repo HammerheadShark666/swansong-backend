@@ -2101,7 +2101,8 @@
 											"    pm.expect(jsonData.id).to.be.greaterThan(0)\r",
 											"});\r",
 											"\r",
-											"pm.environment.set(\"countryId\", jsonData.id);"
+											"pm.environment.set(\"countryId\", jsonData.id);\r",
+											"pm.environment.set(\"countryUpdateName\", jsonData.name);"
 										],
 										"type": "text/javascript"
 									}
@@ -2188,7 +2189,11 @@
 											"pm.test(\"Has country id greater than zero\", function () { \r",
 											"    pm.expect(jsonData).to.be.an(\"object\", \"Could not find the country\");\r",
 											"    pm.expect(jsonData.id).to.be.greaterThan(0); \r",
-											"});"
+											"});\r",
+											"\r",
+											"pm.test(\"The response contains a valid country name in the response\", function () { \r",
+											"    pm.expect(utils.isItemInArray(jsonData, \"name\" , pm.environment.get(\"countryUpdateName\"))).to.be.true;\r",
+											"}); "
 										],
 										"type": "text/javascript"
 									}
@@ -2279,11 +2284,7 @@
 											"pm.test(\"Has England\", function () { \r",
 											"    const country = jsonData.find(m => m.name === \"England\");    \r",
 											"    pm.expect(country).to.be.an(\"object\", \"Could not find the country\");\r",
-											"});\r",
-											"   \r",
-											"pm.test(\"The response contains a valid country name in the response\", function () { \r",
-											"    pm.expect(utils.isItemInArray(jsonData, \"name\" , pm.environment.get(\"countryUpdateName\"))).to.be.true;\r",
-											"}); "
+											"});"
 										],
 										"type": "text/javascript"
 									}
