@@ -2106,6 +2106,23 @@
 										],
 										"type": "text/javascript"
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "b864f3c8-5e41-47d5-987c-1a50b0fd4c21",
+										"exec": [
+											"utils = {\r",
+											"    isItemInArray: function(json, keyname, value) {\r",
+											"            return Object.keys(json).some(key => {\r",
+											"            return typeof json[key] === 'object' ? \r",
+											"                this.isItemInArray(json[key], keyname, value) : key === keyname && json[key] === value;\r",
+											"        });\r",
+											"    }\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
 								}
 							],
 							"id": "d1f47795-debe-497d-92fb-2a7188517431",
@@ -2294,14 +2311,7 @@
 									"script": {
 										"id": "3e7289fa-b0cc-46cd-975f-7ce7585cc6d1",
 										"exec": [
-											"utils = {\r",
-											"    isItemInArray: function(json, keyname, value) {\r",
-											"            return Object.keys(json).some(key => {\r",
-											"            return typeof json[key] === 'object' ? \r",
-											"                this.isItemInArray(json[key], keyname, value) : key === keyname && json[key] === value;\r",
-											"        });\r",
-											"    }\r",
-											"}"
+											""
 										],
 										"type": "text/javascript"
 									}
