@@ -111,7 +111,7 @@ jobs:
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
       - name: Run API tests
         run: |
-          postman collection run "4654363-93b176ce-c2bc-43e1-9735-ea3c5706a1e3" -e "4654363-0ce9dc60-ef0b-42f0-9fc2-df89586c97ea" --globals ${GITHUB_WORKSPACE}/PostmanCollections/SwanSong.postman_globals.json
+          postman collection run "4654363-93b176ce-c2bc-43e1-9735-ea3c5706a1e3" -e "4654363-0ce9dc60-ef0b-42f0-9fc2-df89586c97ea" --globals "/PostmanCollections/SwanSong.postman_globals.json"
 
 
     
@@ -120,7 +120,7 @@ jobs:
       #     apiKey: ${{ secrets.POSTMAN_API_KEY }}
       #     collection: 4654363-93b176ce-c2bc-43e1-9735-ea3c5706a1e3
       #     environment: 4654363-0ce9dc60-ef0b-42f0-9fc2-df89586c97ea
-      #     globals: ./PostmanCollections/SwanSong.postman_globals   #./.github/   ${{ github.workspace }}/
+      #     globals: ./PostmanCollections/SwanSong.postman_globals   #./.github/   ${{ github.workspace }}/${GITHUB_WORKSPACE}
 
 
           
