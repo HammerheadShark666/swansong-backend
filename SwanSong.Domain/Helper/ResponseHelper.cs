@@ -12,7 +12,7 @@ public class ResponseHelper
         List<Message> messages = new();
         foreach (ValidationFailure validationFailure in rules)
         {
-            messages.Add(new Message() { Text = validationFailure.ErrorMessage, Severity = GetServerity(validationFailure.Severity) });
+            messages.Add(new Message(validationFailure.ErrorMessage, GetServerity(validationFailure.Severity)));
         }
 
         return messages;        

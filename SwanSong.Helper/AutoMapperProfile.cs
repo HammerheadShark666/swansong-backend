@@ -1,10 +1,6 @@
 ﻿using SwanSong.Domain;
-using SwanSong.Domain.Dto.Request;
-using SwanSong.Domain.Dto.Response;
-using SwanSong.Domain.Model.Authentication;
-using SwanSong.Domain.Model.Profile;
+using SwanSong.Domain.Dto;
 using System.Collections.Generic;
-using Profile = SwanSong.Domain.Model.Profile.Profile;
 
 namespace SwanSong.Helper;
 
@@ -21,7 +17,11 @@ public class AutoMapperProfile : AutoMapper.Profile
         CreateMap<Artist, ArtistUpdateRequest>().ReverseMap();
         CreateMap<Artist, ArtistActionResponse>().ReverseMap();
         CreateMap<Artist, ArtistResponse>().ReverseMap();
-        CreateMap<Artist, ArtistLookUpResponse>().ReverseMap();
+        CreateMap<Artist, ArtistLookUpResponse>() //.ReverseMap();
+          .ConstructUsing((artist, c) => new ArtistLookUpResponse(
+              artist.Id,
+              artist.Name,
+              artist.Photo));
 
         CreateMap<Album, AlbumAddRequest>().ReverseMap();
         CreateMap<Album, AlbumUpdateRequest>().ReverseMap();
@@ -73,26 +73,15 @@ public class AutoMapperProfile : AutoMapper.Profile
                 song.Id,
                 song.Title,
                 song.Length
-                ));
-         
-
-        CreateMap<Account, ProfileRequest>().ReverseMap();
-        CreateMap<Profile, ProfileRequest>().ReverseMap();
-        CreateMap<Account, ProfileResponse>().ReverseMap();
-
-        CreateMap<ProfilePasswordChange, ProfilePasswordChangeActionResponse>().ReverseMap();
-        CreateMap<ProfilePasswordChange, ProfilePasswordChangeRequest>().ReverseMap();
+                ));         
+          
+        CreateMap<ProfilePasswordChangeRequest, ProfilePasswordChangeActionResponse>().ReverseMap(); 
         CreateMap<Account, ProfilePasswordChangeRequest>().ReverseMap();
-
+        CreateMap<Account, ProfileResponse>().ReverseMap();
+        CreateMap<Account, ProfileRequest>().ReverseMap();
         CreateMap<Account, JwtRefreshTokenActionResponse>().ReverseMap();
-        CreateMap<Account, LoginActionResponse>().ReverseMap();
-
-        CreateMap<Login, LoginRequest>().ReverseMap(); 
-
-        CreateMap<ResetPassword, ResetPasswordRequest>().ReverseMap();
-        CreateMap<Register, Account>().ReverseMap();
-        CreateMap<Register, RegisterRequest>().ReverseMap();
-        CreateMap<RegisterVerifyEmail, RegisterVerifyEmailRequest>().ReverseMap();
+        CreateMap<Account, LoginActionResponse>().ReverseMap(); 
+        CreateMap<RegisterRequest, Account>().ReverseMap(); 
 
         CreateMap<RecordLabel, RecordLabelResponse>().ReverseMap();
         CreateMap<RecordLabel, RecordLabelActionResponse>().ReverseMap();

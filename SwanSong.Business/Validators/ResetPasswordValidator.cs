@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using SwanSong.Data.Repository.Interfaces;
-using SwanSong.Domain.Model.Authentication;
+using SwanSong.Domain.Dto;
 using System.Threading.Tasks;
 
 namespace SwanSong.Business.Validator;
 
-public class ResetPasswordValidator : BaseValidator<ResetPassword>
+public class ResetPasswordValidator : BaseValidator<ResetPasswordRequest>
 {
     private readonly IAccountRepository _accountRepository;
 
@@ -49,8 +49,8 @@ public class ResetPasswordValidator : BaseValidator<ResetPassword>
         });
     }
   
-    protected async Task<bool> TokenValid(ResetPassword resetPassword)
+    protected async Task<bool> TokenValid(ResetPasswordRequest resetPasswordRequest)
     {
-        return await _accountRepository.ValidResetTokenAsync(resetPassword.Token);
+        return await _accountRepository.ValidResetTokenAsync(resetPasswordRequest.Token);
     }        
 }

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SwanSong.Domain.Model.Authentication;
+namespace SwanSong.Domain.Dto;
 
 public class ForgotPasswordRequest
 {

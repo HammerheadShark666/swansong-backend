@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 using SwanSong.Data.Repository.Interfaces;
-using SwanSong.Domain.Model.Profile;
+using SwanSong.Domain.Dto;
 using System.Threading.Tasks;
 using BC = BCrypt.Net.BCrypt;
 
 namespace SwanSong.Business.Validator;
 
-public class ProfilePasswordChangeValidator : BaseValidator<ProfilePasswordChange>
+public class ProfilePasswordChangeValidator : BaseValidator<ProfilePasswordChangeRequest>
 {
     private readonly IAccountRepository _accountRepository;
 
@@ -50,10 +50,10 @@ public class ProfilePasswordChangeValidator : BaseValidator<ProfilePasswordChang
         });
     }
 
-    protected async Task<bool> ValidAccountDetails(ProfilePasswordChange profilePasswordChange)
+    protected async Task<bool> ValidAccountDetails(ProfilePasswordChangeRequest profilePasswordChangeRequest)
     {
-        var account = await _accountRepository.GetAsync(profilePasswordChange.Email);
-        if (account == null || !account.IsAuthenticated || !BC.Verify(profilePasswordChange.CurrentPassword, account.PasswordHash))
+        var account = await _accountRepository.GetAsync(profilePasswordChangeRequest.Email);
+        if (account == null || !account.IsAuthenticated || !BC.Verify(profilePasswordChangeRequest.CurrentPassword, account.PasswordHash))
         {
             return false;
         }           

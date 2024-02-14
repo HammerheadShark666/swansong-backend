@@ -1,15 +1,7 @@
-﻿namespace SwanSong.Domain.Dto;
+﻿using System.Collections.Generic;
 
-public class Message
-{
-    public string Text { get; set; }
-    public string Severity { get; set; }
+namespace SwanSong.Domain.Dto;
 
-    public Message() { }
+public record MessageResponse(List<Message> Messages, string Severity);
 
-    public Message(string text, string serverity)
-    {
-        Text = text;
-        Severity = serverity;
-    }
-}
+public record Message(string Text, string Severity); 

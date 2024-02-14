@@ -1,4 +1,4 @@
-﻿namespace SwanSong.Domain.Model.Paging;
+﻿namespace SwanSong.Domain.Dto;
 
 public class BasePagedResponse<T>
 {

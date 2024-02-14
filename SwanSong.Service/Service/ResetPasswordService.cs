@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain;
-using SwanSong.Domain.Dto.Request;
-using SwanSong.Domain.Dto.Response;
+using SwanSong.Domain.Dto;
 using SwanSong.Domain.Exceptions;
 using SwanSong.Domain.Helper;
-using SwanSong.Domain.Model.Authentication;
 using SwanSong.Helper;
 using SwanSong.Helper.Interfaces;
 using SwanSong.Helpers.Authentication;
@@ -20,10 +18,10 @@ public class ResetPasswordService : IResetPasswordService
 { 
     public readonly IUnitOfWork _unitOfWork;
     public readonly IMapper _mapper;
-    public readonly IValidatorHelper<ResetPassword> _validatorHelper;
+    public readonly IValidatorHelper<ResetPasswordRequest> _validatorHelper;
 
     public ResetPasswordService(IMapper mapper,
-                                IValidatorHelper<ResetPassword> validatorHelper, 
+                                IValidatorHelper<ResetPasswordRequest> validatorHelper, 
                                 IUnitOfWork unitOfWork)
     {
         _validatorHelper = validatorHelper; 
@@ -47,13 +45,11 @@ public class ResetPasswordService : IResetPasswordService
     }
 
     public async Task<ResetPasswordActionResponse> ResetPasswordAsync(ResetPasswordRequest resetPasswordRequest)
-    {
-        var resetPassword = _mapper.Map<ResetPassword>(resetPasswordRequest);
-
-        await BeforeResetPasswordAsync(resetPassword); ;
+    { 
+        await BeforeResetPasswordAsync(resetPasswordRequest); ;
         await UpdateAccountAsync(resetPasswordRequest.Token, resetPasswordRequest.Password);
 
-        return await AfterResetPasswordAsync(resetPassword); 
+        return await AfterResetPasswordAsync(resetPasswordRequest); 
     }  
      
     public async Task ValidateResetTokenAsync(ValidateResetTokenRequest model)
@@ -68,14 +64,14 @@ public class ResetPasswordService : IResetPasswordService
 
     #region Private Functions
 
-    private async Task BeforeResetPasswordAsync(ResetPassword resetPassword)
+    private async Task BeforeResetPasswordAsync(ResetPasswordRequest resetPasswordRequest)
     {
-        await _validatorHelper.ValidateAsync(resetPassword, Constants.ValidationEventBeforeSave);
+        await _validatorHelper.ValidateAsync(resetPasswordRequest, Constants.ValidationEventBeforeSave);
     }
 
-    private async Task<ResetPasswordActionResponse> AfterResetPasswordAsync(ResetPassword resetPassword)
+    private async Task<ResetPasswordActionResponse> AfterResetPasswordAsync(ResetPasswordRequest resetPasswordRequest)
     { 
-        var afterSaveValidate = await _validatorHelper.AfterEventAsync(resetPassword, Constants.ValidationEventAfterSave);
+        var afterSaveValidate = await _validatorHelper.AfterEventAsync(resetPasswordRequest, Constants.ValidationEventAfterSave);
         return new ResetPasswordActionResponse(ResponseHelper.GetMessages(afterSaveValidate.Errors), true); 
     }
 

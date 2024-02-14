@@ -1,4 +1,4 @@
-﻿using SwanSong.Domain.Dto.Response;
+﻿using SwanSong.Domain.Dto;
 using System.Threading.Tasks;
 
 namespace SwanSong.Service.Interfaces;

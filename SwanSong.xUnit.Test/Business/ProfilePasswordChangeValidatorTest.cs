@@ -4,7 +4,7 @@ using Moq;
 using SwanSong.Business.Validator;
 using SwanSong.Data.Repository.Interfaces;
 using SwanSong.Domain;
-using SwanSong.Domain.Model.Profile;
+using SwanSong.Domain.Dto;
 using SwanSong.xUnit.Test.Helpers;
 using System;
 using System.Threading.Tasks;
@@ -15,7 +15,7 @@ namespace SwanSong.xUnit.Test.Business;
 public class ProfilePasswordChangeValidatorTest
 {
     private Mock<IAccountRepository> accountRepositoryMock;
-    private IValidator<ProfilePasswordChange> validator; 
+    private IValidator<ProfilePasswordChangeRequest> validator; 
 
     public ProfilePasswordChangeValidatorTest()
     {
@@ -120,16 +120,9 @@ public class ProfilePasswordChangeValidatorTest
         Assert.Equal("Current password is invalid.", validationResult.Errors[0].ErrorMessage);
     }
 
-    private ProfilePasswordChange CreateProfilePasswordChange(int id = 1, string password = "Password#2",
+    private ProfilePasswordChangeRequest CreateProfilePasswordChange(int id = 1, string password = "Password#2",
         string confirmPassword = "Password#2", string currentPassword = "Password#1", string email = "test@hotmail.com")
     {
-        return new ProfilePasswordChange()
-        {
-            Id = id,
-            Password = password,
-            ConfirmPassword = confirmPassword,
-            CurrentPassword = currentPassword,
-            Email = email
-        };
+        return new ProfilePasswordChangeRequest(id, password, confirmPassword, currentPassword, email);
     }
 }

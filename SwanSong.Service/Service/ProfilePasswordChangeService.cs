@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain;
-using SwanSong.Domain.Dto.Request;
-using SwanSong.Domain.Dto.Response;
+using SwanSong.Domain.Dto;
 using SwanSong.Domain.Helper;
-using SwanSong.Domain.Model.Authentication;
-using SwanSong.Domain.Model.Profile;
 using SwanSong.Helper;
 using SwanSong.Helper.Interfaces;
 using SwanSong.Service.Interfaces;
@@ -19,10 +16,10 @@ public class ProfilePasswordChangeService : IProfilePasswordChangeService
 {
     public readonly IUnitOfWork _unitOfWork;
     public readonly IMapper _mapper;
-    public readonly IValidatorHelper<ProfilePasswordChange> _validatorHelper;
+    public readonly IValidatorHelper<ProfilePasswordChangeRequest> _validatorHelper;
 
     public ProfilePasswordChangeService(IMapper mapper,
-                                        IValidatorHelper<ProfilePasswordChange> validatorHelper, 
+                                        IValidatorHelper<ProfilePasswordChangeRequest> validatorHelper, 
                                         IUnitOfWork unitOfWork)
     {
         _validatorHelper = validatorHelper; 
@@ -34,7 +31,7 @@ public class ProfilePasswordChangeService : IProfilePasswordChangeService
 
     public async Task<ProfilePasswordChangeActionResponse> UpdatePasswordAsync(ProfilePasswordChangeRequest profilePasswordChangeRequest)
     {
-        ProfilePasswordChange profilePasswordChange = _mapper.Map<ProfilePasswordChange>(profilePasswordChangeRequest);
+        ProfilePasswordChangeRequest profilePasswordChange = _mapper.Map<ProfilePasswordChangeRequest>(profilePasswordChangeRequest);
 
         await BeforeProfilePasswordChangeAsync(profilePasswordChange);
         await UpdatePasswordAsync(profilePasswordChange.Id, profilePasswordChangeRequest);
@@ -46,14 +43,14 @@ public class ProfilePasswordChangeService : IProfilePasswordChangeService
 
     #region Private Functions
 
-    private async Task BeforeProfilePasswordChangeAsync(ProfilePasswordChange profilePasswordChange)
+    private async Task BeforeProfilePasswordChangeAsync(ProfilePasswordChangeRequest profilePasswordChangeRequest)
     {
-        await _validatorHelper.ValidateAsync(profilePasswordChange, Constants.ValidationEventBeforeSave);
+        await _validatorHelper.ValidateAsync(profilePasswordChangeRequest, Constants.ValidationEventBeforeSave);
     }
 
-    private async Task<ProfilePasswordChangeActionResponse> AfterProfilePasswordChangeAsync(ProfilePasswordChange profilePasswordChange)
+    private async Task<ProfilePasswordChangeActionResponse> AfterProfilePasswordChangeAsync(ProfilePasswordChangeRequest profilePasswordChangeRequest)
     {
-        var afterSaveValidate = await _validatorHelper.AfterEventAsync(profilePasswordChange, Constants.ValidationEventAfterSave);
+        var afterSaveValidate = await _validatorHelper.AfterEventAsync(profilePasswordChangeRequest, Constants.ValidationEventAfterSave);
         return new ProfilePasswordChangeActionResponse(ResponseHelper.GetMessages(afterSaveValidate.Errors), true);
     }
 

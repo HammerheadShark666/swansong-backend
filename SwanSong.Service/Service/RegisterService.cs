@@ -2,10 +2,8 @@
 using Microsoft.Extensions.Caching.Memory;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain;
-using SwanSong.Domain.Dto.Request;
-using SwanSong.Domain.Dto.Response;
+using SwanSong.Domain.Dto;
 using SwanSong.Domain.Helper;
-using SwanSong.Domain.Model.Authentication;
 using SwanSong.Helper;
 using SwanSong.Helper.Interfaces;
 using SwanSong.Helpers.Authentication;
@@ -22,10 +20,10 @@ public class RegisterService : IRegisterService
     public readonly IMemoryCache _memoryCache;
     public readonly IUnitOfWork _unitOfWork;
     public readonly IMapper _mapper;
-    public readonly IValidatorHelper<Register> _validatorHelper;
+    public readonly IValidatorHelper<RegisterRequest> _validatorHelper;
 
     public RegisterService(IMapper mapper,
-                           IValidatorHelper<Register> validatorHelper,
+                           IValidatorHelper<RegisterRequest> validatorHelper,
                            IMemoryCache memoryCache,
                            IUnitOfWork unitOfWork)
     {
@@ -39,40 +37,40 @@ public class RegisterService : IRegisterService
 
     public async Task<RegisterActionResponse> RegisterAsync(RegisterRequest registerRequest)
     {
-        var register = _mapper.Map<Register>(registerRequest);
+        var register = _mapper.Map<RegisterRequest>(registerRequest);
 
-        await BeforeRegisterAsync(register);
-        Account account = await SaveAccountAsync(await CreateAccountAsync(register));
+        await BeforeRegisterAsync(registerRequest);
+        Account account = await SaveAccountAsync(await CreateAccountAsync(registerRequest));
 
         SendVerificationEmail(account.Email, account.VerificationToken);
 
-        return await AfterRegisterAsync(register);          
+        return await AfterRegisterAsync(registerRequest);          
     }
 
     #endregion
 
     #region Private Functions
 
-    private async Task BeforeRegisterAsync(Register register)
+    private async Task BeforeRegisterAsync(RegisterRequest registerRequest)
     {
-        await _validatorHelper.ValidateAsync(register, Constants.ValidationEventBeforeSave);
+        await _validatorHelper.ValidateAsync(registerRequest, Constants.ValidationEventBeforeSave);
     }
 
-    private async Task<RegisterActionResponse> AfterRegisterAsync(Register register)
+    private async Task<RegisterActionResponse> AfterRegisterAsync(RegisterRequest registerRequest)
     {
-        var afterSaveValidate = await _validatorHelper.AfterEventAsync(register, Constants.ValidationEventAfterSave);
-        return new RegisterActionResponse(register.FirstName, register.LastName, register.Email,  ResponseHelper.GetMessages(afterSaveValidate.Errors), true);
+        var afterSaveValidate = await _validatorHelper.AfterEventAsync(registerRequest, Constants.ValidationEventAfterSave);
+        return new RegisterActionResponse(registerRequest.FirstName, registerRequest.LastName, registerRequest.Email,  ResponseHelper.GetMessages(afterSaveValidate.Errors), true);
     }
 
-    private async Task<Account> CreateAccountAsync(Register model)
+    private async Task<Account> CreateAccountAsync(RegisterRequest registerRequest)
     {
-        var account = _mapper.Map<Account>(model);
+        var account = _mapper.Map<Account>(registerRequest);
 
         var isFirstAccount = await _unitOfWork.Accounts.AnyAccountExistAsync(); 
         account.Role = isFirstAccount ? Role.Admin : Role.User;
         account.Created = DateTime.Now;
         account.VerificationToken = AuthenticationHelper.CreateRandomToken();
-        account.PasswordHash = BC.HashPassword(model.Password);
+        account.PasswordHash = BC.HashPassword(registerRequest.Password);
 
         return account;
     }         

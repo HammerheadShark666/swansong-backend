@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using SwanSong.Data.Repository.Interfaces;
-using SwanSong.Domain.Model.Profile;
+using SwanSong.Domain.Dto;
 using System.Threading.Tasks;
 
 namespace SwanSong.Business.Validator;
 
-public class ProfileValidator : BaseValidator<Profile>
+public class ProfileValidator : BaseValidator<ProfileRequest>
 {
     private readonly IAccountRepository _accountRepository;
 
@@ -50,8 +50,8 @@ public class ProfileValidator : BaseValidator<Profile>
         });
     }
 
-    protected async Task<bool> EmailNameExists(Profile profile)
+    protected async Task<bool> EmailNameExists(ProfileRequest profileRequest)
     {
-        return !(await _accountRepository.AccountExistsAsync(profile.Email, profile.Id));
+        return !(await _accountRepository.AccountExistsAsync(profileRequest.Email, profileRequest.Id));
     }
 }
