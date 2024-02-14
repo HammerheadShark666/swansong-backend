@@ -1,5 +1,4 @@
-﻿using SwanSong.Domain.Dto.Request;
-using SwanSong.Domain.Dto.Response;
+﻿using SwanSong.Domain.Dto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain;
-using SwanSong.Domain.Dto.Request;
-using SwanSong.Domain.Dto.Response;
+using SwanSong.Domain.Dto;
 using SwanSong.Domain.Helper;
-using SwanSong.Domain.Model.Authentication;
 using SwanSong.Helper;
 using SwanSong.Helper.Interfaces;
 using SwanSong.Service.Interfaces;
@@ -17,10 +15,10 @@ public class RegisterVerifyEmailService : IRegisterVerifyEmailService
 { 
     public readonly IUnitOfWork _unitOfWork;
     public readonly IMapper _mapper;
-    public readonly IValidatorHelper<RegisterVerifyEmail> _validatorHelper;
+    public readonly IValidatorHelper<RegisterVerifyEmailRequest> _validatorHelper;
 
     public RegisterVerifyEmailService(IMapper mapper,
-                                      IValidatorHelper<RegisterVerifyEmail> validatorHelper, 
+                                      IValidatorHelper<RegisterVerifyEmailRequest> validatorHelper, 
                                       IUnitOfWork unitOfWork)
     {
         _validatorHelper = validatorHelper; 
@@ -32,7 +30,7 @@ public class RegisterVerifyEmailService : IRegisterVerifyEmailService
 
     public async Task<RegisterVerifyEmailActionResponse> VerifyEmailAsync(RegisterVerifyEmailRequest registerVerifyEmailRequest)
     { 
-        var registerVerifyEmail = _mapper.Map<RegisterVerifyEmail>(registerVerifyEmailRequest);
+        var registerVerifyEmail = _mapper.Map<RegisterVerifyEmailRequest>(registerVerifyEmailRequest);
 
         await BeforeRegisterVerifyEmailAsync(registerVerifyEmail);
         Account account = await UpdateAccountAsync(registerVerifyEmail);
@@ -44,20 +42,20 @@ public class RegisterVerifyEmailService : IRegisterVerifyEmailService
 
     #region Private Functions     
 
-    private async Task BeforeRegisterVerifyEmailAsync(RegisterVerifyEmail registerVerifyEmail)
+    private async Task BeforeRegisterVerifyEmailAsync(RegisterVerifyEmailRequest registerVerifyEmailRequest)
     {
-        await _validatorHelper.ValidateAsync(registerVerifyEmail, Constants.ValidationEventBeforeSave);
+        await _validatorHelper.ValidateAsync(registerVerifyEmailRequest, Constants.ValidationEventBeforeSave);
     }
 
-    private async Task<RegisterVerifyEmailActionResponse> AfterRegisterVerifyEmailAsync(RegisterVerifyEmail registerVerifyEmail)
+    private async Task<RegisterVerifyEmailActionResponse> AfterRegisterVerifyEmailAsync(RegisterVerifyEmailRequest registerVerifyEmailRequest)
     {
-        var afterSaveValidate = await _validatorHelper.AfterEventAsync(registerVerifyEmail, Constants.ValidationEventAfterSave);
+        var afterSaveValidate = await _validatorHelper.AfterEventAsync(registerVerifyEmailRequest, Constants.ValidationEventAfterSave);
         return new RegisterVerifyEmailActionResponse(ResponseHelper.GetMessages(afterSaveValidate.Errors), true);
     }
 
-    private async Task<Account> UpdateAccountAsync(RegisterVerifyEmail registerVerifyEmail)
+    private async Task<Account> UpdateAccountAsync(RegisterVerifyEmailRequest registerVerifyEmailRequest)
     {
-        var account = await _unitOfWork.Accounts.GetByVerificationTokenAsync(registerVerifyEmail.Token);
+        var account = await _unitOfWork.Accounts.GetByVerificationTokenAsync(registerVerifyEmailRequest.Token);
         account.Verified = DateTime.Now;
         account.VerificationToken = null;
 

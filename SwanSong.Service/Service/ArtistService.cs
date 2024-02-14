@@ -5,8 +5,7 @@ using SwanSong.Azure.Storage.Interfaces;
 using SwanSong.Data.Helper;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain;
-using SwanSong.Domain.Dto.Request;
-using SwanSong.Domain.Dto.Response;
+using SwanSong.Domain.Dto;
 using SwanSong.Domain.Helper;
 using SwanSong.Helper;
 using SwanSong.Helper.Exceptions;
@@ -14,7 +13,6 @@ using SwanSong.Helper.Filter;
 using SwanSong.Helper.Interfaces;
 using SwanSong.Service.Interfaces;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -60,14 +58,14 @@ public class ArtistService : IArtistService
         return _mapper.Map<List<ArtistResponse>>(await _unitOfWork.Artists.GetRandomAsync(numberOfArtists)).OrderBy(a => a.Name).ToList();
     }
 
-    public async Task<List<ArtistResponse>> SearchByNameAsync(string criteria)
+    public async Task<List<ArtistLookUpResponse>> SearchByNameAsync(string criteria)
     {
-        return _mapper.Map<List<ArtistResponse>>(await _unitOfWork.Artists.SearchByNameAsync(criteria)); 
+        return _mapper.Map<List<ArtistLookUpResponse>>(await _unitOfWork.Artists.SearchByNameAsync(criteria)); 
     }
 
-    public async Task<List<ArtistResponse>> SearchByAlphaNumericAsync(string alphanumeric) 
-    {
-        return _mapper.Map<List<ArtistResponse>>(await _unitOfWork.Artists.SearchByAlphaNumericAsync(alphanumeric)); 
+    public async Task<List<ArtistLookUpResponse>> SearchByAlphaNumericAsync(string alphanumeric) 
+    { 
+        return _mapper.Map<List<ArtistLookUpResponse>>(await _unitOfWork.Artists.SearchByAlphaNumericAsync(alphanumeric)); 
     }
 
     public async Task<ArtistResponse> GetAsync(long id)

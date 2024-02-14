@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain;
-using SwanSong.Domain.Dto.Request;
-using SwanSong.Domain.Dto.Response;
+using SwanSong.Domain.Dto;
 using SwanSong.Domain.Helper;
-using SwanSong.Domain.Model.Profile;
 using SwanSong.Helper;
 using SwanSong.Helper.Interfaces;
 using SwanSong.Service.Interfaces;
@@ -17,10 +15,10 @@ public class ProfileService : IProfileService
 { 
     public readonly IUnitOfWork _unitOfWork;
     public readonly IMapper _mapper;
-    public readonly IValidatorHelper<Domain.Model.Profile.Profile> _validatorHelper;
+    public readonly IValidatorHelper<ProfileRequest> _validatorHelper;
 
     public ProfileService(IMapper mapper,
-                          IValidatorHelper<Domain.Model.Profile.Profile> validatorHelper, 
+                          IValidatorHelper<ProfileRequest> validatorHelper, 
                           IUnitOfWork unitOfWork)
     {
         _validatorHelper = validatorHelper; 
@@ -36,39 +34,38 @@ public class ProfileService : IProfileService
     }
 
     public async Task<ProfileActionResponse> UpdateAsync(int id, ProfileRequest profileRequest)
-    {
-        Domain.Model.Profile.Profile profile = _mapper.Map<Domain.Model.Profile.Profile>(profileRequest);
-        profile.Id = id;
+    { 
+        profileRequest = profileRequest with { Id = id };
 
-        await BeforeProfileUpdateAsync(profile);
-        await UpdateAccountAsync(profile.Id, profileRequest);
+        await BeforeProfileUpdateAsync(profileRequest); 
+        await UpdateAccountAsync(profileRequest);
 
-        return await AfterProfileProfileAsync(profile); 
+        return await AfterProfileProfileAsync(profileRequest); 
     }
 
     #endregion
 
     #region Private Functions
 
-    private async Task BeforeProfileUpdateAsync(Domain.Model.Profile.Profile profile)
+    private async Task BeforeProfileUpdateAsync(ProfileRequest profileRequest)
     {
-        await _validatorHelper.ValidateAsync(profile, Constants.ValidationEventBeforeSave);
+        await _validatorHelper.ValidateAsync(profileRequest, Constants.ValidationEventBeforeSave);
     }
 
-    private async Task<ProfileActionResponse> AfterProfileProfileAsync(Domain.Model.Profile.Profile profile)
+    private async Task<ProfileActionResponse> AfterProfileProfileAsync(ProfileRequest profileRequest)
     {
-        var afterSaveValidate = await _validatorHelper.AfterEventAsync(profile, Constants.ValidationEventAfterSave);
-        return new ProfileActionResponse(profile.FirstName, profile.LastName, profile.Email, ResponseHelper.GetMessages(afterSaveValidate.Errors), true);
+        var afterSaveValidate = await _validatorHelper.AfterEventAsync(profileRequest, Constants.ValidationEventAfterSave);
+        return new ProfileActionResponse(profileRequest.FirstName, profileRequest.LastName, profileRequest.Email, ResponseHelper.GetMessages(afterSaveValidate.Errors), true);
     }
 
-    private async Task UpdateAccountAsync(int id, ProfileRequest profileRequest)
+    private async Task UpdateAccountAsync(ProfileRequest profileRequest)
     {
-        Account account = await GetAccountAsync(id);
+        Account account = await GetAccountAsync(profileRequest.Id);
         account = _mapper.Map<ProfileRequest, Account>(profileRequest, account);
 
         _unitOfWork.Accounts.Update(account);
         await _unitOfWork.Complete();
-    } 
+    }
 
     private async Task<Account> GetAccountAsync(int id)
     {

@@ -1,4 +1,4 @@
-﻿using SwanSong.Domain.Model.Paging;
+﻿using SwanSong.Domain.Dto;
 using SwanSong.Helper.Filter;
 using System;
 using System.Collections.Generic;

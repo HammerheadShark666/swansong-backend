@@ -28,7 +28,7 @@ public class FailedValidationResponse
             Messages = new();
             foreach (ValidationFailure validationFailure in value)
             {
-                Messages.Add(new Message() { Text = validationFailure.ErrorMessage, Severity = GetServerity(validationFailure.Severity) });
+                Messages.Add(new Message(validationFailure.ErrorMessage, GetServerity(validationFailure.Severity)));
             }
         }
     }

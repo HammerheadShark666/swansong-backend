@@ -3,8 +3,7 @@ using Microsoft.Extensions.Caching.Memory;
 using SwanSong.Data.Helper;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain;
-using SwanSong.Domain.Dto.Request;
-using SwanSong.Domain.Dto.Response;
+using SwanSong.Domain.Dto;
 using SwanSong.Domain.Helper;
 using SwanSong.Helper;
 using SwanSong.Helper.Exceptions;
@@ -53,8 +52,7 @@ public class CountryService : ICountryService
         await BeforeSaveAsync(country);
         await SaveAddAsync(country, CacheKeys.Country);
 
-        return await AfterSaveAsync(country);
-         
+        return await AfterSaveAsync(country);         
     }
 
     public async Task<CountryActionResponse> UpdateAsync(CountryUpdateRequest countryUpdateRequest)

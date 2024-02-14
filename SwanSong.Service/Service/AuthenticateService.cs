@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using SwanSong.Data.UnitOfWork.Interfaces;
 using SwanSong.Domain;
-using SwanSong.Domain.Dto.Request;
-using SwanSong.Domain.Dto.Response;
+using SwanSong.Domain.Dto;
 using SwanSong.Domain.Exceptions;
 using SwanSong.Domain.Helper;
-using SwanSong.Domain.Model.Authentication;
 using SwanSong.Helper;
 using SwanSong.Helper.Interfaces;
 using SwanSong.Helpers.Authentication;
@@ -20,10 +18,10 @@ public class AuthenticateService : IAuthenticateService
 { 
     public readonly IUnitOfWork _unitOfWork;
     public readonly IMapper _mapper;
-    public readonly IValidatorHelper<Login> _validatorHelper;
+    public readonly IValidatorHelper<LoginRequest> _validatorHelper;
 
     public AuthenticateService(IMapper mapper,
-                               IValidatorHelper<Login> validatorHelper, 
+                               IValidatorHelper<LoginRequest> validatorHelper, 
                                IUnitOfWork unitOfWork)
     {
         _validatorHelper = validatorHelper; 
@@ -35,7 +33,7 @@ public class AuthenticateService : IAuthenticateService
 
     public async Task<LoginActionResponse> AuthenticateAsync(LoginRequest loginRequest, string ipAddress)
     {
-        var login = _mapper.Map<Login>(loginRequest);
+        var login = _mapper.Map<LoginRequest>(loginRequest);
 
         await _validatorHelper.ValidateAsync(login, Constants.ValidationEventBeforeSave);
                 
@@ -74,7 +72,6 @@ public class AuthenticateService : IAuthenticateService
 
         return account;
     }
-
     
     private async Task<Account> UpdateAccountRefreshTokenAsync(Account account, RefreshToken refreshToken)
     {

@@ -1,9 +1,8 @@
 ﻿using FluentValidation;
-using SwanSong.Domain.Dto.Response;
-using SwanSong.Helper.Interfaces;
-using SwanSong.Helper.Exceptions;
-using System.Threading.Tasks;
 using SwanSong.Domain.Dto;
+using SwanSong.Helper.Exceptions;
+using SwanSong.Helper.Interfaces;
+using System.Threading.Tasks;
 
 namespace SwanSong.Helper;
 public class ValidatorHelper<T> : IValidatorHelper<T>

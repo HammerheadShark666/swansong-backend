@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SwanSong.Domain.Dto.Request;
-using SwanSong.Domain.Dto.Response;
+using SwanSong.Domain.Dto;
 using SwanSong.Helper.Filter;
 using System.Collections.Generic;
 using System.Threading.Tasks;

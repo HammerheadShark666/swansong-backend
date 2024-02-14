@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 using SwanSong.Data.Repository.Interfaces;
-using SwanSong.Domain.Model.Authentication;
+using SwanSong.Domain.Dto;
 using System.Threading.Tasks;
 using BC = BCrypt.Net.BCrypt;
 
 namespace SwanSong.Business.Validator;
 
-public class LoginValidator : BaseValidator<Login>
+public class LoginValidator : BaseValidator<LoginRequest>
 {
     private readonly IAccountRepository _accountRepository;
      
@@ -39,10 +39,10 @@ public class LoginValidator : BaseValidator<Login>
         }); 
     }
 
-    protected async Task<bool> ValidLoginDetails(Login login)
+    protected async Task<bool> ValidLoginDetails(LoginRequest loginRequest)
     {
-        var account = await _accountRepository.GetAsync(login.Email);
-        if (account == null || !account.IsAuthenticated || !BC.Verify(login.Password, account.PasswordHash))
+        var account = await _accountRepository.GetAsync(loginRequest.Email);
+        if (account == null || !account.IsAuthenticated || !BC.Verify(loginRequest.Password, account.PasswordHash))
         {
             return false;
         }            
