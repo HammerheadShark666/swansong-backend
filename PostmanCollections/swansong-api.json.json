@@ -2742,7 +2742,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"Name\": \"Test Studio\"\r\n}",
+									"raw": "{\r\n    \"Name\": \"Tyke Records\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
