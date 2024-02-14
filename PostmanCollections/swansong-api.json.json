@@ -2066,7 +2066,7 @@
 											"});\r",
 											"\r",
 											"pm.test('Schema validation', () => {\r",
-											"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('lookup_action_schema')));\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('lookup_action_schema')));\r",
 											"}); \r",
 											"\r",
 											"let jsonData = pm.response.json();   \r",
@@ -2562,7 +2562,7 @@
 											"});\r",
 											"\r",
 											"pm.test('Schema validation', () => {\r",
-											"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('lookup_schema')));\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('lookup_schema')));\r",
 											"}); \r",
 											"\r",
 											"var jsonData = pm.response.json();\r",
@@ -2714,33 +2714,26 @@
 							"response": []
 						},
 						{
-							"name": "/api/record-labels/record-label/update",
+							"name": "/api/record-labels/record-label/add (Fail 400)",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
-										"id": "49bcbf25-01f1-4fb1-abbb-f7f6bf9aa284",
+										"id": "7142455a-8e7a-4e9c-971e-80cecb99c5ab",
 										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
 											"});\r",
-											"\r",
+											" \r",
 											"pm.test('Schema validation', () => {\r",
-											"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('lookup_action_schema')));\r",
-											"}); \r",
-											"\r",
-											"let jsonData = pm.response.json();     \r",
-											"\r",
-											"pm.test(\"Has record label id greater than zero\", function () { \r",
-											"    pm.expect(jsonData).to.be.an(\"object\", \"Could not find the record label\");\r",
-											"    pm.expect(jsonData.id).to.be.greaterThan(0); \r",
-											"});"
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('lookup_action_validation_schema_2')));\r",
+											"}); "
 										],
 										"type": "text/javascript"
 									}
 								}
 							],
-							"id": "55c60bdf-27e4-4d13-bcb4-8f395113f7ce",
+							"id": "a7d4f5e6-785c-414a-9dde-ab1aaa56bb0a",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -2749,14 +2742,14 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"Id\": {{recordLabelId}},\r\n    \"Name\": \"{{recordLabelUpdateName}}\"\r\n}",
+									"raw": "{\r\n    \"Name\": \"Test Studio\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
-								"url": "{{baseUrl}}/api/record-labels/record-label/update"
+								"url": "{{baseUrl}}/api/record-labels/record-label/add"
 							},
 							"response": []
 						},
@@ -2796,7 +2789,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"Id\": {{studioId}},\r\n    \"Name\": \"{{studioUpdateName}}\"\r\n}",
+									"raw": "{\r\n    \"Id\": {{recordLabelId}},\r\n    \"Name\": \"{{recordLabelUpdateName}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2836,7 +2829,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"Id\": {{studioId}},\r\n    \"Name\": \"studiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudio\"\r\n}",
+									"raw": "{\r\n    \"Id\": {{recordLabelId}},\r\n    \"Name\": \"studiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudio\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
