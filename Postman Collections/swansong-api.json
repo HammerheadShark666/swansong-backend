@@ -1398,7 +1398,7 @@
 									"});\r",
 									"\r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('artist_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('artist_schema')));\r",
 									"});  \r",
 									"\r",
 									"let jsonData = pm.response.json(); \r",
@@ -1463,7 +1463,7 @@
 									"}); \r",
 									" \r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('album_actions_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('album_actions_schema')));\r",
 									"}); \r",
 									"  \r",
 									"let jsonData = pm.response.json();  \r",
@@ -1512,7 +1512,7 @@
 									"});\r",
 									"\r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('album_actions_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('album_actions_schema')));\r",
 									"}); \r",
 									"  \r",
 									"let jsonData = pm.response.json();  \r",
@@ -1558,7 +1558,7 @@
 									"});\r",
 									"\r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('album_upload_photo_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('album_upload_photo_schema')));\r",
 									"});\r",
 									"\r",
 									"let jsonData = pm.response.json(); \r",
@@ -1605,7 +1605,7 @@
 									"});\r",
 									"\r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('album_actions_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('album_actions_schema')));\r",
 									"});\r",
 									"\r",
 									"let jsonData = pm.response.json(); \r",
@@ -1648,7 +1648,7 @@
 									"});\r",
 									" \r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('members_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('members_schema')));\r",
 									"}); \r",
 									"\r",
 									"let jsonData = pm.response.json();\r",
@@ -1724,7 +1724,7 @@
 									"});\r",
 									"\r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('album_actions_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('album_actions_schema')));\r",
 									"}); \r",
 									"  \r",
 									"let jsonData = pm.response.json();   \r",
@@ -1773,7 +1773,7 @@
 									"});\r",
 									"\r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('album_actions_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('album_actions_schema')));\r",
 									"}); \r",
 									"  \r",
 									"let jsonData = pm.response.json();  \r",
@@ -1823,7 +1823,7 @@
 									"});\r",
 									"\r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('album_actions_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('album_actions_schema')));\r",
 									"}); \r",
 									"  \r",
 									"let jsonData = pm.response.json();  \r",
@@ -1871,7 +1871,7 @@
 									"});\r",
 									"\r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('album_upload_photo_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('album_upload_photo_schema')));\r",
 									"});\r",
 									"\r",
 									"let jsonData = pm.response.json(); \r",
@@ -1918,7 +1918,7 @@
 									"});\r",
 									"\r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('artist_paging_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('artist_paging_schema')));\r",
 									"}); \r",
 									"\r",
 									"let jsonData = pm.response.json();\r",
@@ -1983,7 +1983,7 @@
 									"});\r",
 									"\r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('album_actions_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('album_actions_schema')));\r",
 									"});\r",
 									"\r",
 									"let jsonData = pm.response.json(); \r",
@@ -2020,7 +2020,7 @@
 									"});\r",
 									"\r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('album_actions_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('album_actions_schema')));\r",
 									"});\r",
 									"\r",
 									"let jsonData = pm.response.json(); \r",
@@ -2173,7 +2173,7 @@
 											"});\r",
 											"\r",
 											"pm.test('Schema validation', () => {\r",
-											"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('lookup_action_schema')));\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('lookup_action_schema')));\r",
 											"}); \r",
 											"\r",
 											"let jsonData = pm.response.json();   \r",
@@ -2224,7 +2224,7 @@
 											"});\r",
 											"\r",
 											"pm.test('Schema validation', () => {\r",
-											"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('lookup_action_validation_schema_2')));\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('lookup_action_validation_schema_2')));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2316,7 +2316,7 @@
 											"});\r",
 											"\r",
 											"pm.test('Schema validation', () => {\r",
-											"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('lookup_action_schema')));\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('lookup_action_schema')));\r",
 											"}); \r",
 											""
 										],
@@ -2348,7 +2348,7 @@
 											"});\r",
 											"\r",
 											"pm.test('Schema validation', () => {\r",
-											"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('album_delete_schema')));\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('album_delete_schema')));\r",
 											"}); "
 										],
 										"type": "text/javascript"
@@ -2385,7 +2385,7 @@
 											"});\r",
 											"\r",
 											"pm.test('Schema validation', () => {\r",
-											"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('lookup_action_schema')));\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('lookup_action_schema')));\r",
 											"}); \r",
 											"\r",
 											"let jsonData = pm.response.json();   \r",
@@ -2435,7 +2435,7 @@
 											"});\r",
 											" \r",
 											"pm.test('Schema validation', () => {\r",
-											"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('lookup_action_validation_schema_2')));\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('lookup_action_validation_schema_2')));\r",
 											"}); "
 										],
 										"type": "text/javascript"
@@ -2475,7 +2475,7 @@
 											"});\r",
 											"\r",
 											"pm.test('Schema validation', () => {\r",
-											"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('lookup_action_schema')));\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('lookup_action_schema')));\r",
 											"}); \r",
 											"\r",
 											"let jsonData = pm.response.json();   \r",
@@ -2522,7 +2522,7 @@
 											"});\r",
 											"\r",
 											"pm.test('Schema validation', () => {\r",
-											"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('lookup_action_validation_schema_2')));\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('lookup_action_validation_schema_2')));\r",
 											"}); "
 										],
 										"type": "text/javascript"
@@ -2608,7 +2608,7 @@
 											"});\r",
 											"\r",
 											"pm.test('Schema validation', () => {\r",
-											"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('lookup_action_schema')));\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('lookup_action_schema')));\r",
 											"}); "
 										],
 										"type": "text/javascript"
@@ -2639,7 +2639,7 @@
 											"});\r",
 											"\r",
 											"pm.test('Schema validation', () => {\r",
-											"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('album_delete_schema')));\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('album_delete_schema')));\r",
 											"}); "
 										],
 										"type": "text/javascript"
@@ -2676,7 +2676,7 @@
 											"});\r",
 											"\r",
 											"pm.test('Schema validation', () => {\r",
-											"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('lookup_action_schema')));\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('lookup_action_schema')));\r",
 											"}); \r",
 											"\r",
 											"let jsonData = pm.response.json();   \r",
@@ -2829,7 +2829,7 @@
 											"});\r",
 											"\r",
 											"pm.test('Schema validation', () => {\r",
-											"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('lookup_action_schema')));\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('lookup_action_schema')));\r",
 											"}); "
 										],
 										"type": "text/javascript"
@@ -2844,6 +2844,37 @@
 								"method": "DELETE",
 								"header": [],
 								"url": "{{baseUrl}}/api/record-labels/record-label/{{recordLabelId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "/api/record-labels/record-label/300 (Fail 404)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "adad33da-dcf1-44c0-99ec-855134b5d5dd",
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"pm.test('Schema validation', () => {\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('album_delete_schema')));\r",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "179e2e9f-4bbe-4a3b-9976-c30e78944e08",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{baseUrl}}/api/record-labels/record-label/300"
 							},
 							"response": []
 						}
