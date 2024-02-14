@@ -196,7 +196,7 @@
 									"});\r",
 									" \r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('albums_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('albums_schema')));\r",
 									"}); \r",
 									"\r",
 									"pm.test(\"Has Nevermind album\", function () {\r",
@@ -292,7 +292,7 @@
 									"}); \r",
 									" \r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('album_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('album_schema')));\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Has Led Zeppelin 1 album\", function () {\r",
@@ -383,7 +383,7 @@
 									"});\r",
 									"\r",
 									"pm.test('Schema validation', () => {\r",
-									"  pm.response.to.have.jsonSchema (JSON.parse(pm.globals.get('albums_schema')));\r",
+									"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('albums_schema')));\r",
 									"}); \r",
 									" \r",
 									"pm.test(\"albums present\", () => {\r",
@@ -2750,6 +2750,93 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n    \"Id\": {{recordLabelId}},\r\n    \"Name\": \"{{recordLabelUpdateName}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/api/record-labels/record-label/update"
+							},
+							"response": []
+						},
+						{
+							"name": "/api/record-labels/record-label/update",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "49bcbf25-01f1-4fb1-abbb-f7f6bf9aa284",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('Schema validation', () => {\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('lookup_action_schema')));\r",
+											"}); \r",
+											"\r",
+											"let jsonData = pm.response.json();   \r",
+											"\r",
+											"pm.test(\"Has record label id greater than zero\", function () { \r",
+											"    pm.expect(jsonData).to.be.an(\"object\", \"Could not find the record label\");\r",
+											"    pm.expect(jsonData.id).to.be.greaterThan(0); \r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "2fdeaabb-4599-4071-8341-1d0cacef42d0",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Id\": {{studioId}},\r\n    \"Name\": \"{{studioUpdateName}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/api/record-labels/record-label/update"
+							},
+							"response": []
+						},
+						{
+							"name": "/api/record-labels/record-label/update (Fail 400)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d254b85a-0c45-45fe-a775-f0ecbe1467f7",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('Schema validation', () => {\r",
+											"  pm.response.to.have.jsonSchema (JSON.parse(pm.environment.get('lookup_action_validation_schema_2')));\r",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "1dee622e-db5d-423f-b183-83a2ccc4d49d",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Id\": {{studioId}},\r\n    \"Name\": \"studiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudiostudio\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
