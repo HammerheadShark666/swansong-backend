@@ -18,9 +18,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwanSong.Data", "SwanSong.Data\SwanSong.Data.csproj", "{99B75BCD-AF23-4C8E-9BF3-B42367598667}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{E431F38D-BC4D-4175-AC4E-97CB46F8ED6C}"
-	ProjectSection(SolutionItems) = preProject
-		SwanSong.postman_collection.json = SwanSong.postman_collection.json
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{C16D609B-A6F7-4792-901B-0B0C24EBBD9B}"
 EndProject
@@ -29,14 +26,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Postman Integration Testing", "Postman Integration Testing", "{F9FBA49B-69A6-496C-B187-2031B0ADB2F4}"
 	ProjectSection(SolutionItems) = preProject
 		sandydenny.jpg = sandydenny.jpg
-		SwanSong.postman_collection.json = SwanSong.postman_collection.json
 		thesongremainsthesame.jpg = thesongremainsthesame.jpg
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PostmanCollections", "PostmanCollections", "{9DE5C9D9-568D-4350-8BB6-E383FFD1C7DA}"
-	ProjectSection(SolutionItems) = preProject
-		PostmanCollections\SwanSong.postman_collection.json = PostmanCollections\SwanSong.postman_collection.json
-		PostmanCollections\SwanSong.postman_globals = PostmanCollections\SwanSong.postman_globals
 	EndProjectSection
 EndProject
 Global
