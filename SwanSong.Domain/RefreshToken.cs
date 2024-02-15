@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SwanSong.Domain;
 
-[Owned]
+//[Owned]
 public class RefreshToken
 {
     [Key]
