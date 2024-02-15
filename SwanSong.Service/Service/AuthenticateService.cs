@@ -85,7 +85,8 @@ public class AuthenticateService : IAuthenticateService
 
     private void RemoveOldRefreshTokens(Account account)
     {
-        account.RefreshTokens.RemoveAll(x =>
+        if(account.RefreshTokens != null)
+            account.RefreshTokens.RemoveAll(x =>
                                 !x.IsActive &&
                                 x.Created.AddDays(EnvironmentVariablesHelper.JwtSettingsRefreshTokenTtl) <= DateTime.Now);
     }

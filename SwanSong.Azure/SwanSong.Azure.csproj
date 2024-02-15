@@ -5,9 +5,9 @@
   </PropertyGroup>
   
   <ItemGroup>
+	<FrameworkReference Include="Microsoft.AspNetCore.App" Version="2.2.8"/>
     <PackageReference Include="Azure.Identity" Version="1.10.4" />
-    <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" /> 
     <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.1" />
   </ItemGroup>
 
