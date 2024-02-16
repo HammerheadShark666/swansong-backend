@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SwanSong.Domain;
 using SwanSong.Domain.Dto;
 using SwanSong.Helpers.Authentication;
 using SwanSong.Service.Interfaces;
@@ -38,5 +39,11 @@ public class AuthenticateController : Controller
     public async Task<ActionResult<JwtRefreshTokenActionResponse>> RefreshTokenAsync(JwtRefreshTokenRequest jwtRefreshTokenRequest)
     {
         return Ok(await _authenticateService.RefreshTokenAsync(jwtRefreshTokenRequest.RefreshToken, AuthenticationHelper.IpAddress(Request, HttpContext)));
+    }
+
+    private Account LoggedInAccount()
+    {
+        var context = _httpContextAccessor.HttpContext;
+        return (Account)context.Items["Account"];
     }
 }

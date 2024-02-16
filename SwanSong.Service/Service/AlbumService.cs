@@ -180,19 +180,19 @@ public class AlbumService : IAlbumService
     private async Task SaveAddAsync(Album album)
     {
         await _unitOfWork.Albums.AddAsync(album);
-        await DataHelper.CompleteContextAction(null, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(null, _memoryCache, _unitOfWork);
     }
 
     private async Task SaveUpdateAsync(Album album)
     {
         _unitOfWork.Albums.Update(album);
-        await DataHelper.CompleteContextAction(null, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(null, _memoryCache, _unitOfWork);
     }
 
     private async Task DeleteAsync(Album album)
     {
         _unitOfWork.Albums.Delete(album);
-        await DataHelper.CompleteContextAction(null, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(null, _memoryCache, _unitOfWork);
     }
      
     private async Task<Album> GetAlbumAsync(long id)

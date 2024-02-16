@@ -78,13 +78,13 @@ public class ResetPasswordService : IResetPasswordService
     private async Task UpdateResetTokenAsync(Account account)
     {
         _unitOfWork.Accounts.Update(account);
-        await _unitOfWork.Complete();
+        await _unitOfWork.CompleteAsync();
     }
 
     private async Task UpdateAccountAsync(string token, string password)
     {
         _unitOfWork.Accounts.Update(await UpdateAccountRecordAsync(token, password));
-        await _unitOfWork.Complete();
+        await _unitOfWork.CompleteAsync();
     }
 
     private async Task<Account> UpdateAccountRecordAsync(string resetToken, string password)

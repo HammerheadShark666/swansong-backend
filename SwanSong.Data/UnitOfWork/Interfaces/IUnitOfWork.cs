@@ -6,15 +6,18 @@ namespace SwanSong.Data.UnitOfWork.Interfaces;
 
 public interface IUnitOfWork : IDisposable
 {
-    IRecordLabelRepository RecordLabels { get; } 
-    IStudioRepository Studios { get; } 
-    ICountryRepository Countries{ get; }
-    ISongRepository Songs { get; }
-    IMemberRepository Members { get; }
-    IBirthPlaceRepository BirthPlaces { get; }
-    IArtistRepository Artists { get;  }
-    IAlbumRepository Albums { get;  }
-    IAlbumSongRepository AlbumSongs { get; }
     IAccountRepository Accounts { get; }
-    Task<int> Complete();
+    IAlbumRepository Albums { get; }
+    IAlbumSongRepository AlbumSongs { get; }
+    IArtistRepository Artists { get; }
+    IBirthPlaceRepository BirthPlaces { get; }
+    ICountryRepository Countries { get; }
+    IMemberRepository Members { get; }
+    IRefreshTokenRepository RefreshTokens { get; }
+    IRecordLabelRepository RecordLabels { get; }
+    ISongRepository Songs { get; }
+    IStudioRepository Studios { get; } 
+    
+    Task<int> CompleteAsync();
+    int Complete();
 }

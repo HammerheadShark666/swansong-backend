@@ -64,7 +64,7 @@ public class ProfileService : IProfileService
         account = _mapper.Map<ProfileRequest, Account>(profileRequest, account);
 
         _unitOfWork.Accounts.Update(account);
-        await _unitOfWork.Complete();
+        await _unitOfWork.CompleteAsync();
     }
 
     private async Task<Account> GetAccountAsync(int id)

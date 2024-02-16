@@ -162,19 +162,19 @@ public class MemberService : IMemberService
     private async Task DeleteAsync(Member member)
     {
         _unitOfWork.Members.Delete(member);
-        await DataHelper.CompleteContextAction(null, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(null, _memoryCache, _unitOfWork);
     }
 
     private async Task SaveAddAsync(Member member)
     {
         await _unitOfWork.Members.AddAsync(member);
-        await DataHelper.CompleteContextAction(null, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(null, _memoryCache, _unitOfWork);
     }
 
     private async Task SaveUpdateAsync(Member member)
     {
         _unitOfWork.Members.Update(member);
-        await DataHelper.CompleteContextAction(null, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(null, _memoryCache, _unitOfWork);
     } 
   
     private async Task<Member> GetMemberAsync(long id)

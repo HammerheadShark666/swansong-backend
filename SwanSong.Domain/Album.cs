@@ -84,14 +84,5 @@ public class Album : BaseEntity
         Photo = DefaultAlbumPhotoFileName;
         StudioId = null;
         labelId = null;
-    }
-
-    public Album(long id)
-    {
-        Id = id;
-        AlbumSongs = new HashSet<AlbumSong>();
-        Photo = DefaultAlbumPhotoFileName;
-        StudioId = null;
-        labelId = null;
-    }
+    }     
 }

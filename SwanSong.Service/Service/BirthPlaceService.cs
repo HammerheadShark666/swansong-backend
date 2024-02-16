@@ -112,19 +112,19 @@ public class BirthPlaceService : IBirthPlaceService
     private async Task DeleteAsync(BirthPlace birthPlace, string cacheKey)
     {
         _unitOfWork.BirthPlaces.Delete(birthPlace);
-        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
     }
 
     private async Task SaveAddAsync(BirthPlace birthPlace, string cacheKey)
     {
         await _unitOfWork.BirthPlaces.AddAsync(birthPlace);
-        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
     }
 
     private async Task SaveUpdateAsync(BirthPlace birthPlace, string cacheKey)
     {
         _unitOfWork.BirthPlaces.Update(birthPlace);
-        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
     }
  
     private async Task<BirthPlace> GetBirthPlaceAsync(int id)

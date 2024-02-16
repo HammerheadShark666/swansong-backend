@@ -160,19 +160,19 @@ public class ArtistService : IArtistService
     private async Task DeleteAsync(Artist artist)
     {
         _unitOfWork.Artists.Delete(artist);
-        await DataHelper.CompleteContextAction(null, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(null, _memoryCache, _unitOfWork);
     }
 
     private async Task SaveAddAsync(Artist artist)
     {
         await _unitOfWork.Artists.AddAsync(artist);
-        await DataHelper.CompleteContextAction(null, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(null, _memoryCache, _unitOfWork);
     }
 
     private async Task SaveUpdateAsync(Artist artist)
     {
         _unitOfWork.Artists.Update(artist);
-        await DataHelper.CompleteContextAction(null, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(null, _memoryCache, _unitOfWork);
     }
 
     private async Task DeleteMembersPhotosAsync(List<Member> members)

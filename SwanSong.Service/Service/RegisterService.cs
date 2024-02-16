@@ -87,7 +87,7 @@ public class RegisterService : IRegisterService
     public async Task<Account> SaveAccountAsync(Account account)
     {
         _unitOfWork.Accounts.Add(account);
-        await _unitOfWork.Complete();
+        await _unitOfWork.CompleteAsync();
 
         return account;
     }

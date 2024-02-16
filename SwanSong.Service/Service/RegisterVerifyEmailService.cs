@@ -60,7 +60,7 @@ public class RegisterVerifyEmailService : IRegisterVerifyEmailService
         account.VerificationToken = null;
 
         _unitOfWork.Accounts.Update(account);
-        await _unitOfWork.Complete();
+        await _unitOfWork.CompleteAsync();
 
         return account;
     }
