@@ -60,7 +60,7 @@ public class SongService : ISongService
     private async Task DeleteAsync(Song song)
     {
         _unitOfWork.Songs.Delete(song);
-        await DataHelper.CompleteContextAction(null, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(null, _memoryCache, _unitOfWork);
     }
 
     private async Task<Song> GetSongAsync(long id)

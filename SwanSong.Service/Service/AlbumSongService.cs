@@ -105,19 +105,19 @@ public class AlbumSongService : IAlbumSongService
     private async Task DeleteAsync(AlbumSong albumSong, string cacheKey)
     {
         _unitOfWork.AlbumSongs.Delete(albumSong);
-        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
     }
 
     private async Task SaveAddAsync(AlbumSong albumSong, string cacheKey)
     {
         await _unitOfWork.AlbumSongs.AddAsync(albumSong);
-        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
     }
 
     private async Task SaveUpdateAsync(AlbumSong albumSong, string cacheKey)
     {
         _unitOfWork.AlbumSongs.Update(albumSong);
-        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
     } 
  
     private async Task<AlbumSong> GetAlbumSongAsync(long id)

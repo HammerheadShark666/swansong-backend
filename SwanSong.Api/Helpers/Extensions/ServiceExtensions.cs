@@ -1,7 +1,6 @@
 ﻿using Asp.Versioning;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -110,6 +109,7 @@ public static class ServiceExtensions
         services.AddScoped<IRegisterService, RegisterService>();
         services.AddScoped<IRegisterVerifyEmailService, RegisterVerifyEmailService>();
         services.AddScoped<IResetPasswordService, ResetPasswordService>();
+        services.AddScoped<IRefreshTokenService, RefreshTokenService>();
         services.AddScoped<ISongRepository, SongRepository>();
         services.AddScoped<ISongService, SongService>();  
         services.AddScoped<IAzureStorageBlobHelper, AzureStorageBlobHelper>();

@@ -69,7 +69,7 @@ public class ProfilePasswordChangeService : IProfilePasswordChangeService
     private async Task UpdateAccountAsync(Account account)
     {
         _unitOfWork.Accounts.Update(account);
-        await _unitOfWork.Complete();
+        await _unitOfWork.CompleteAsync();
     }
 
     private async Task<Account> GetAccountAsync(int id)

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SwanSong.Data;
 
@@ -11,9 +12,10 @@ using SwanSong.Data;
 namespace SwanSong.Data.Migrations
 {
     [DbContext(typeof(SwanSongContext))]
-    partial class SwanSongContextModelSnapshot : ModelSnapshot
+    [Migration("20240216121432_move-refresh-token-to-account")]
+    partial class moverefreshtokentoaccount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,14 +46,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
-                            ConcurrencyStamp = "ad7e955b-07f6-4b1b-a2d6-09b0d36f105e",
+                            ConcurrencyStamp = "a5d0555f-7bce-4b7c-b0eb-d26d83afba90",
                             Name = "USER",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "2c5e174e-3b0e-446f-86af-483d56fd7211",
-                            ConcurrencyStamp = "d26d7a72-0e82-4b64-8e7e-4833e4603a50",
+                            ConcurrencyStamp = "f175339e-962a-4416-8e6c-8f9f755bf6e6",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         });
@@ -73,6 +75,9 @@ namespace SwanSong.Data.Migrations
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Expires")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
@@ -98,6 +103,9 @@ namespace SwanSong.Data.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
@@ -118,6 +126,7 @@ namespace SwanSong.Data.Migrations
                             AcceptTerms = false,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "Test100@hotmail.com",
+                            Expires = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "test",
                             LastName = "test",
                             PasswordHash = "$2a$11$6J/RawAXn5hbcQwiVor7A.dEtLcMcUF8BI/EOMrAa2002hNJB8ZKC",
@@ -189,10 +198,10 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 1L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(3214),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9790),
                             ArtistId = 1L,
                             LabelId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(3230),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9793),
                             Name = "Led Zeppelin 1",
                             Photo = "11d15486-fefc-463c-8b7d-c755b08466dc.jpg",
                             ReleaseDate = new DateTime(1969, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -200,13 +209,13 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 2L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(3254),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9800),
                             Arrangers = "Sandy Denny",
                             ArtistId = 2L,
                             Artwork = "Keef",
                             Engineers = "John Wood",
                             LabelId = 7,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(3261),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9802),
                             Name = "The North Star Grassman and the Ravens",
                             Photo = "e3b74057-75df-4cfe-ba42-9ed4f57623f5.jpg",
                             Producers = "John Wood, Richard Thompson, Sandy Denny",
@@ -217,10 +226,10 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 3L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(3272),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9806),
                             ArtistId = 1L,
                             LabelId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(3279),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9807),
                             Name = "Led Zeppelin 2",
                             Photo = "ee552af1-7a5a-457b-b336-823bc1285dac.jpg",
                             ReleaseDate = new DateTime(1969, 10, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -228,10 +237,10 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 4L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(3290),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9810),
                             ArtistId = 1L,
                             LabelId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(3296),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9811),
                             Name = "Led Zeppelin 3",
                             Photo = "9cf368d3-db16-4120-af40-7dd697b934fa.jpg",
                             ReleaseDate = new DateTime(1970, 10, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -239,10 +248,10 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 5L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(3305),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9813),
                             ArtistId = 1L,
                             LabelId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(3312),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9815),
                             Name = "Led Zeppelin IV",
                             Photo = "3e7e88f2-5fa8-4402-ad90-39d5f14f14c7.jpg",
                             ReleaseDate = new DateTime(1971, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -250,10 +259,10 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 6L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(3656),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9818),
                             ArtistId = 1L,
                             LabelId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4208),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9820),
                             Name = "Houses of the Holy",
                             Photo = "45e3d1ea-6cb0-43c5-93c9-b2593b4f64d4.jpg",
                             ReleaseDate = new DateTime(1973, 3, 28, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -261,10 +270,10 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 7L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4238),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9822),
                             ArtistId = 1L,
                             LabelId = 2,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4240),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9824),
                             Name = "Physical Graffiti",
                             Photo = "7f616f0b-8c58-4bbd-a438-0692b803ba50.jpg",
                             ReleaseDate = new DateTime(1975, 2, 24, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -272,10 +281,10 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 8L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4245),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9827),
                             ArtistId = 1L,
                             LabelId = 2,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4247),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9828),
                             Name = "The Song Remains The Same",
                             Photo = "d2710986-0720-4231-8582-4383eb9ffe12.jpg",
                             ReleaseDate = new DateTime(1976, 9, 28, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -283,10 +292,10 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 9L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4250),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9831),
                             ArtistId = 1L,
                             LabelId = 2,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4253),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9832),
                             Name = "Presence",
                             Photo = "a0ec6d77-a1f6-4118-baed-157e40c5a50b.jpg",
                             ReleaseDate = new DateTime(1976, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -294,10 +303,10 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 10L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4618),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9837),
                             ArtistId = 1L,
                             LabelId = 2,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4634),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9838),
                             Name = "In Through The OutDoor",
                             Photo = "6fcc74a1-bd11-439a-8a71-c52f50273617.jpg",
                             ReleaseDate = new DateTime(1979, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -305,10 +314,10 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 11L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4646),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9841),
                             ArtistId = 15L,
                             LabelId = 8,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4648),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9843),
                             Name = "Electric Ladyland",
                             Photo = "5a90f23e-c8bc-42f6-b707-d2367e9944bb.jpg",
                             ReleaseDate = new DateTime(1968, 10, 16, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -316,9 +325,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 12L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4653),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9845),
                             ArtistId = 16L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4655),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9847),
                             Name = "Rumours",
                             Photo = "549c2970-fcf9-4ac4-824b-31f69a4f2159.jpg",
                             Producers = "Fleetwood Mac, Ken Caillat, Richard Dashut",
@@ -327,46 +336,46 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 13L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4659),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9849),
                             ArtistId = 3L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4662),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9850),
                             Name = "The River",
                             Photo = "6fc79109-d0db-4a34-8d07-f7c9866ddd5e.jpg"
                         },
                         new
                         {
                             Id = 14L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4665),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9853),
                             ArtistId = 3L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4668),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9854),
                             Name = "Born To Run",
                             Photo = "a4f987e1-17d4-44a6-a929-ad29002dd31b.jpg"
                         },
                         new
                         {
                             Id = 15L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4671),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9856),
                             ArtistId = 3L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4674),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9858),
                             Name = "Darkness on the Edge of Town",
                             Photo = "5f63ee74-d7c8-480d-8ab9-4362ccf26492.jpg"
                         },
                         new
                         {
                             Id = 16L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4678),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9860),
                             ArtistId = 9L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4680),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9861),
                             Name = "Bark At The Moon",
                             Photo = "7413f9cb-77fc-4a2b-9372-51e0abd9ccea.jpg"
                         },
                         new
                         {
                             Id = 17L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4684),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9863),
                             ArtistId = 10L,
                             LabelId = 9,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4686),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9865),
                             Name = "The Raven",
                             Photo = "c5d29d3d-3bf8-4a60-ad9a-411b86c026dd.jpg",
                             ReleaseDate = new DateTime(1979, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -374,54 +383,54 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 19L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4702),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9868),
                             ArtistId = 3L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4705),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9870),
                             Name = "Nebraska",
                             Photo = "6e2e5c69-75cd-480e-9b28-6d3726df576f.jpg"
                         },
                         new
                         {
                             Id = 20L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4708),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9872),
                             ArtistId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4711),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9874),
                             Name = "Iron Fist",
                             Photo = "39c3f690-87cd-4cd2-8a9a-54ba8af3a50f.jpg"
                         },
                         new
                         {
                             Id = 21L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4714),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9876),
                             ArtistId = 12L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4717),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9877),
                             Name = "Stormbringer",
                             Photo = "d96d1eac-982a-41a2-b2dd-ff65707940e1.jpg"
                         },
                         new
                         {
                             Id = 22L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4720),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9879),
                             ArtistId = 7L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4724),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9881),
                             Name = "Nashville Skyline",
                             Photo = "722792d3-787b-4698-916d-0ff766e68fd6.jpg"
                         },
                         new
                         {
                             Id = 23L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4727),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9883),
                             ArtistId = 3L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4731),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9884),
                             Name = "Born In The Usa",
                             Photo = "66c0e775-c22b-427d-a327-e6bfd9b5673e.jpg"
                         },
                         new
                         {
                             Id = 24L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4734),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9886),
                             ArtistId = 17L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4735),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9888),
                             Name = "Nevermind",
                             Photo = "a3828e09-6f78-484f-80b0-d57f6a1e972b.jpg",
                             ReleaseDate = new DateTime(1991, 8, 31, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -466,9 +475,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 1L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7767),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1071),
                             AlbumId = 1L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7773),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1074),
                             Order = 1,
                             Side = 1,
                             SongId = 1L
@@ -476,9 +485,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 2L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7785),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1084),
                             AlbumId = 1L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7788),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1085),
                             Order = 2,
                             Side = 1,
                             SongId = 2L
@@ -486,9 +495,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 3L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7791),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1087),
                             AlbumId = 1L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7793),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1089),
                             Order = 3,
                             Side = 1,
                             SongId = 3L
@@ -496,9 +505,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 4L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7795),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1091),
                             AlbumId = 1L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7797),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1092),
                             Order = 4,
                             Side = 1,
                             SongId = 4L
@@ -506,9 +515,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 5L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7800),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1094),
                             AlbumId = 1L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7802),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1096),
                             Order = 5,
                             Side = 2,
                             SongId = 5L
@@ -516,9 +525,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 6L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7807),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1099),
                             AlbumId = 1L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7809),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1101),
                             Order = 6,
                             Side = 2,
                             SongId = 6L
@@ -526,9 +535,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 7L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7812),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1103),
                             AlbumId = 1L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7814),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1104),
                             Order = 7,
                             Side = 2,
                             SongId = 7L
@@ -536,9 +545,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 8L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7816),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1107),
                             AlbumId = 1L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7818),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1108),
                             Order = 8,
                             Side = 2,
                             SongId = 8L
@@ -546,9 +555,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 9L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7821),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1110),
                             AlbumId = 1L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7823),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1112),
                             Order = 9,
                             Side = 2,
                             SongId = 9L
@@ -556,9 +565,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 10L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7827),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1115),
                             AlbumId = 2L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7829),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1117),
                             Order = 1,
                             Side = 1,
                             SongId = 10L
@@ -566,9 +575,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 11L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7837),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1119),
                             AlbumId = 2L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7843),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1120),
                             Order = 2,
                             Side = 1,
                             SongId = 11L
@@ -576,9 +585,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 12L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7850),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1122),
                             AlbumId = 2L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7857),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1124),
                             Order = 3,
                             Side = 1,
                             SongId = 12L
@@ -586,9 +595,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 13L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7865),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1126),
                             AlbumId = 2L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7869),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1127),
                             Order = 4,
                             Side = 1,
                             SongId = 13L
@@ -596,9 +605,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 14L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7871),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1130),
                             AlbumId = 2L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7873),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1131),
                             Order = 5,
                             Side = 1,
                             SongId = 14L
@@ -606,9 +615,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 15L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7876),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1133),
                             AlbumId = 2L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7878),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1135),
                             Order = 6,
                             Side = 2,
                             SongId = 15L
@@ -616,9 +625,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 16L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7880),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1137),
                             AlbumId = 2L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7882),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1138),
                             Order = 7,
                             Side = 2,
                             SongId = 16L
@@ -626,9 +635,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 17L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7885),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1140),
                             AlbumId = 2L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7887),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1142),
                             Order = 8,
                             Side = 2,
                             SongId = 17L
@@ -636,9 +645,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 18L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7892),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1187),
                             AlbumId = 2L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7894),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1189),
                             Order = 9,
                             Side = 2,
                             SongId = 18L
@@ -646,9 +655,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 19L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7897),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1191),
                             AlbumId = 2L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7899),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1193),
                             Order = 10,
                             Side = 2,
                             SongId = 19L
@@ -656,9 +665,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 20L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7902),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1195),
                             AlbumId = 2L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7904),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1196),
                             Order = 11,
                             Side = 2,
                             SongId = 20L
@@ -666,9 +675,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 21L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7906),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1198),
                             AlbumId = 24L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7908),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1200),
                             Order = 1,
                             Side = 1,
                             SongId = 21L
@@ -676,9 +685,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 22L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7911),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1202),
                             AlbumId = 24L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7913),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1203),
                             Order = 2,
                             Side = 1,
                             SongId = 22L
@@ -686,9 +695,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 23L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7916),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1205),
                             AlbumId = 24L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7918),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1207),
                             Order = 3,
                             Side = 1,
                             SongId = 23L
@@ -696,9 +705,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 24L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7921),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1209),
                             AlbumId = 24L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7923),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1210),
                             Order = 4,
                             Side = 1,
                             SongId = 24L
@@ -706,9 +715,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 25L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7926),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1213),
                             AlbumId = 24L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7928),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1214),
                             Order = 5,
                             Side = 1,
                             SongId = 25L
@@ -716,9 +725,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 26L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7931),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1216),
                             AlbumId = 24L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7933),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1218),
                             Order = 6,
                             Side = 1,
                             SongId = 26L
@@ -726,9 +735,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 27L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7935),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1220),
                             AlbumId = 24L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7937),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1221),
                             Order = 1,
                             Side = 2,
                             SongId = 27L
@@ -736,9 +745,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 28L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7940),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1223),
                             AlbumId = 24L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7942),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1225),
                             Order = 2,
                             Side = 2,
                             SongId = 28L
@@ -746,9 +755,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 29L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7945),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1227),
                             AlbumId = 24L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7947),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1228),
                             Order = 3,
                             Side = 2,
                             SongId = 29L
@@ -756,9 +765,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 30L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7951),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1230),
                             AlbumId = 24L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7953),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1232),
                             Order = 4,
                             Side = 2,
                             SongId = 30L
@@ -766,9 +775,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 31L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7956),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1234),
                             AlbumId = 24L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7958),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1235),
                             Order = 5,
                             Side = 2,
                             SongId = 31L
@@ -776,9 +785,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 34L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7960),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1237),
                             AlbumId = 24L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7963),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1239),
                             Order = 6,
                             Side = 2,
                             SongId = 32L
@@ -786,9 +795,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 35L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(8138),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1241),
                             AlbumId = 24L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(8146),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1242),
                             Order = 7,
                             Side = 2,
                             SongId = 33L
@@ -796,9 +805,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 43L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(8155),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1245),
                             AlbumId = 3L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(8157),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1247),
                             Order = 1,
                             Side = 1,
                             SongId = 40L
@@ -806,9 +815,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 44L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(8164),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1249),
                             AlbumId = 3L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(8170),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1250),
                             Order = 2,
                             Side = 1,
                             SongId = 41L
@@ -816,9 +825,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 45L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(8177),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1253),
                             AlbumId = 3L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(8182),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1254),
                             Order = 4,
                             Side = 1,
                             SongId = 42L
@@ -826,9 +835,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 46L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(8190),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1257),
                             AlbumId = 3L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(8196),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1259),
                             Order = 3,
                             Side = 1,
                             SongId = 43L
@@ -836,9 +845,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 47L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(8204),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1261),
                             AlbumId = 3L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(8210),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1262),
                             Order = 1,
                             Side = 2,
                             SongId = 44L
@@ -846,9 +855,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 48L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(8216),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1264),
                             AlbumId = 3L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2012),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1266),
                             Order = 2,
                             Side = 2,
                             SongId = 45L
@@ -856,9 +865,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 49L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2148),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1268),
                             AlbumId = 3L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2158),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1270),
                             Order = 3,
                             Side = 2,
                             SongId = 46L
@@ -866,9 +875,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 50L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2164),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1272),
                             AlbumId = 6L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2166),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1273),
                             Order = 1,
                             Side = 1,
                             SongId = 47L
@@ -876,9 +885,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 51L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2171),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1275),
                             AlbumId = 6L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2178),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1277),
                             Order = 2,
                             Side = 1,
                             SongId = 48L
@@ -886,9 +895,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 52L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2186),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1279),
                             AlbumId = 6L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2193),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1280),
                             Order = 3,
                             Side = 1,
                             SongId = 49L
@@ -896,9 +905,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 53L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2201),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1282),
                             AlbumId = 6L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2208),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1284),
                             Order = 4,
                             Side = 1,
                             SongId = 50L
@@ -906,9 +915,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 54L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2216),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1286),
                             AlbumId = 6L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2222),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1287),
                             Order = 1,
                             Side = 2,
                             SongId = 51L
@@ -916,9 +925,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 55L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2227),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1289),
                             AlbumId = 6L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2229),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1291),
                             Order = 2,
                             Side = 2,
                             SongId = 52L
@@ -926,9 +935,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 56L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2232),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1293),
                             AlbumId = 6L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2235),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1294),
                             Order = 3,
                             Side = 2,
                             SongId = 53L
@@ -936,9 +945,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 57L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2239),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1296),
                             AlbumId = 6L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2241),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1298),
                             Order = 4,
                             Side = 2,
                             SongId = 54L
@@ -946,9 +955,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 58L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2244),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1300),
                             AlbumId = 4L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2246),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1301),
                             Order = 1,
                             Side = 1,
                             SongId = 55L
@@ -956,9 +965,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 59L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2249),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1303),
                             AlbumId = 4L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2251),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1305),
                             Order = 2,
                             Side = 1,
                             SongId = 56L
@@ -966,9 +975,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 60L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2255),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1307),
                             AlbumId = 4L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2257),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1308),
                             Order = 3,
                             Side = 1,
                             SongId = 57L
@@ -976,9 +985,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 61L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2260),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1310),
                             AlbumId = 4L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2262),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1312),
                             Order = 4,
                             Side = 1,
                             SongId = 58L
@@ -986,9 +995,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 62L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2264),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1314),
                             AlbumId = 4L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2266),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1315),
                             Order = 5,
                             Side = 1,
                             SongId = 59L
@@ -996,9 +1005,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 63L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2270),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1318),
                             AlbumId = 4L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2272),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1319),
                             Order = 1,
                             Side = 2,
                             SongId = 60L
@@ -1006,9 +1015,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 64L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2274),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1322),
                             AlbumId = 4L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2276),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1323),
                             Order = 2,
                             Side = 2,
                             SongId = 61L
@@ -1016,9 +1025,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 65L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2280),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1325),
                             AlbumId = 4L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2282),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1327),
                             Order = 3,
                             Side = 2,
                             SongId = 62L
@@ -1026,9 +1035,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 66L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2285),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1329),
                             AlbumId = 4L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2287),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1331),
                             Order = 4,
                             Side = 2,
                             SongId = 63L
@@ -1036,9 +1045,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 67L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2289),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1333),
                             AlbumId = 4L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2291),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1334),
                             Order = 5,
                             Side = 2,
                             SongId = 64L
@@ -1046,9 +1055,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 68L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2294),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1336),
                             AlbumId = 5L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2296),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1338),
                             Order = 1,
                             Side = 1,
                             SongId = 65L
@@ -1056,9 +1065,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 69L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2299),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1340),
                             AlbumId = 5L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2301),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1341),
                             Order = 2,
                             Side = 1,
                             SongId = 66L
@@ -1066,9 +1075,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 70L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2307),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1343),
                             AlbumId = 5L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2309),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1345),
                             Order = 3,
                             Side = 1,
                             SongId = 67L
@@ -1076,9 +1085,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 71L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2312),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1347),
                             AlbumId = 5L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2314),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1348),
                             Order = 4,
                             Side = 1,
                             SongId = 68L
@@ -1086,9 +1095,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 72L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2317),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1350),
                             AlbumId = 5L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2319),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1352),
                             Order = 2,
                             Side = 2,
                             SongId = 69L
@@ -1096,9 +1105,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 73L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2325),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1354),
                             AlbumId = 5L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2327),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1355),
                             Order = 3,
                             Side = 2,
                             SongId = 70L
@@ -1106,9 +1115,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 74L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2329),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1357),
                             AlbumId = 5L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2331),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1359),
                             Order = 3,
                             Side = 2,
                             SongId = 71L
@@ -1116,9 +1125,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 75L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2372),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1362),
                             AlbumId = 5L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2375),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1364),
                             Order = 4,
                             Side = 2,
                             SongId = 72L
@@ -1126,9 +1135,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 76L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2380),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1366),
                             AlbumId = 7L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2383),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1367),
                             Order = 1,
                             Side = 1,
                             SongId = 73L
@@ -1136,9 +1145,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 77L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2387),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1369),
                             AlbumId = 7L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2389),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1371),
                             Order = 2,
                             Side = 1,
                             SongId = 74L
@@ -1146,9 +1155,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 78L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2393),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1373),
                             AlbumId = 7L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2395),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1374),
                             Order = 3,
                             Side = 1,
                             SongId = 75L
@@ -1156,9 +1165,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 79L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2398),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1376),
                             AlbumId = 7L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2400),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1378),
                             Order = 1,
                             Side = 2,
                             SongId = 76L
@@ -1166,9 +1175,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 80L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2403),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1380),
                             AlbumId = 7L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2405),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1381),
                             Order = 2,
                             Side = 2,
                             SongId = 77L
@@ -1176,9 +1185,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 81L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2408),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1383),
                             AlbumId = 7L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2410),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1385),
                             Order = 3,
                             Side = 2,
                             SongId = 78L
@@ -1186,9 +1195,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 82L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2413),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1387),
                             AlbumId = 7L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2416),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1388),
                             Order = 1,
                             Side = 3,
                             SongId = 79L
@@ -1196,9 +1205,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 83L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2418),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1394),
                             AlbumId = 7L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2420),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1396),
                             Order = 2,
                             Side = 3,
                             SongId = 80L
@@ -1206,9 +1215,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 84L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2423),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1398),
                             AlbumId = 7L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2425),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1399),
                             Order = 3,
                             Side = 3,
                             SongId = 81L
@@ -1216,9 +1225,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 85L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2428),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1401),
                             AlbumId = 7L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2430),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1403),
                             Order = 4,
                             Side = 3,
                             SongId = 82L
@@ -1226,9 +1235,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 86L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2435),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1405),
                             AlbumId = 7L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2437),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1406),
                             Order = 1,
                             Side = 4,
                             SongId = 83L
@@ -1236,9 +1245,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 87L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2440),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1408),
                             AlbumId = 7L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2442),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1410),
                             Order = 2,
                             Side = 4,
                             SongId = 84L
@@ -1246,9 +1255,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 88L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2447),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1412),
                             AlbumId = 7L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2449),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1413),
                             Order = 3,
                             Side = 4,
                             SongId = 85L
@@ -1256,9 +1265,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 89L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2453),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1415),
                             AlbumId = 7L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2455),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1417),
                             Order = 4,
                             Side = 4,
                             SongId = 86L
@@ -1266,9 +1275,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 90L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2459),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1419),
                             AlbumId = 7L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2466),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1421),
                             Order = 5,
                             Side = 4,
                             SongId = 87L
@@ -1276,9 +1285,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 91L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2474),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1423),
                             AlbumId = 8L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2481),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1424),
                             Order = 1,
                             Side = 1,
                             SongId = 88L
@@ -1286,9 +1295,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 92L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2491),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1426),
                             AlbumId = 8L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2499),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1428),
                             Order = 2,
                             Side = 1,
                             SongId = 89L
@@ -1296,9 +1305,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 93L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2509),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1430),
                             AlbumId = 8L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2514),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1431),
                             Order = 3,
                             Side = 1,
                             SongId = 90L
@@ -1306,9 +1315,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 94L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2523),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1433),
                             AlbumId = 8L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2530),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1435),
                             Order = 4,
                             Side = 1,
                             SongId = 91L
@@ -1316,9 +1325,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 95L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2540),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1437),
                             AlbumId = 8L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2547),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1438),
                             Order = 1,
                             Side = 2,
                             SongId = 92L
@@ -1326,9 +1335,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 96L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2554),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1440),
                             AlbumId = 8L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2561),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1442),
                             Order = 1,
                             Side = 3,
                             SongId = 93L
@@ -1336,9 +1345,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 97L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2567),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1444),
                             AlbumId = 8L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2570),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1445),
                             Order = 2,
                             Side = 3,
                             SongId = 94L
@@ -1346,9 +1355,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 98L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2575),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1447),
                             AlbumId = 8L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2581),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1449),
                             Order = 1,
                             Side = 4,
                             SongId = 95L
@@ -1356,9 +1365,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 99L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2590),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1451),
                             AlbumId = 8L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2597),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1452),
                             Order = 2,
                             Side = 4,
                             SongId = 96L
@@ -1366,9 +1375,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 100L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2608),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1495),
                             AlbumId = 9L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2611),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1497),
                             Order = 1,
                             Side = 1,
                             SongId = 97L
@@ -1376,9 +1385,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 102L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2615),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1499),
                             AlbumId = 9L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2617),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1500),
                             Order = 2,
                             Side = 1,
                             SongId = 98L
@@ -1386,9 +1395,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 103L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2621),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1504),
                             AlbumId = 9L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2623),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1505),
                             Order = 3,
                             Side = 1,
                             SongId = 99L
@@ -1396,9 +1405,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 104L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2626),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1507),
                             AlbumId = 9L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2629),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1509),
                             Order = 1,
                             Side = 2,
                             SongId = 101L
@@ -1406,9 +1415,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 105L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2632),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1511),
                             AlbumId = 9L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2634),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1513),
                             Order = 2,
                             Side = 2,
                             SongId = 102L
@@ -1416,9 +1425,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 106L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2637),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1515),
                             AlbumId = 9L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2639),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1516),
                             Order = 3,
                             Side = 2,
                             SongId = 103L
@@ -1426,9 +1435,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 107L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2642),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1519),
                             AlbumId = 9L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2644),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1520),
                             Order = 4,
                             Side = 2,
                             SongId = 104L
@@ -1436,9 +1445,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 108L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2648),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1522),
                             AlbumId = 10L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2650),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1523),
                             Order = 1,
                             Side = 1,
                             SongId = 105L
@@ -1446,9 +1455,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 109L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2653),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1525),
                             AlbumId = 10L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2656),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1527),
                             Order = 2,
                             Side = 1,
                             SongId = 106L
@@ -1456,9 +1465,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 110L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2663),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1529),
                             AlbumId = 10L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2670),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1530),
                             Order = 3,
                             Side = 1,
                             SongId = 107L
@@ -1466,9 +1475,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 111L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2678),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1533),
                             AlbumId = 10L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2685),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1534),
                             Order = 4,
                             Side = 1,
                             SongId = 108L
@@ -1476,9 +1485,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 112L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2693),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1536),
                             AlbumId = 10L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2701),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1537),
                             Order = 1,
                             Side = 2,
                             SongId = 109L
@@ -1486,9 +1495,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 113L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2709),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1540),
                             AlbumId = 10L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2711),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1541),
                             Order = 2,
                             Side = 2,
                             SongId = 110L
@@ -1496,9 +1505,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 114L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2717),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1543),
                             AlbumId = 10L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2719),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1545),
                             Order = 3,
                             Side = 2,
                             SongId = 111L
@@ -1506,9 +1515,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 115L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2722),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1547),
                             AlbumId = 11L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2724),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1548),
                             Order = 1,
                             Side = 1,
                             SongId = 112L
@@ -1516,9 +1525,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 116L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2727),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1550),
                             AlbumId = 11L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2729),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1552),
                             Order = 2,
                             Side = 1,
                             SongId = 113L
@@ -1526,9 +1535,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 117L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2732),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1554),
                             AlbumId = 11L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(2734),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1555),
                             Order = 3,
                             Side = 1,
                             SongId = 114L
@@ -1536,9 +1545,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 118L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3320),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1557),
                             AlbumId = 11L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3336),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1559),
                             Order = 4,
                             Side = 1,
                             SongId = 115L
@@ -1546,9 +1555,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 119L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3351),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1561),
                             AlbumId = 11L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3354),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1562),
                             Order = 1,
                             Side = 2,
                             SongId = 116L
@@ -1556,9 +1565,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 120L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3357),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1564),
                             AlbumId = 11L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3359),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1566),
                             Order = 2,
                             Side = 2,
                             SongId = 117L
@@ -1566,9 +1575,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 121L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3361),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1569),
                             AlbumId = 11L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3364),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1570),
                             Order = 3,
                             Side = 2,
                             SongId = 118L
@@ -1576,9 +1585,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 122L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3367),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1572),
                             AlbumId = 11L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3369),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1574),
                             Order = 4,
                             Side = 2,
                             SongId = 119L
@@ -1586,9 +1595,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 123L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3372),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1576),
                             AlbumId = 11L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3374),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1577),
                             Order = 5,
                             Side = 2,
                             SongId = 120L
@@ -1596,9 +1605,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 124L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3377),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1579),
                             AlbumId = 11L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3379),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1581),
                             Order = 3,
                             Side = 3,
                             SongId = 121L
@@ -1606,9 +1615,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 125L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3383),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1583),
                             AlbumId = 11L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3385),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1585),
                             Order = 4,
                             Side = 3,
                             SongId = 122L
@@ -1616,9 +1625,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 126L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3388),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1587),
                             AlbumId = 11L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3390),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1588),
                             Order = 1,
                             Side = 3,
                             SongId = 123L
@@ -1626,9 +1635,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 127L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3393),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1590),
                             AlbumId = 11L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3395),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1592),
                             Order = 1,
                             Side = 4,
                             SongId = 124L
@@ -1636,9 +1645,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 128L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3397),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1594),
                             AlbumId = 11L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3399),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1595),
                             Order = 2,
                             Side = 4,
                             SongId = 125L
@@ -1646,9 +1655,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 129L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3402),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1597),
                             AlbumId = 11L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3404),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1599),
                             Order = 3,
                             Side = 4,
                             SongId = 126L
@@ -1656,9 +1665,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 130L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3407),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1601),
                             AlbumId = 11L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3409),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1602),
                             Order = 4,
                             Side = 4,
                             SongId = 127L
@@ -1666,9 +1675,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 131L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3412),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1604),
                             AlbumId = 12L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3414),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1606),
                             Order = 1,
                             Side = 1,
                             SongId = 128L
@@ -1676,9 +1685,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 132L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3416),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1608),
                             AlbumId = 12L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3418),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1609),
                             Order = 2,
                             Side = 1,
                             SongId = 129L
@@ -1686,9 +1695,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 133L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3422),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1611),
                             AlbumId = 12L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3424),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1613),
                             Order = 3,
                             Side = 1,
                             SongId = 130L
@@ -1696,9 +1705,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 134L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3427),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1615),
                             AlbumId = 12L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3429),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1616),
                             Order = 4,
                             Side = 1,
                             SongId = 131L
@@ -1706,9 +1715,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 135L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3432),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1618),
                             AlbumId = 12L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3434),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1620),
                             Order = 5,
                             Side = 1,
                             SongId = 132L
@@ -1716,9 +1725,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 136L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3436),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1622),
                             AlbumId = 12L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3438),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1623),
                             Order = 6,
                             Side = 1,
                             SongId = 133L
@@ -1726,9 +1735,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 137L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3441),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1625),
                             AlbumId = 12L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3443),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1627),
                             Order = 1,
                             Side = 2,
                             SongId = 134L
@@ -1736,9 +1745,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 138L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3446),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1629),
                             AlbumId = 12L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3448),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1630),
                             Order = 2,
                             Side = 2,
                             SongId = 135L
@@ -1746,9 +1755,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 139L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3450),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1632),
                             AlbumId = 12L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3452),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1634),
                             Order = 3,
                             Side = 2,
                             SongId = 136L
@@ -1756,9 +1765,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 140L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3487),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1639),
                             AlbumId = 12L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3489),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1640),
                             Order = 4,
                             Side = 2,
                             SongId = 137L
@@ -1766,9 +1775,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 141L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3492),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1642),
                             AlbumId = 12L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3494),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1644),
                             Order = 5,
                             Side = 2,
                             SongId = 138L
@@ -1776,9 +1785,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 142L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3497),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1646),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3499),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1647),
                             Order = 1,
                             Side = 1,
                             SongId = 139L
@@ -1786,9 +1795,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 143L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3504),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1649),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3506),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1651),
                             Order = 2,
                             Side = 1,
                             SongId = 140L
@@ -1796,9 +1805,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 144L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3509),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1653),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3511),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1654),
                             Order = 3,
                             Side = 1,
                             SongId = 141L
@@ -1806,9 +1815,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 145L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3514),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1656),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3516),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1658),
                             Order = 4,
                             Side = 1,
                             SongId = 142L
@@ -1816,9 +1825,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 146L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3518),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1660),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3520),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1661),
                             Order = 5,
                             Side = 1,
                             SongId = 143L
@@ -1826,9 +1835,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 147L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3523),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1663),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3525),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1665),
                             Order = 1,
                             Side = 2,
                             SongId = 144L
@@ -1836,9 +1845,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 148L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3528),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1667),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3530),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1668),
                             Order = 2,
                             Side = 2,
                             SongId = 145L
@@ -1846,9 +1855,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 149L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3532),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1670),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3534),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1672),
                             Order = 3,
                             Side = 2,
                             SongId = 146L
@@ -1856,9 +1865,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 150L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3538),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1674),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3540),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1675),
                             Order = 4,
                             Side = 2,
                             SongId = 147L
@@ -1866,9 +1875,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 151L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3543),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1677),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3545),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1679),
                             Order = 5,
                             Side = 2,
                             SongId = 148L
@@ -1876,9 +1885,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 152L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3551),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1681),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3553),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1682),
                             Order = 6,
                             Side = 2,
                             SongId = 149L
@@ -1886,9 +1895,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 153L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3556),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1684),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3559),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1686),
                             Order = 1,
                             Side = 3,
                             SongId = 150L
@@ -1896,9 +1905,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 154L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3562),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1688),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3564),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1689),
                             Order = 2,
                             Side = 3,
                             SongId = 151L
@@ -1906,9 +1915,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 155L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3566),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1691),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3568),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1693),
                             Order = 3,
                             Side = 3,
                             SongId = 152L
@@ -1916,9 +1925,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 156L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3571),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1695),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3573),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1696),
                             Order = 4,
                             Side = 3,
                             SongId = 153L
@@ -1926,9 +1935,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 157L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3577),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1698),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3579),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1700),
                             Order = 5,
                             Side = 3,
                             SongId = 154L
@@ -1936,9 +1945,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 158L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3581),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1702),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3583),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1703),
                             Order = 1,
                             Side = 4,
                             SongId = 155L
@@ -1946,9 +1955,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 159L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3586),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1707),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3588),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1708),
                             Order = 2,
                             Side = 4,
                             SongId = 156L
@@ -1956,9 +1965,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 160L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3591),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1710),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3593),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1712),
                             Order = 3,
                             Side = 4,
                             SongId = 157L
@@ -1966,9 +1975,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 161L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3595),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1714),
                             AlbumId = 13L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3597),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1715),
                             Order = 4,
                             Side = 4,
                             SongId = 158L
@@ -1976,9 +1985,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 168L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3602),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1717),
                             AlbumId = 15L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3604),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1719),
                             Order = 1,
                             Side = 1,
                             SongId = 166L
@@ -1986,9 +1995,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 169L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3607),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1721),
                             AlbumId = 15L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3609),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1722),
                             Order = 2,
                             Side = 1,
                             SongId = 167L
@@ -1996,9 +2005,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 170L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3612),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1724),
                             AlbumId = 15L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3614),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1726),
                             Order = 3,
                             Side = 1,
                             SongId = 168L
@@ -2006,9 +2015,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 171L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3619),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1728),
                             AlbumId = 15L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3621),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1729),
                             Order = 4,
                             Side = 1,
                             SongId = 169L
@@ -2016,9 +2025,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 172L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3624),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1731),
                             AlbumId = 15L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3626),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1733),
                             Order = 5,
                             Side = 1,
                             SongId = 170L
@@ -2026,9 +2035,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 173L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3630),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1735),
                             AlbumId = 15L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3632),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1736),
                             Order = 1,
                             Side = 2,
                             SongId = 171L
@@ -2036,9 +2045,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 174L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3635),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1738),
                             AlbumId = 15L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3637),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1740),
                             Order = 2,
                             Side = 2,
                             SongId = 172L
@@ -2046,9 +2055,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 175L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3640),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1742),
                             AlbumId = 15L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3642),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1743),
                             Order = 3,
                             Side = 2,
                             SongId = 173L
@@ -2056,9 +2065,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 176L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3649),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1797),
                             AlbumId = 15L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3651),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1799),
                             Order = 4,
                             Side = 2,
                             SongId = 174L
@@ -2066,9 +2075,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 177L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3654),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1804),
                             AlbumId = 15L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3656),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1806),
                             Order = 5,
                             Side = 2,
                             SongId = 175L
@@ -2076,9 +2085,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 178L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3659),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1809),
                             AlbumId = 16L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3661),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1811),
                             Order = 1,
                             Side = 1,
                             SongId = 176L
@@ -2086,9 +2095,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 179L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3664),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1814),
                             AlbumId = 16L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3666),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1817),
                             Order = 2,
                             Side = 1,
                             SongId = 177L
@@ -2096,9 +2105,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 180L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3669),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1820),
                             AlbumId = 16L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3671),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1822),
                             Order = 3,
                             Side = 1,
                             SongId = 178L
@@ -2106,9 +2115,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 181L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3674),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1825),
                             AlbumId = 16L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3676),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1827),
                             Order = 4,
                             Side = 1,
                             SongId = 179L
@@ -2116,9 +2125,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 182L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3678),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1830),
                             AlbumId = 16L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3680),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1832),
                             Order = 1,
                             Side = 2,
                             SongId = 180L
@@ -2126,9 +2135,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 183L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3683),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1836),
                             AlbumId = 16L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3685),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1838),
                             Order = 2,
                             Side = 2,
                             SongId = 181L
@@ -2136,9 +2145,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 184L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3688),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1842),
                             AlbumId = 16L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3690),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1844),
                             Order = 3,
                             Side = 2,
                             SongId = 182L
@@ -2146,9 +2155,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 185L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3693),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1848),
                             AlbumId = 16L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3695),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1850),
                             Order = 4,
                             Side = 2,
                             SongId = 183L
@@ -2156,9 +2165,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 186L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3698),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1853),
                             AlbumId = 17L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3700),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1855),
                             Order = 1,
                             Side = 1,
                             SongId = 184L
@@ -2166,9 +2175,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 187L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3703),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1858),
                             AlbumId = 17L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3705),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1860),
                             Order = 2,
                             Side = 1,
                             SongId = 185L
@@ -2176,9 +2185,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 188L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3708),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1867),
                             AlbumId = 17L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3710),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1870),
                             Order = 3,
                             Side = 1,
                             SongId = 186L
@@ -2186,9 +2195,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 189L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3713),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1873),
                             AlbumId = 17L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3715),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1875),
                             Order = 4,
                             Side = 1,
                             SongId = 187L
@@ -2196,9 +2205,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 190L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3718),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1878),
                             AlbumId = 17L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3720),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1880),
                             Order = 5,
                             Side = 1,
                             SongId = 188L
@@ -2206,9 +2215,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 191L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3724),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1884),
                             AlbumId = 17L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3726),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1919),
                             Order = 6,
                             Side = 1,
                             SongId = 189L
@@ -2216,9 +2225,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 192L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3729),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1926),
                             AlbumId = 17L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3731),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1929),
                             Order = 1,
                             Side = 2,
                             SongId = 190L
@@ -2226,9 +2235,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 193L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3869),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1931),
                             AlbumId = 17L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3878),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1934),
                             Order = 2,
                             Side = 2,
                             SongId = 191L
@@ -2236,9 +2245,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 194L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3882),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1937),
                             AlbumId = 17L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3884),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1941),
                             Order = 3,
                             Side = 2,
                             SongId = 192L
@@ -2246,9 +2255,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 195L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3887),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1944),
                             AlbumId = 17L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3889),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1945),
                             Order = 4,
                             Side = 2,
                             SongId = 193L
@@ -2256,9 +2265,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 196L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3892),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1947),
                             AlbumId = 17L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3894),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1949),
                             Order = 5,
                             Side = 2,
                             SongId = 194L
@@ -2266,9 +2275,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 197L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3896),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1951),
                             AlbumId = 19L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3898),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1952),
                             Order = 1,
                             Side = 1,
                             SongId = 195L
@@ -2276,9 +2285,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 198L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3901),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1955),
                             AlbumId = 19L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3904),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1956),
                             Order = 2,
                             Side = 1,
                             SongId = 196L
@@ -2286,9 +2295,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 199L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3907),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1958),
                             AlbumId = 19L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3909),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1960),
                             Order = 3,
                             Side = 1,
                             SongId = 197L
@@ -2296,9 +2305,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 200L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3914),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1962),
                             AlbumId = 19L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3920),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1963),
                             Order = 4,
                             Side = 1,
                             SongId = 198L
@@ -2306,9 +2315,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 201L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3928),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1965),
                             AlbumId = 19L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3934),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1967),
                             Order = 5,
                             Side = 1,
                             SongId = 199L
@@ -2316,9 +2325,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 202L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3942),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1970),
                             AlbumId = 19L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3949),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1971),
                             Order = 6,
                             Side = 1,
                             SongId = 200L
@@ -2326,9 +2335,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 203L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3957),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1973),
                             AlbumId = 19L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3959),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1975),
                             Order = 1,
                             Side = 2,
                             SongId = 201L
@@ -2336,9 +2345,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 204L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3962),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1977),
                             AlbumId = 19L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3964),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1978),
                             Order = 2,
                             Side = 2,
                             SongId = 202L
@@ -2346,9 +2355,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 205L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3967),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1980),
                             AlbumId = 19L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3969),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1982),
                             Order = 3,
                             Side = 2,
                             SongId = 203L
@@ -2356,9 +2365,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 206L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3973),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1984),
                             AlbumId = 19L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3975),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1985),
                             Order = 4,
                             Side = 2,
                             SongId = 204L
@@ -2366,9 +2375,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 207L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3979),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1987),
                             AlbumId = 20L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3982),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1989),
                             Order = 1,
                             Side = 1,
                             SongId = 205L
@@ -2376,9 +2385,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 208L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3985),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1991),
                             AlbumId = 20L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3988),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1992),
                             Order = 2,
                             Side = 1,
                             SongId = 206L
@@ -2386,9 +2395,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 209L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3991),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1995),
                             AlbumId = 20L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3993),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1996),
                             Order = 3,
                             Side = 1,
                             SongId = 207L
@@ -2396,9 +2405,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 210L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3996),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(1998),
                             AlbumId = 20L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(3998),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2000),
                             Order = 4,
                             Side = 1,
                             SongId = 208L
@@ -2406,9 +2415,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 211L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4001),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2002),
                             AlbumId = 20L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4007),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2003),
                             Order = 5,
                             Side = 1,
                             SongId = 209L
@@ -2416,9 +2425,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 212L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4011),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2005),
                             AlbumId = 20L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4013),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2007),
                             Order = 6,
                             Side = 1,
                             SongId = 210L
@@ -2426,9 +2435,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 213L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4016),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2009),
                             AlbumId = 20L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4018),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2010),
                             Order = 1,
                             Side = 2,
                             SongId = 211L
@@ -2436,9 +2445,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 214L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4024),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2012),
                             AlbumId = 20L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4026),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2014),
                             Order = 2,
                             Side = 2,
                             SongId = 212L
@@ -2446,9 +2455,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 215L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4029),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2016),
                             AlbumId = 20L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4031),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2017),
                             Order = 3,
                             Side = 2,
                             SongId = 213L
@@ -2456,9 +2465,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 216L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4034),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2019),
                             AlbumId = 20L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4036),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2021),
                             Order = 4,
                             Side = 2,
                             SongId = 214L
@@ -2466,9 +2475,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 217L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4039),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2023),
                             AlbumId = 20L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4041),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2024),
                             Order = 5,
                             Side = 2,
                             SongId = 215L
@@ -2476,9 +2485,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 218L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4043),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2026),
                             AlbumId = 20L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4045),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2028),
                             Order = 6,
                             Side = 2,
                             SongId = 216L
@@ -2486,9 +2495,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 219L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4048),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2030),
                             AlbumId = 21L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4050),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2031),
                             Order = 1,
                             Side = 1,
                             SongId = 217L
@@ -2496,9 +2505,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 220L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4054),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2034),
                             AlbumId = 21L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4059),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2035),
                             Order = 2,
                             Side = 1,
                             SongId = 218L
@@ -2506,9 +2515,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 221L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4062),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2038),
                             AlbumId = 21L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4064),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2039),
                             Order = 3,
                             Side = 1,
                             SongId = 219L
@@ -2516,9 +2525,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 222L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4072),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2042),
                             AlbumId = 21L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4074),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2043),
                             Order = 4,
                             Side = 1,
                             SongId = 220L
@@ -2526,9 +2535,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 223L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4078),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2045),
                             AlbumId = 21L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4080),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2047),
                             Order = 1,
                             Side = 2,
                             SongId = 221L
@@ -2536,9 +2545,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 224L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4083),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2049),
                             AlbumId = 21L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4086),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2050),
                             Order = 2,
                             Side = 2,
                             SongId = 222L
@@ -2546,9 +2555,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 225L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4089),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2052),
                             AlbumId = 21L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4092),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2054),
                             Order = 3,
                             Side = 2,
                             SongId = 223L
@@ -2556,9 +2565,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 226L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4097),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2056),
                             AlbumId = 21L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4105),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2057),
                             Order = 4,
                             Side = 2,
                             SongId = 224L
@@ -2566,9 +2575,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 227L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4115),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2059),
                             AlbumId = 21L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4121),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2061),
                             Order = 5,
                             Side = 2,
                             SongId = 225L
@@ -2576,9 +2585,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 228L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4130),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2063),
                             AlbumId = 22L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4132),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2064),
                             Order = 1,
                             Side = 1,
                             SongId = 226L
@@ -2586,9 +2595,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 229L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4136),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2066),
                             AlbumId = 22L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4138),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2068),
                             Order = 2,
                             Side = 1,
                             SongId = 227L
@@ -2596,9 +2605,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 230L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4141),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2070),
                             AlbumId = 22L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4143),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2071),
                             Order = 3,
                             Side = 1,
                             SongId = 228L
@@ -2606,9 +2615,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 231L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4146),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2073),
                             AlbumId = 22L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4149),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2075),
                             Order = 4,
                             Side = 1,
                             SongId = 229L
@@ -2616,9 +2625,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 232L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4152),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2077),
                             AlbumId = 22L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4155),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2078),
                             Order = 5,
                             Side = 1,
                             SongId = 230L
@@ -2626,9 +2635,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 233L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4159),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2080),
                             AlbumId = 22L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4162),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2082),
                             Order = 1,
                             Side = 2,
                             SongId = 231L
@@ -2636,9 +2645,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 234L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4165),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2084),
                             AlbumId = 22L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4167),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2085),
                             Order = 2,
                             Side = 2,
                             SongId = 232L
@@ -2646,9 +2655,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 235L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4171),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2087),
                             AlbumId = 22L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4173),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2089),
                             Order = 3,
                             Side = 2,
                             SongId = 233L
@@ -2656,9 +2665,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 236L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4176),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2091),
                             AlbumId = 22L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4178),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2092),
                             Order = 4,
                             Side = 2,
                             SongId = 234L
@@ -2666,9 +2675,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 237L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4180),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2095),
                             AlbumId = 22L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4182),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2096),
                             Order = 5,
                             Side = 2,
                             SongId = 235L
@@ -2676,9 +2685,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 238L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4185),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2098),
                             AlbumId = 23L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4187),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2099),
                             Order = 1,
                             Side = 1,
                             SongId = 236L
@@ -2686,9 +2695,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 239L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4190),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2102),
                             AlbumId = 23L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4192),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2104),
                             Order = 2,
                             Side = 1,
                             SongId = 237L
@@ -2696,9 +2705,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 240L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4195),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2106),
                             AlbumId = 23L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4198),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2108),
                             Order = 3,
                             Side = 1,
                             SongId = 238L
@@ -2706,9 +2715,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 241L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4201),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2110),
                             AlbumId = 23L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4203),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2111),
                             Order = 4,
                             Side = 1,
                             SongId = 239L
@@ -2716,9 +2725,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 242L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4206),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2113),
                             AlbumId = 23L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4209),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2115),
                             Order = 5,
                             Side = 1,
                             SongId = 240L
@@ -2726,9 +2735,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 243L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4213),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2117),
                             AlbumId = 23L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4216),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2118),
                             Order = 6,
                             Side = 1,
                             SongId = 241L
@@ -2736,9 +2745,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 244L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4220),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2120),
                             AlbumId = 23L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4223),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2122),
                             Order = 1,
                             Side = 2,
                             SongId = 242L
@@ -2746,9 +2755,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 245L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4228),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2124),
                             AlbumId = 23L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4234),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2125),
                             Order = 2,
                             Side = 2,
                             SongId = 243L
@@ -2756,9 +2765,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 246L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4242),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2127),
                             AlbumId = 23L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4249),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2129),
                             Order = 3,
                             Side = 2,
                             SongId = 244L
@@ -2766,9 +2775,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 247L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4259),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2131),
                             AlbumId = 23L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4261),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2132),
                             Order = 4,
                             Side = 2,
                             SongId = 245L
@@ -2776,9 +2785,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 248L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4264),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2134),
                             AlbumId = 23L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4266),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2136),
                             Order = 5,
                             Side = 2,
                             SongId = 246L
@@ -2786,9 +2795,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 249L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4269),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2139),
                             AlbumId = 23L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4271),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2140),
                             Order = 6,
                             Side = 2,
                             SongId = 247L
@@ -2796,9 +2805,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 250L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4274),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2142),
                             AlbumId = 14L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4276),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2144),
                             Order = 1,
                             Side = 1,
                             SongId = 248L
@@ -2806,9 +2815,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 251L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4279),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2146),
                             AlbumId = 14L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4281),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2147),
                             Order = 2,
                             Side = 1,
                             SongId = 249L
@@ -2816,9 +2825,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 252L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4283),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2149),
                             AlbumId = 14L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4285),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2151),
                             Order = 3,
                             Side = 1,
                             SongId = 250L
@@ -2826,9 +2835,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 253L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4288),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2153),
                             AlbumId = 14L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4290),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2154),
                             Order = 4,
                             Side = 1,
                             SongId = 251L
@@ -2836,9 +2845,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 254L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4293),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2156),
                             AlbumId = 14L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4295),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2158),
                             Order = 1,
                             Side = 2,
                             SongId = 252L
@@ -2846,9 +2855,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 255L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4298),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2160),
                             AlbumId = 14L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4304),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2161),
                             Order = 2,
                             Side = 2,
                             SongId = 253L
@@ -2856,9 +2865,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 256L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4311),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2163),
                             AlbumId = 14L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4318),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2165),
                             Order = 3,
                             Side = 2,
                             SongId = 254L
@@ -2866,9 +2875,9 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 257L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4328),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2167),
                             AlbumId = 14L,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 893, DateTimeKind.Local).AddTicks(4334),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(2168),
                             Order = 4,
                             Side = 2,
                             SongId = 255L
@@ -2915,196 +2924,196 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 1L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9808),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9328),
                             CountryId = 1,
                             DisbandYear = 1980,
                             FormationYear = 1967,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9810),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9329),
                             Name = "Led Zeppelin",
                             Photo = "458eb53a-aba7-42a2-a5ed-526da552966e.jpg"
                         },
                         new
                         {
                             Id = 2L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9819),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9339),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9820),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9340),
                             Name = "Sandy Denny",
                             Photo = "0ed76f7d-e5da-4e5b-87b0-a8ecb4a165cd.jpg"
                         },
                         new
                         {
                             Id = 3L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9823),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9343),
                             CountryId = 5,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9824),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9345),
                             Name = "Bruce Springsteen",
                             Photo = "32ce9c93-9129-4bff-b166-db5ada039757.jpg"
                         },
                         new
                         {
                             Id = 4L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9866),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9347),
                             CountryId = 5,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9867),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9349),
                             Name = "John Denver",
                             Photo = "f94fb03e-c368-4562-9c66-2b2db5722252.jpg"
                         },
                         new
                         {
                             Id = 5L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9871),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9351),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9872),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9353),
                             Name = "Elton John",
                             Photo = "64fa7eb5-dca2-4ed3-a465-fa6904bba895.jpg"
                         },
                         new
                         {
                             Id = 6L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9876),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9356),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9878),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9357),
                             Name = "John Lennon",
                             Photo = "e0ceb7ed-5481-4cc1-926f-59cf31fd2e69.jpg"
                         },
                         new
                         {
                             Id = 7L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9920),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9360),
                             CountryId = 5,
                             FormationYear = 1962,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9922),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9361),
                             Name = "Bob Dylan",
                             Photo = "567552b5-27d5-4a6e-acc5-449017fcd47e.jpg"
                         },
                         new
                         {
                             Id = 8L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9927),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9364),
                             CountryId = 3,
                             FormationYear = 1986,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9929),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9365),
                             Name = "Manic Street Preachers",
                             Photo = "8117dfa2-41a4-4be1-a33f-fd7484ae5d7a.jpg"
                         },
                         new
                         {
                             Id = 9L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9932),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9368),
                             CountryId = 1,
                             FormationYear = 1979,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9935),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9369),
                             Name = "Ozzy Osbourne",
                             Photo = "99cc2dbe-5671-4eca-947d-8f7a4f1759af.jpg"
                         },
                         new
                         {
                             Id = 10L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9941),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9373),
                             CountryId = 1,
                             FormationYear = 1974,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9944),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9374),
                             Name = "The Stranglers",
                             Photo = "8b728b1e-c506-4d08-b87d-9f320f4cc920.jpg"
                         },
                         new
                         {
                             Id = 11L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9948),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9377),
                             CountryId = 2,
                             FormationYear = 1977,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9950),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9378),
                             Name = "Simple Minds",
                             Photo = "2a39824d-1c56-46fe-b4bc-b7e87dfb7bb3.jpg"
                         },
                         new
                         {
                             Id = 12L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9953),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9381),
                             CountryId = 1,
                             FormationYear = 1968,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9956),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9382),
                             Name = "Deep Purple",
                             Photo = "5863254c-693f-43e3-b0f8-a7ebdeb8ec33.jpg"
                         },
                         new
                         {
                             Id = 13L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9960),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9385),
                             CountryId = 1,
                             FormationYear = 1975,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9963),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9386),
                             Name = "Motorhead",
                             Photo = "2691c7fa-2546-401e-a10b-1608e00711d2.jpg"
                         },
                         new
                         {
                             Id = 14L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9966),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9389),
                             CountryId = 6,
                             FormationYear = 1973,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9968),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9390),
                             Name = "ACDC",
                             Photo = "85d9174f-1f0d-4221-8635-f86c211caa4d.jpg"
                         },
                         new
                         {
                             Id = 15L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9971),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9393),
                             CountryId = 5,
                             DisbandYear = 1970,
                             FormationYear = 1961,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9973),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9394),
                             Name = "Jimi Hendrix",
                             Photo = "f304b989-f26e-4aa5-8c78-1d1b49850bee.jpg"
                         },
                         new
                         {
                             Id = 16L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9978),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9397),
                             CountryId = 1,
                             FormationYear = 1967,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9981),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9399),
                             Name = "Fleetwood Mac",
                             Photo = "c75ac394-e941-412a-8f83-701b7aeb1e83.jpg"
                         },
                         new
                         {
                             Id = 17L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(212),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9401),
                             CountryId = 5,
                             FormationYear = 1987,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(228),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9403),
                             Name = "Nirvana",
                             Photo = "3f9452b1-99c8-4a79-89bd-bd5db4c2d908.jpg"
                         },
                         new
                         {
                             Id = 18L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(242),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9406),
                             CountryId = 1,
                             FormationYear = 1975,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(245),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9408),
                             Name = "Kate Bush",
                             Photo = "909e5592-09a3-4018-a3a8-e067612c7388.jpg"
                         },
                         new
                         {
                             Id = 19L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(249),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9410),
                             CountryId = 5,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(251),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9412),
                             Name = "Tori Amos",
                             Photo = "22d853a2-cd81-4362-a6a5-d15c17c83194.jpg"
                         },
                         new
                         {
                             Id = 20L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(254),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9414),
                             CountryId = 1,
                             FormationYear = 1975,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(256),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9416),
                             Name = "U2",
                             Photo = "af794a29-19e8-440f-a5e2-113319932b40.jpg"
                         });
@@ -3141,369 +3150,369 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 1,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9577),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9047),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9579),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9049),
                             Name = "Aston, Birmingham"
                         },
                         new
                         {
                             Id = 2,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9584),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9056),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9585),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9057),
                             Name = "Birmingham"
                         },
                         new
                         {
                             Id = 3,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9588),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9059),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9589),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9061),
                             Name = "West Bromwich"
                         },
                         new
                         {
                             Id = 4,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9591),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9063),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9593),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9064),
                             Name = "Heston"
                         },
                         new
                         {
                             Id = 5,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9595),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9066),
                             CountryId = 5,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9596),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9068),
                             Name = "Seattle"
                         },
                         new
                         {
                             Id = 6,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9600),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9071),
                             CountryId = 3,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9602),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9072),
                             Name = "Pontypool"
                         },
                         new
                         {
                             Id = 7,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9604),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9074),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9605),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9075),
                             Name = "Sidcup"
                         },
                         new
                         {
                             Id = 8,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9607),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9077),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9609),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9079),
                             Name = "Reddich"
                         },
                         new
                         {
                             Id = 9,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9611),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9081),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9612),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9082),
                             Name = "Merton Park, London"
                         },
                         new
                         {
                             Id = 10,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9615),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9085),
                             CountryId = 5,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9617),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9086),
                             Name = "Long Branch, New Jersey"
                         },
                         new
                         {
                             Id = 11,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9619),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9089),
                             CountryId = 5,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9620),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9090),
                             Name = "Monterey Bay"
                         },
                         new
                         {
                             Id = 12,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9622),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9092),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9624),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9094),
                             Name = "Pinner, Middlesex"
                         },
                         new
                         {
                             Id = 13,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9626),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9096),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9627),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9097),
                             Name = "Liverpool, Lancashire"
                         },
                         new
                         {
                             Id = 14,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9629),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9099),
                             CountryId = 7,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9631),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9101),
                             Name = "Vancover"
                         },
                         new
                         {
                             Id = 15,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9633),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9103),
                             CountryId = 5,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9634),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9104),
                             Name = "Duluth, Minnesota"
                         },
                         new
                         {
                             Id = 16,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9636),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9106),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9638),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9107),
                             Name = "Marston Green, Warwickshire"
                         },
                         new
                         {
                             Id = 17,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9640),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9110),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9641),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9112),
                             Name = "Tufnell Park, North London"
                         },
                         new
                         {
                             Id = 18,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9644),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9115),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9646),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9117),
                             Name = "Notting Hill, London"
                         },
                         new
                         {
                             Id = 19,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9648),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9119),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9649),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9120),
                             Name = "Brighton, London"
                         },
                         new
                         {
                             Id = 21,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9651),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9122),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9653),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9124),
                             Name = "Ilford, Essex"
                         },
                         new
                         {
                             Id = 22,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9655),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9126),
                             CountryId = 2,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9657),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9127),
                             Name = "Toryglen, Glasgow"
                         },
                         new
                         {
                             Id = 23,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9659),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9129),
                             CountryId = 2,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9660),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9131),
                             Name = "Glasgow"
                         },
                         new
                         {
                             Id = 24,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9662),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9133),
                             CountryId = 2,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9664),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9135),
                             Name = "Dundee"
                         },
                         new
                         {
                             Id = 25,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9666),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9137),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9667),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9138),
                             Name = "Nottingham"
                         },
                         new
                         {
                             Id = 26,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9669),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9140),
                             CountryId = 3,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9671),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9141),
                             Name = "Brecon"
                         },
                         new
                         {
                             Id = 27,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9672),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9143),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9674),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9145),
                             Name = "Chiswick, London"
                         },
                         new
                         {
                             Id = 28,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9676),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9147),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9677),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9148),
                             Name = "Stoke-on-Trent, Staffordshire"
                         },
                         new
                         {
                             Id = 29,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9679),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9150),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9681),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9152),
                             Name = "London"
                         },
                         new
                         {
                             Id = 30,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9683),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9154),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9685),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9155),
                             Name = "Twickenham, Middlesex"
                         },
                         new
                         {
                             Id = 31,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9687),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9157),
                             CountryId = 6,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9688),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9158),
                             Name = "Melbourne, Victoria"
                         },
                         new
                         {
                             Id = 32,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9690),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9160),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9692),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9162),
                             Name = "Romford, Essex"
                         },
                         new
                         {
                             Id = 33,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9694),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9164),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9695),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9165),
                             Name = "Dunston, Gateshead"
                         },
                         new
                         {
                             Id = 34,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9697),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9167),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9699),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9168),
                             Name = "Redruth, Cornwall, Gateshead"
                         },
                         new
                         {
                             Id = 35,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9702),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9171),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9703),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9173),
                             Name = "Phoenix, Arizona"
                         },
                         new
                         {
                             Id = 36,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9705),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9175),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9707),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9176),
                             Name = "Ealing, Middlesex"
                         },
                         new
                         {
                             Id = 37,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9709),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9178),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9711),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9180),
                             Name = "Bouth, Lancashire"
                         },
                         new
                         {
                             Id = 38,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9713),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9182),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9714),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9183),
                             Name = "Palo Alto, California"
                         },
                         new
                         {
                             Id = 39,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9716),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9185),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9718),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9186),
                             Name = "Aberdeen, Washington"
                         },
                         new
                         {
                             Id = 40,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9720),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9188),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9721),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9190),
                             Name = "Compton, California"
                         },
                         new
                         {
                             Id = 41,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9723),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9192),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9725),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9193),
                             Name = "Warren, Ohio"
                         },
                         new
                         {
                             Id = 42,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9727),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9195),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9728),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9197),
                             Name = "Bexleyheath, Kent"
                         },
                         new
                         {
                             Id = 43,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9730),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9199),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9732),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9200),
                             Name = "Newton, North Carolina"
                         },
                         new
                         {
                             Id = 44,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9734),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9202),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9735),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9204),
                             Name = "Dublin, Ireland"
                         },
                         new
                         {
                             Id = 45,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9737),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9205),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9739),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9207),
                             Name = "Barking, Essex"
                         },
                         new
                         {
                             Id = 46,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9741),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9209),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9742),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9211),
                             Name = "Chinnor, Oxfordshire"
                         },
                         new
                         {
                             Id = 47,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9744),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9213),
                             CountryId = 1,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9746),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9214),
                             Name = "Artane, Dublin"
                         });
                 });
@@ -3534,50 +3543,50 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 1,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9261),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9296),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8837),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8873),
                             Name = "England"
                         },
                         new
                         {
                             Id = 2,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9302),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9303),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8878),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8879),
                             Name = "Scotland"
                         },
                         new
                         {
                             Id = 3,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9305),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9307),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8882),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8883),
                             Name = "Wales"
                         },
                         new
                         {
                             Id = 4,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9309),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9310),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8885),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8886),
                             Name = "Northern Ireland"
                         },
                         new
                         {
                             Id = 5,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9312),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9314),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8888),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8890),
                             Name = "United States of America"
                         },
                         new
                         {
                             Id = 6,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9318),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9319),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8893),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8895),
                             Name = "Australia"
                         },
                         new
                         {
                             Id = 7,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9321),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9323),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8897),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8898),
                             Name = "Canada"
                         });
                 });
@@ -3596,8 +3605,8 @@ namespace SwanSong.Data.Migrations
                     b.Property<long?>("ArtistId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("BirthPlaceId")
-                        .HasColumnType("int");
+                    b.Property<long?>("BirthPlaceId")
+                        .HasColumnType("bigint");
 
                     b.Property<int?>("BirthPlaceId1")
                         .HasColumnType("int");
@@ -3644,14 +3653,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 1L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(475),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9443),
                             ArtistId = 1L,
-                            BirthPlaceId = 4,
+                            BirthPlaceId = 4L,
                             DateOfBirth = new DateTime(1944, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "James",
                             IsSongWriter = true,
                             MiddleName = "Patrick",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(486),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9446),
                             Photo = "a0033bc9-c0b8-4248-8e31-f9d3938e1e34.jpg",
                             StageName = "Jimmy Page",
                             Surname = "Page"
@@ -3659,14 +3668,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 2L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(790),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9458),
                             ArtistId = 1L,
-                            BirthPlaceId = 3,
+                            BirthPlaceId = 3L,
                             DateOfBirth = new DateTime(1948, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Robert",
                             IsSongWriter = true,
                             MiddleName = "Anthony",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(881),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9460),
                             Photo = "5ebc88e6-7cbd-4c84-bc80-2c2aa832104f.jpg",
                             StageName = "Robert Plant",
                             Surname = "Plant"
@@ -3674,14 +3683,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 3L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(908),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9463),
                             ArtistId = 1L,
-                            BirthPlaceId = 7,
+                            BirthPlaceId = 7L,
                             DateOfBirth = new DateTime(1946, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "John",
                             IsSongWriter = true,
                             MiddleName = "Jones",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(910),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9465),
                             Photo = "b80b7338-3caa-41ce-99f9-8b39e74ce21b.jpg",
                             StageName = "John Paul Jones",
                             Surname = "Paul"
@@ -3689,14 +3698,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 4L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(915),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9468),
                             ArtistId = 1L,
-                            BirthPlaceId = 8,
+                            BirthPlaceId = 8L,
                             DateOfBirth = new DateTime(1948, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "John",
                             IsSongWriter = true,
                             MiddleName = "Bonham",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(917),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9470),
                             Photo = "7c0fa2d4-07e4-45fd-8844-85dd78e2433a.jpg",
                             StageName = "John Bonham",
                             Surname = "Henry"
@@ -3704,15 +3713,15 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 5L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(921),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9472),
                             ArtistId = 2L,
-                            BirthPlaceId = 9,
+                            BirthPlaceId = 9L,
                             DateOfBirth = new DateTime(1947, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfDeath = new DateTime(1978, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Alexandra",
                             IsSongWriter = true,
                             MiddleName = "Elene MacLean",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(926),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9474),
                             Photo = "b4961727-17ff-4594-97f1-b80d3b28ca3c.jpg",
                             StageName = "Sandy Denny",
                             Surname = "Denny"
@@ -3720,13 +3729,13 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 6L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(962),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9478),
                             ArtistId = 3L,
-                            BirthPlaceId = 10,
+                            BirthPlaceId = 10L,
                             DateOfBirth = new DateTime(1949, 9, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Bruce",
                             IsSongWriter = true,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(970),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9479),
                             Photo = "734770c0-05f1-4bd9-ae4b-748cbdc64167.jpg",
                             StageName = "Bruce Springsteen",
                             Surname = "Springsteen"
@@ -3734,14 +3743,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 7L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(976),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9482),
                             ArtistId = 4L,
-                            BirthPlaceId = 11,
+                            BirthPlaceId = 11L,
                             DateOfBirth = new DateTime(1943, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfDeath = new DateTime(1997, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "John",
                             IsSongWriter = true,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(979),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9484),
                             Photo = "08dc96d6-bbe4-429d-90b6-094b04ae8f9d.jpg",
                             StageName = "John Denver",
                             Surname = "Denver"
@@ -3749,13 +3758,13 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 8L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(984),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9486),
                             ArtistId = 5L,
-                            BirthPlaceId = 12,
+                            BirthPlaceId = 12L,
                             DateOfBirth = new DateTime(1947, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Elton",
                             IsSongWriter = true,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(986),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9488),
                             Photo = "06cb3132-accb-4b58-a532-47bb49bdc29b.jpg",
                             StageName = "Elton John",
                             Surname = "John"
@@ -3763,14 +3772,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 9L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(992),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9491),
                             ArtistId = 6L,
-                            BirthPlaceId = 13,
+                            BirthPlaceId = 13L,
                             DateOfBirth = new DateTime(1940, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfDeath = new DateTime(1980, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "John",
                             IsSongWriter = true,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(994),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9493),
                             Photo = "69e916a9-94e6-47ce-9762-1ca6650fa434.jpg",
                             StageName = "John Lennon",
                             Surname = "Lennon"
@@ -3778,14 +3787,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 10L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1002),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9496),
                             ArtistId = 7L,
-                            BirthPlaceId = 15,
+                            BirthPlaceId = 15L,
                             DateOfBirth = new DateTime(1941, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Robert",
                             IsSongWriter = true,
                             MiddleName = "Allen",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1005),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9498),
                             Photo = "bb655ce4-9a14-4805-b6d3-9f84a26a250a.jpg",
                             StageName = "Bob Dylan",
                             Surname = "Zimmerman"
@@ -3793,14 +3802,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 11L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1009),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9501),
                             ArtistId = 8L,
-                            BirthPlaceId = 6,
+                            BirthPlaceId = 6L,
                             DateOfBirth = new DateTime(1969, 2, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "James",
                             IsSongWriter = true,
                             MiddleName = "Dean",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1012),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9503),
                             Photo = "3d39a220-fd12-4533-adcb-7741b0c4f8ab.jpg",
                             StageName = "James Dean Bradfield",
                             Surname = "Bradfield"
@@ -3808,14 +3817,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 12L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1017),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9506),
                             ArtistId = 8L,
-                            BirthPlaceId = 6,
+                            BirthPlaceId = 6L,
                             DateOfBirth = new DateTime(1969, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Nicholas",
                             IsSongWriter = true,
                             MiddleName = "Allen",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1019),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9507),
                             Photo = "450e17c5-c352-452f-a1d8-4b6c4154cf9d.jpg",
                             StageName = "Nicky Wire",
                             Surname = "Jones"
@@ -3823,14 +3832,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 13L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1023),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9553),
                             ArtistId = 8L,
-                            BirthPlaceId = 6,
+                            BirthPlaceId = 6L,
                             DateOfBirth = new DateTime(1968, 7, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Sean",
                             IsSongWriter = true,
                             MiddleName = "Anthony",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1027),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9554),
                             Photo = "18bc8103-9380-4bde-ae46-01b8160887a3.jpg",
                             StageName = "Sean Moore",
                             Surname = "Moore"
@@ -3838,14 +3847,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 14L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1033),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9559),
                             ArtistId = 9L,
-                            BirthPlaceId = 16,
+                            BirthPlaceId = 16L,
                             DateOfBirth = new DateTime(1948, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "John",
                             IsSongWriter = true,
                             MiddleName = "Michael",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1034),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9560),
                             Photo = "9366d83c-e30d-47ab-924e-f61a42d17efe.jpg",
                             StageName = "Ozzy Osbourne",
                             Surname = "Osbourne"
@@ -3853,14 +3862,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 15L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1037),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9563),
                             ArtistId = 10L,
-                            BirthPlaceId = 17,
+                            BirthPlaceId = 17L,
                             DateOfBirth = new DateTime(1949, 8, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Hugh",
                             IsSongWriter = true,
                             MiddleName = "Alan",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1038),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9564),
                             Photo = "e962871a-23ec-4049-a772-d5ef262c9adb.jpg",
                             StageName = "Hugh Cornwell",
                             Surname = "Cornwell"
@@ -3868,13 +3877,13 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 16L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1043),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9568),
                             ArtistId = 10L,
-                            BirthPlaceId = 18,
+                            BirthPlaceId = 18L,
                             DateOfBirth = new DateTime(1952, 2, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Jean-Jacques",
                             IsSongWriter = true,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1046),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9569),
                             Photo = "f5fc3019-2a61-4d80-b071-351845c5992c.jpg",
                             StageName = "Jean-Jacques Burnel",
                             Surname = "Burnel"
@@ -3882,15 +3891,15 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 17L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1050),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9572),
                             ArtistId = 10L,
-                            BirthPlaceId = 19,
+                            BirthPlaceId = 19L,
                             DateOfBirth = new DateTime(1949, 3, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfDeath = new DateTime(2020, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "David",
                             IsSongWriter = true,
                             MiddleName = "Paul",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1052),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9574),
                             Photo = "8f567b5f-7982-44d9-b4b5-e9337595f8e1.jpg",
                             StageName = "David Greenfield",
                             Surname = "Greenfield"
@@ -3898,14 +3907,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 18L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1060),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9579),
                             ArtistId = 10L,
-                            BirthPlaceId = 21,
+                            BirthPlaceId = 21L,
                             DateOfBirth = new DateTime(1938, 8, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Brian",
                             IsSongWriter = true,
                             MiddleName = "John",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1062),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9581),
                             Photo = "9833b134-75c7-456a-a1d2-f5a286dc892e.jpg",
                             StageName = "Jet Black",
                             Surname = "Duffy"
@@ -3913,13 +3922,13 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 19L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1066),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9584),
                             ArtistId = 11L,
-                            BirthPlaceId = 22,
+                            BirthPlaceId = 22L,
                             DateOfBirth = new DateTime(1959, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "James",
                             IsSongWriter = true,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1069),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9586),
                             Photo = "60267eb0-f2f5-48c8-b245-83df9a7986bd.jpg",
                             StageName = "Jim Kerr",
                             Surname = "Kerr"
@@ -3927,13 +3936,13 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 20L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1279),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9589),
                             ArtistId = 11L,
-                            BirthPlaceId = 23,
+                            BirthPlaceId = 23L,
                             DateOfBirth = new DateTime(1959, 11, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Charles",
                             IsSongWriter = true,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1290),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9590),
                             Photo = "83a85c7e-609d-420a-b380-d2ff190a452a.jpg",
                             StageName = "Charlie Burchill",
                             Surname = "Burchill"
@@ -3941,13 +3950,13 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 21L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1300),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9593),
                             ArtistId = 11L,
-                            BirthPlaceId = 24,
+                            BirthPlaceId = 24L,
                             DateOfBirth = new DateTime(1962, 3, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Ged",
                             IsSongWriter = true,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1302),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9594),
                             Photo = "4b9eee24-56a3-493f-9dfa-3159a80396fd.jpg",
                             StageName = "Ged Grimes",
                             Surname = "Grimes"
@@ -3955,14 +3964,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 22L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1305),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9596),
                             ArtistId = 12L,
-                            BirthPlaceId = 25,
+                            BirthPlaceId = 25L,
                             DateOfBirth = new DateTime(1948, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Ian",
                             IsSongWriter = true,
                             MiddleName = "Anderson",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1307),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9598),
                             Photo = "5166d6e2-42a6-44f6-bbca-ffb41733ef48.jpg",
                             StageName = "Ian Paice",
                             Surname = "Paice"
@@ -3970,14 +3979,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 23L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1311),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9601),
                             ArtistId = 12L,
-                            BirthPlaceId = 26,
+                            BirthPlaceId = 26L,
                             DateOfBirth = new DateTime(1945, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Roger",
                             IsSongWriter = true,
                             MiddleName = "David",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1312),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9602),
                             Photo = "85717e2f-36bf-4c2b-8920-f42c90817ce8.jpg",
                             StageName = "Roger Glover",
                             Surname = "Glover"
@@ -3985,13 +3994,13 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 24L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1317),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9605),
                             ArtistId = 12L,
-                            BirthPlaceId = 27,
+                            BirthPlaceId = 27L,
                             DateOfBirth = new DateTime(1945, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Ian",
                             IsSongWriter = true,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1319),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9606),
                             Photo = "883f0129-b075-454d-a68c-e3d7f07bbdda.jpg",
                             StageName = "Ian Gillan",
                             Surname = "Gillan"
@@ -3999,15 +4008,15 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 25L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1322),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9609),
                             ArtistId = 13L,
-                            BirthPlaceId = 28,
+                            BirthPlaceId = 28L,
                             DateOfBirth = new DateTime(1954, 12, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfDeath = new DateTime(2015, 12, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Ian",
                             IsSongWriter = true,
                             MiddleName = "Fraser",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1325),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9610),
                             Photo = "1a7a6266-a256-4b08-87f0-640d8e3ace60.jpg",
                             StageName = "Lemmy",
                             Surname = "Kilmister"
@@ -4015,15 +4024,15 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 26L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1329),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9613),
                             ArtistId = 13L,
-                            BirthPlaceId = 29,
+                            BirthPlaceId = 29L,
                             DateOfBirth = new DateTime(1954, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfDeath = new DateTime(2015, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Philip",
                             IsSongWriter = true,
                             MiddleName = "John",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1331),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9614),
                             Photo = "04f9d8e6-1b84-4a0a-800e-1716732aaf5e.jpg",
                             StageName = "Phil 'Philthy Animal' Taylor",
                             Surname = "Taylor"
@@ -4031,15 +4040,15 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 27L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1335),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9618),
                             ArtistId = 13L,
-                            BirthPlaceId = 30,
+                            BirthPlaceId = 30L,
                             DateOfBirth = new DateTime(1950, 10, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfDeath = new DateTime(2018, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Edward",
                             IsSongWriter = true,
                             MiddleName = "Allan",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1337),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9619),
                             Photo = "1dbe7e17-567f-4f12-883d-b253ef2d25a2.jpg",
                             StageName = "'Fast' Eddie Clarke",
                             Surname = "Clarke"
@@ -4047,14 +4056,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 28L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1341),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9622),
                             ArtistId = 14L,
-                            BirthPlaceId = 23,
+                            BirthPlaceId = 23L,
                             DateOfBirth = new DateTime(1955, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Angus",
                             IsSongWriter = true,
                             MiddleName = "McKinnon",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1343),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9624),
                             Photo = "273cc6e3-995f-44ef-9665-4b06d76ce7eb.jpg",
                             StageName = "Angus Young",
                             Surname = "Young"
@@ -4062,15 +4071,15 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 29L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1347),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9626),
                             ArtistId = 14L,
-                            BirthPlaceId = 23,
+                            BirthPlaceId = 23L,
                             DateOfBirth = new DateTime(1953, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfDeath = new DateTime(2017, 11, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Malcolm",
                             IsSongWriter = true,
                             MiddleName = "Mitchell",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1349),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9628),
                             Photo = "c79c5ae5-8678-488d-a9f0-6bc18e83abb3.jpg",
                             StageName = "Malcolm Young",
                             Surname = "Young"
@@ -4078,14 +4087,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 30L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1353),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9630),
                             ArtistId = 14L,
-                            BirthPlaceId = 29,
+                            BirthPlaceId = 29L,
                             DateOfBirth = new DateTime(1954, 5, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Phillip",
                             IsSongWriter = true,
                             MiddleName = "Hugh Norman Witschke",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1355),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9632),
                             Photo = "44b350e7-ed7f-4e3c-b6e1-5b286836e383.jpg",
                             StageName = "Phil Rudd",
                             Surname = "Rudzevecuis"
@@ -4093,13 +4102,13 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 31L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1358),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9634),
                             ArtistId = 14L,
-                            BirthPlaceId = 32,
+                            BirthPlaceId = 32L,
                             DateOfBirth = new DateTime(1949, 12, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Clifford",
                             IsSongWriter = true,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1360),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9636),
                             Photo = "0445ae2a-a3ef-4636-9850-2c4420d5f91e.jpg",
                             StageName = "Cliff Williams",
                             Surname = "Williams"
@@ -4107,14 +4116,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 32L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1364),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9639),
                             ArtistId = 14L,
-                            BirthPlaceId = 33,
+                            BirthPlaceId = 33L,
                             DateOfBirth = new DateTime(1947, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Brian",
                             IsSongWriter = true,
                             MiddleName = "Francis",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1366),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9640),
                             Photo = "3ab89167-5769-478e-95a8-29277316e028.jpg",
                             StageName = "Brian Johnson",
                             Surname = "Johnson"
@@ -4122,14 +4131,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 33L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1369),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9643),
                             ArtistId = 16L,
-                            BirthPlaceId = 34,
+                            BirthPlaceId = 34L,
                             DateOfBirth = new DateTime(1947, 6, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Michael",
                             IsSongWriter = true,
                             MiddleName = "John Kells",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1371),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9645),
                             Photo = "75ce147a-b9e9-49f4-8a71-c4f36dc9d3cd.jpg",
                             StageName = "Mick Fleetwood",
                             Surname = "Fleetwood"
@@ -4137,15 +4146,15 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 34L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1381),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9649),
                             ArtistId = 16L,
-                            BirthPlaceId = 35,
+                            BirthPlaceId = 35L,
                             DateOfBirth = new DateTime(1948, 5, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfDeath = new DateTime(2017, 11, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Stephanie",
                             IsSongWriter = true,
                             MiddleName = "Lynn",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1383),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9651),
                             Photo = "88153d6b-9d63-4f87-b49b-a660683f7adf.jpg",
                             StageName = "Stevie Nicks",
                             Surname = "Nicks"
@@ -4153,14 +4162,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 35L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1387),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9653),
                             ArtistId = 16L,
-                            BirthPlaceId = 36,
+                            BirthPlaceId = 36L,
                             DateOfBirth = new DateTime(1945, 11, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "John",
                             IsSongWriter = true,
                             MiddleName = "Graham",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1388),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9655),
                             Photo = "8c1fc01a-79e2-479c-b92d-ec6f9ba9135d.jpg",
                             StageName = "John McVie",
                             Surname = "McVie"
@@ -4168,14 +4177,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 36L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1392),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9657),
                             ArtistId = 16L,
-                            BirthPlaceId = 37,
+                            BirthPlaceId = 37L,
                             DateOfBirth = new DateTime(1943, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Christine",
                             IsSongWriter = true,
                             MiddleName = "Anne",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1394),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9659),
                             Photo = "1fa68d08-2072-47cc-ad2b-96a27af42351.jpg",
                             StageName = "Christine McVie",
                             Surname = "Perfect"
@@ -4183,14 +4192,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 37L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1397),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9661),
                             ArtistId = 16L,
-                            BirthPlaceId = 38,
+                            BirthPlaceId = 38L,
                             DateOfBirth = new DateTime(1949, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Lindsey",
                             IsSongWriter = true,
                             MiddleName = "Adams",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1400),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9663),
                             Photo = "8154868a-c01d-49e4-85d1-f85c0b0c9302.jpg",
                             StageName = "Lindsey Buckingham",
                             Surname = "Buckingham"
@@ -4198,15 +4207,15 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 38L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1403),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9665),
                             ArtistId = 17L,
-                            BirthPlaceId = 39,
+                            BirthPlaceId = 39L,
                             DateOfBirth = new DateTime(1967, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfDeath = new DateTime(1994, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Kurt",
                             IsSongWriter = true,
                             MiddleName = "Donald",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1406),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9667),
                             Photo = "10ec8163-a6de-4c64-bd80-3a949886905e.jpg",
                             StageName = "Kurt Cobain",
                             Surname = "Cobain"
@@ -4214,14 +4223,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 39L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(1411),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9670),
                             ArtistId = 17L,
-                            BirthPlaceId = 40,
+                            BirthPlaceId = 40L,
                             DateOfBirth = new DateTime(1965, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Krist",
                             IsSongWriter = true,
                             MiddleName = "Anthony",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2410),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9671),
                             Photo = "657837dd-f7c1-4ed5-a58e-39cc0e279d83.jpg",
                             StageName = "Krist Novoselic",
                             Surname = "Novoselic"
@@ -4229,14 +4238,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 40L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2426),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9674),
                             ArtistId = 17L,
-                            BirthPlaceId = 41,
+                            BirthPlaceId = 41L,
                             DateOfBirth = new DateTime(1969, 1, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "David",
                             IsSongWriter = true,
                             MiddleName = "Eric",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2429),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9675),
                             Photo = "7dd70c41-8fcf-4cd1-a825-78fb30c7c0ca.jpg",
                             StageName = "Dave Grohl",
                             Surname = "Grohl"
@@ -4244,13 +4253,13 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 41L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2434),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9678),
                             ArtistId = 18L,
-                            BirthPlaceId = 42,
+                            BirthPlaceId = 42L,
                             DateOfBirth = new DateTime(1958, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Catherine",
                             IsSongWriter = true,
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2437),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9680),
                             Photo = "dfdae93a-d393-41e9-ba05-78970f0b1ee1.jpg",
                             StageName = "Kate Bush",
                             Surname = "Bush"
@@ -4258,14 +4267,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 42L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2442),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9684),
                             ArtistId = 19L,
-                            BirthPlaceId = 43,
+                            BirthPlaceId = 43L,
                             DateOfBirth = new DateTime(1963, 8, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Myra",
                             IsSongWriter = true,
                             MiddleName = "Ellen",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2445),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9686),
                             Photo = "d4f764a9-75d6-44ff-9263-94d2cd30703e.jpg",
                             StageName = "Tori Amos",
                             Surname = "Amos"
@@ -4273,14 +4282,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 43L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2449),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9689),
                             ArtistId = 20L,
-                            BirthPlaceId = 44,
+                            BirthPlaceId = 44L,
                             DateOfBirth = new DateTime(1960, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Paul",
                             IsSongWriter = true,
                             MiddleName = "David",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2452),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9690),
                             Photo = "5b1d901a-ad92-40ad-8439-af151e472b5d.jpg",
                             StageName = "Bono",
                             Surname = "Hewson"
@@ -4288,14 +4297,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 44L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2456),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9693),
                             ArtistId = 20L,
-                            BirthPlaceId = 45,
+                            BirthPlaceId = 45L,
                             DateOfBirth = new DateTime(1961, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "David",
                             IsSongWriter = true,
                             MiddleName = "Howell",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2459),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9695),
                             Photo = "7ad787f2-d136-4d35-9fbf-be9bcddd34c3.jpg",
                             StageName = "The Edge",
                             Surname = "Evans"
@@ -4303,14 +4312,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 45L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2463),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9698),
                             ArtistId = 20L,
-                            BirthPlaceId = 46,
+                            BirthPlaceId = 46L,
                             DateOfBirth = new DateTime(1960, 3, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Adam",
                             IsSongWriter = true,
                             MiddleName = "Charles",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2465),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9700),
                             Photo = "73375c6c-cd17-41c4-824c-c5f8af912a28.jpg",
                             StageName = "Adam Clayton",
                             Surname = "Clayton"
@@ -4318,14 +4327,14 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 46L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2469),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9702),
                             ArtistId = 20L,
-                            BirthPlaceId = 47,
+                            BirthPlaceId = 47L,
                             DateOfBirth = new DateTime(1961, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Lawrence",
                             IsSongWriter = true,
                             MiddleName = " Joseph",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2472),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9704),
                             Photo = "9f24c9d9-6b23-4594-bdf3-f71da4311af7.jpg",
                             StageName = "Larry Mullen Jr.",
                             Surname = "Mullen Jr."
@@ -4333,15 +4342,15 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 47L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2476),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9707),
                             ArtistId = 15L,
-                            BirthPlaceId = 14,
+                            BirthPlaceId = 14L,
                             DateOfBirth = new DateTime(1942, 11, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfDeath = new DateTime(1970, 9, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "James",
                             IsSongWriter = true,
                             MiddleName = "Allen",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(2479),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9708),
                             Photo = "9a7bff27-93b5-43cf-8fed-743074f6182b.jpg",
                             StageName = "Jimi Hendrix",
                             Surname = "Hendrix"
@@ -4374,64 +4383,64 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 1,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9511),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9515),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8986),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8989),
                             Name = "Atlantic Records"
                         },
                         new
                         {
                             Id = 2,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9521),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9522),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8994),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8995),
                             Name = "Swan Song Records"
                         },
                         new
                         {
                             Id = 3,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9524),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9526),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8998),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(8999),
                             Name = "RCA Records"
                         },
                         new
                         {
                             Id = 4,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9528),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9529),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9001),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9003),
                             Name = "Universal Music Publishing Group"
                         },
                         new
                         {
                             Id = 5,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9531),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9533),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9004),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9006),
                             Name = "Sony Music Entertainment"
                         },
                         new
                         {
                             Id = 6,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9536),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9538),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9008),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9010),
                             Name = "Columbia Label Group"
                         },
                         new
                         {
                             Id = 7,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9539),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9541),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9012),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9013),
                             Name = "Island Records"
                         },
                         new
                         {
                             Id = 8,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9543),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9544),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9015),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9017),
                             Name = "Reprise"
                         },
                         new
                         {
                             Id = 9,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9546),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9548),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9019),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9020),
                             Name = "United Artists"
                         });
                 });
@@ -4509,1929 +4518,1929 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 1L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4846),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9917),
                             Length = "2:46",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4850),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9919),
                             Title = "Good Times Bad Times"
                         },
                         new
                         {
                             Id = 2L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4864),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9925),
                             Length = "6:42",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4867),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9927),
                             Title = "Babe I'm Gonna Leave You"
                         },
                         new
                         {
                             Id = 3L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4870),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9929),
                             Length = "6:28",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4872),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9931),
                             Title = "You Shook Me"
                         },
                         new
                         {
                             Id = 4L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4875),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9933),
                             Length = "6:28",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4877),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9934),
                             Title = "Dazed and Confused"
                         },
                         new
                         {
                             Id = 5L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4880),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9936),
                             Length = "4:34",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4883),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9938),
                             Title = "Your Time Is Gonna Come"
                         },
                         new
                         {
                             Id = 6L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4888),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9941),
                             Length = "2:12",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4890),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9942),
                             Title = "Black Mountain Side"
                         },
                         new
                         {
                             Id = 7L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4893),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9944),
                             Length = "2:30",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4896),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9946),
                             Title = "Communication Breakdown"
                         },
                         new
                         {
                             Id = 8L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4899),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9948),
                             Length = "4:42",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4901),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9949),
                             Title = "I Can't Quit You Baby"
                         },
                         new
                         {
                             Id = 9L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4905),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9951),
                             Length = "8:27",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4907),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9953),
                             Title = "How Many More Times"
                         },
                         new
                         {
                             Id = 40L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4913),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(26),
                             Length = "5:38",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4915),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(28),
                             Title = "Whole Lotta Love"
                         },
                         new
                         {
                             Id = 41L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4918),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(31),
                             Length = "4:33",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4921),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(33),
                             Title = "What Is and What Should Never Be"
                         },
                         new
                         {
                             Id = 42L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4924),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(35),
                             Length = "4:21",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4926),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(36),
                             Title = "Thank You"
                         },
                         new
                         {
                             Id = 43L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4928),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(38),
                             Length = "6:20",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4930),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(40),
                             Title = "The Lemon Song"
                         },
                         new
                         {
                             Id = 44L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4932),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(42),
                             Length = " 4:14",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4933),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(43),
                             Title = "Heartbreaker"
                         },
                         new
                         {
                             Id = 45L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4936),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(45),
                             Length = "2:39",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4937),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(47),
                             Title = "Living Loving Maid(She's Just a Woman)"
                         },
                         new
                         {
                             Id = 46L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4939),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(49),
                             Length = "4:34",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4941),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(50),
                             Title = "Ramble On"
                         },
                         new
                         {
                             Id = 55L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4943),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(52),
                             Length = "2:26",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4944),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(54),
                             Title = "Immigrant Song"
                         },
                         new
                         {
                             Id = 56L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4948),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(57),
                             Length = "3:55",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4950),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(59),
                             Title = "Friends"
                         },
                         new
                         {
                             Id = 57L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4953),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(61),
                             Length = "3:29",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4955),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(62),
                             Title = "Celebration Day"
                         },
                         new
                         {
                             Id = 58L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4959),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(64),
                             Length = "7:25",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4962),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(66),
                             Title = "Since I've Been Loving You"
                         },
                         new
                         {
                             Id = 59L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4965),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(68),
                             Length = "4:04",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(4968),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(69),
                             Title = "Out on the Tiles"
                         },
                         new
                         {
                             Id = 60L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5042),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(71),
                             Length = "4:58",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5045),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(73),
                             Title = "Gallows Pole"
                         },
                         new
                         {
                             Id = 61L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5050),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(75),
                             Length = "3:12",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5052),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(76),
                             Title = "Tangerine"
                         },
                         new
                         {
                             Id = 62L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5055),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(78),
                             Length = "5:38",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5058),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(80),
                             Title = "That's the Way"
                         },
                         new
                         {
                             Id = 63L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5061),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(82),
                             Length = "4:20",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5064),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(83),
                             Title = "Bron-Y-Aur Stomp"
                         },
                         new
                         {
                             Id = 64L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5067),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(85),
                             Length = "3:41",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5069),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(87),
                             Title = "Hats Off to (Roy) Harper"
                         },
                         new
                         {
                             Id = 65L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5073),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(90),
                             Length = "4:55",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5075),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(91),
                             Title = "Black Dog"
                         },
                         new
                         {
                             Id = 66L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5078),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(93),
                             Length = "3:40",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5081),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(95),
                             Title = "Rock and Roll"
                         },
                         new
                         {
                             Id = 67L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5084),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(97),
                             Length = "5:51",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5086),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(99),
                             Title = "The Battle of Evermore"
                         },
                         new
                         {
                             Id = 68L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5089),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(101),
                             Length = "7:55",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5091),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(102),
                             Title = "Stairway to Heaven"
                         },
                         new
                         {
                             Id = 69L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5095),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(104),
                             Length = "4:39",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5097),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(106),
                             Title = "Misty Mountain Hop"
                         },
                         new
                         {
                             Id = 70L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5100),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(108),
                             Length = "4:49",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5122),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(109),
                             Title = "Four Sticks"
                         },
                         new
                         {
                             Id = 71L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5129),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(111),
                             Length = "3:36",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5131),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(113),
                             Title = "Going to California"
                         },
                         new
                         {
                             Id = 72L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5139),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(116),
                             Length = "7:08",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5142),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(117),
                             Title = "When the Levee Breaks"
                         },
                         new
                         {
                             Id = 47L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5145),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(119),
                             Length = "5:32",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5147),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(121),
                             Title = "The Song Remains the Same"
                         },
                         new
                         {
                             Id = 48L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5150),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(123),
                             Length = "7:39",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5152),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(124),
                             Title = "The Rain Song"
                         },
                         new
                         {
                             Id = 49L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5155),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(126),
                             Length = "4:50",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5157),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(128),
                             Title = "Over the Hills and Far Away"
                         },
                         new
                         {
                             Id = 50L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5160),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(130),
                             Length = "3:17",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5165),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(131),
                             Title = "The Crunge"
                         },
                         new
                         {
                             Id = 51L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5173),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(133),
                             Length = "3:43",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5179),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(135),
                             Title = "Dancing Days"
                         },
                         new
                         {
                             Id = 52L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5203),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(137),
                             Length = "4:23",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5208),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(138),
                             Title = "D'yer Mak'er"
                         },
                         new
                         {
                             Id = 53L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5212),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(140),
                             Length = "7:00",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5215),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(142),
                             Title = "No Quarter"
                         },
                         new
                         {
                             Id = 54L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5218),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(144),
                             Length = "4:31",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5221),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(145),
                             Title = "The Ocean"
                         },
                         new
                         {
                             Id = 73L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5224),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(147),
                             Length = "4:13",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5226),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(149),
                             Title = "Custard Pie"
                         },
                         new
                         {
                             Id = 74L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5229),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(151),
                             Length = "5:36",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5231),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(152),
                             Title = "The Rover"
                         },
                         new
                         {
                             Id = 75L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5234),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(154),
                             Length = "11:04",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5236),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(156),
                             Title = "In My Time of Dying"
                         },
                         new
                         {
                             Id = 76L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5240),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(158),
                             Length = "4:01",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5242),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(159),
                             Title = "Houses of the Holy"
                         },
                         new
                         {
                             Id = 77L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5245),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(162),
                             Length = "5:35",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5247),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(163),
                             Title = "Trampled Under Foot"
                         },
                         new
                         {
                             Id = 78L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5250),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(165),
                             Length = "8:37",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5252),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(167),
                             Title = "Kashmir"
                         },
                         new
                         {
                             Id = 79L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5255),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(169),
                             Length = "8:44",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5277),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(170),
                             Title = "In the Light"
                         },
                         new
                         {
                             Id = 80L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5284),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(172),
                             Length = "2:06",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5286),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(174),
                             Title = "Bron-Yr-Aur"
                         },
                         new
                         {
                             Id = 81L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5290),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(176),
                             Length = "5:14",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5292),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(177),
                             Title = "Down by the Seaside"
                         },
                         new
                         {
                             Id = 82L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5295),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(179),
                             Length = "6:31",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5297),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(181),
                             Title = "Ten Years Gone"
                         },
                         new
                         {
                             Id = 83L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5300),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(183),
                             Length = "3:36",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5302),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(184),
                             Title = "Night Flight"
                         },
                         new
                         {
                             Id = 84L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5305),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(186),
                             Length = "4:06",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5307),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(188),
                             Title = "The Wanton Song"
                         },
                         new
                         {
                             Id = 85L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5310),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(190),
                             Length = "3:51",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5315),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(191),
                             Title = "Boogie with Stu"
                         },
                         new
                         {
                             Id = 86L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5323),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(193),
                             Length = "4:24",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5329),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(195),
                             Title = "Black Country Woman"
                         },
                         new
                         {
                             Id = 87L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5336),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(197),
                             Length = "4:43",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5338),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(198),
                             Title = "Sick Again"
                         },
                         new
                         {
                             Id = 88L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5341),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(201),
                             Length = "4:03",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5346),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(203),
                             Title = "Rock and Roll"
                         },
                         new
                         {
                             Id = 89L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5355),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(205),
                             Length = "3:49",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5357),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(206),
                             Title = "Celebration Day"
                         },
                         new
                         {
                             Id = 90L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5360),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(208),
                             Length = "6:00",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5362),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(210),
                             Title = "The Song Remains the Same"
                         },
                         new
                         {
                             Id = 91L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5365),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(212),
                             Length = "8:24",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5367),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(213),
                             Title = "The Rain Song"
                         },
                         new
                         {
                             Id = 92L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5370),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(215),
                             Length = "26:53",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5375),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(217),
                             Title = "Dazed and Confused"
                         },
                         new
                         {
                             Id = 93L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5383),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(219),
                             Length = "12:30",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5389),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(220),
                             Title = "No Quarter"
                         },
                         new
                         {
                             Id = 94L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5396),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(223),
                             Length = "10:58",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5403),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(224),
                             Title = "Stairway to Heaven"
                         },
                         new
                         {
                             Id = 95L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5411),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(226),
                             Length = "12:47",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5417),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(228),
                             Title = "Moby Dick"
                         },
                         new
                         {
                             Id = 96L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5430),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(231),
                             Length = "14:24",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5437),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(232),
                             Title = "Whole Lotta Love"
                         },
                         new
                         {
                             Id = 97L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5445),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(234),
                             Length = "10:26",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5452),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(236),
                             Title = "Achilles Last Stand"
                         },
                         new
                         {
                             Id = 98L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5461),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(238),
                             Length = "6:21",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5468),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(239),
                             Title = "For Your Life"
                         },
                         new
                         {
                             Id = 99L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5477),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(241),
                             Length = "2:58",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5484),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(243),
                             Title = "Royal Orleans"
                         },
                         new
                         {
                             Id = 101L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5493),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(245),
                             Length = "6:27",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5500),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(246),
                             Title = "Nobody's Fault but Mine"
                         },
                         new
                         {
                             Id = 102L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5509),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(248),
                             Length = "4:10",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5516),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(250),
                             Title = "Candy Store Rock"
                         },
                         new
                         {
                             Id = 103L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5525),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(252),
                             Length = "4:42",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5532),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(253),
                             Title = "Hots On for Nowhere"
                         },
                         new
                         {
                             Id = 104L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5541),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(255),
                             Length = "9:27",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5548),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(257),
                             Title = "Tea for One"
                         },
                         new
                         {
                             Id = 105L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5557),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(259),
                             Length = "6:48",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5564),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(260),
                             Title = "In the Evening"
                         },
                         new
                         {
                             Id = 106L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5573),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(306),
                             Length = "4:11",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5580),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(308),
                             Title = "South Bound Saurez"
                         },
                         new
                         {
                             Id = 107L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5589),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(310),
                             Length = "6:08",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5596),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(312),
                             Title = "Fool in the Rain"
                         },
                         new
                         {
                             Id = 108L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5606),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(314),
                             Length = "3:15",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5613),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(315),
                             Title = "Hot Dog"
                         },
                         new
                         {
                             Id = 109L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5621),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(317),
                             Length = "10:28",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5628),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(318),
                             Title = "Carouselambra"
                         },
                         new
                         {
                             Id = 110L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5637),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(320),
                             Length = "5:51",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5643),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(322),
                             Title = "All My Love"
                         },
                         new
                         {
                             Id = 111L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5652),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(324),
                             Length = "5:28",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5659),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(325),
                             Title = "I'm Gonna Crawl"
                         },
                         new
                         {
                             Id = 10L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5668),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(327),
                             Length = "4:28",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5675),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(329),
                             Title = "Late November"
                         },
                         new
                         {
                             Id = 11L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5683),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(331),
                             Length = "4:07",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5690),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(333),
                             Title = "Blackwaterside(Traditional) "
                         },
                         new
                         {
                             Id = 12L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5699),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(335),
                             Length = "3:09",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5706),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(336),
                             Title = "The Sea Captain"
                         },
                         new
                         {
                             Id = 13L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5715),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(338),
                             Length = "3:20",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5722),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(340),
                             Title = "Down in the Flood(Bob Dylan)"
                         },
                         new
                         {
                             Id = 14L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5732),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(342),
                             Length = "4:38",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5734),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(343),
                             Title = "John the Gun"
                         },
                         new
                         {
                             Id = 15L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5737),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(345),
                             Length = "4:26",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5739),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(347),
                             Title = "Next Time Around"
                         },
                         new
                         {
                             Id = 16L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5742),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(349),
                             Length = "3:24",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5744),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(350),
                             Title = "The Optimist"
                         },
                         new
                         {
                             Id = 17L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5748),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(352),
                             Length = "2:42",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5750),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(354),
                             Title = "Let’s Jump the Broomstick(Charles Robins)"
                         },
                         new
                         {
                             Id = 18L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5753),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(357),
                             Length = "2:38",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5756),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(358),
                             Title = "Wretched Wilbur"
                         },
                         new
                         {
                             Id = 19L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5763),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(360),
                             Length = "3:27",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5769),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(362),
                             Title = "The North Star Grassman and the Ravens"
                         },
                         new
                         {
                             Id = 20L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5841),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(364),
                             Length = "3:22",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5846),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(365),
                             Title = "Crazy Lady Blues"
                         },
                         new
                         {
                             Id = 21L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5849),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(367),
                             Length = "5:01",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5854),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(369),
                             Title = "Smells Like Teen Spirit"
                         },
                         new
                         {
                             Id = 22L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5862),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(371),
                             Length = "4:14",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5868),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(372),
                             Title = "In Bloom"
                         },
                         new
                         {
                             Id = 23L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5892),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(374),
                             Length = "3:39",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5898),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(376),
                             Title = "Come as You Are"
                         },
                         new
                         {
                             Id = 24L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5902),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(378),
                             Length = "3:03",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5905),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(379),
                             Title = "Breed"
                         },
                         new
                         {
                             Id = 25L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5908),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(381),
                             Length = "4:17",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5911),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(383),
                             Title = "Lithium"
                         },
                         new
                         {
                             Id = 26L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5916),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(385),
                             Length = "2:57",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5918),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(386),
                             Title = "Polly"
                         },
                         new
                         {
                             Id = 27L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5920),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(388),
                             Length = "2:22",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5923),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(390),
                             Title = "Territorial Pissings"
                         },
                         new
                         {
                             Id = 28L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5926),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(392),
                             Length = "3:43",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5929),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(393),
                             Title = "Drain You"
                         },
                         new
                         {
                             Id = 29L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5932),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(395),
                             Length = "2:36",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5935),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(397),
                             Title = "Lounge Act"
                         },
                         new
                         {
                             Id = 30L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5939),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(399),
                             Length = "3:32",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5941),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(400),
                             Title = "Stay Away"
                         },
                         new
                         {
                             Id = 31L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5944),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(403),
                             Length = "3:16",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5947),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(404),
                             Title = "On a Plain"
                         },
                         new
                         {
                             Id = 32L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5950),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(406),
                             Length = "3:52",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5952),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(407),
                             Title = "Something in the Way"
                         },
                         new
                         {
                             Id = 33L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5955),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(410),
                             Length = "6:43",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5957),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(411),
                             Title = "Endless, Nameless"
                         },
                         new
                         {
                             Id = 112L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5961),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(413),
                             Length = "1:19",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5963),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(414),
                             Title = "...And the Gods Made Love"
                         },
                         new
                         {
                             Id = 113L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5966),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(416),
                             Length = "2:08",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5968),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(418),
                             Title = "Have You Ever Been (To Electric Ladyland)"
                         },
                         new
                         {
                             Id = 114L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5971),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(420),
                             Length = "2:25",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5974),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(421),
                             Title = "Crosstown Traffic"
                         },
                         new
                         {
                             Id = 115L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5978),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(423),
                             Length = "14:50",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5981),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(425),
                             Title = "Voodoo Chile"
                         },
                         new
                         {
                             Id = 116L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5984),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(427),
                             Length = "2:47",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5987),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(428),
                             Title = "Little Miss Strange"
                         },
                         new
                         {
                             Id = 117L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5990),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(430),
                             Length = "3:21",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5992),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(432),
                             Title = "Long Hot Summer Night"
                         },
                         new
                         {
                             Id = 118L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5995),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(434),
                             Length = "4:04",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(5997),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(435),
                             Title = "Come On (Part 1)"
                         },
                         new
                         {
                             Id = 119L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6001),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(437),
                             Length = "3:38",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6003),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(439),
                             Title = "Gypsy Eyes"
                         },
                         new
                         {
                             Id = 120L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6006),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(441),
                             Length = "3:33",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6009),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(442),
                             Title = "Burning of the Midnight Lamp"
                         },
                         new
                         {
                             Id = 121L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6012),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(444),
                             Length = "3:39",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6034),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(446),
                             Title = "Rainy Day, Dream Away"
                         },
                         new
                         {
                             Id = 122L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6041),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(448),
                             Length = "13:25",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6044),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(449),
                             Title = "1983... (A Merman I Should Turn to Be)"
                         },
                         new
                         {
                             Id = 123L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6048),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(451),
                             Length = "0:58",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6050),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(453),
                             Title = "Moon, Turn the Tides....Gently Gently Away"
                         },
                         new
                         {
                             Id = 124L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6052),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(455),
                             Length = "4:19",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6055),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(456),
                             Title = "Still Raining, Still Dreaming"
                         },
                         new
                         {
                             Id = 125L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6058),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(458),
                             Length = "4:26",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6060),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(460),
                             Title = "House Burning Down"
                         },
                         new
                         {
                             Id = 126L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6063),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(462),
                             Length = "3:54",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6068),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(463),
                             Title = "All Along the Watchtower"
                         },
                         new
                         {
                             Id = 127L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6075),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(467),
                             Length = "5:06",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6081),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(468),
                             Title = "Voodoo Child (Slight Return)"
                         },
                         new
                         {
                             Id = 128L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6087),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(470),
                             Length = "2:43",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6089),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(472),
                             Title = "Second Hand News"
                         },
                         new
                         {
                             Id = 129L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6092),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(474),
                             Length = "4:14",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6094),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(475),
                             Title = "Dreams"
                         },
                         new
                         {
                             Id = 130L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6100),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(477),
                             Length = "2:02",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6106),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(479),
                             Title = "Never Going Back Again"
                         },
                         new
                         {
                             Id = 131L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6113),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(481),
                             Length = "3:11",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6119),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(482),
                             Title = "Don't Stop"
                         },
                         new
                         {
                             Id = 132L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6127),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(484),
                             Length = "3:38",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6133),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(486),
                             Title = "Go Your Own Way"
                         },
                         new
                         {
                             Id = 133L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6136),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(488),
                             Length = "3:20",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6138),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(489),
                             Title = "Songbird"
                         },
                         new
                         {
                             Id = 134L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6140),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(491),
                             Length = "4:28",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6145),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(493),
                             Title = "The Chain"
                         },
                         new
                         {
                             Id = 135L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6153),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(495),
                             Length = "3:31",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6159),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(496),
                             Title = "You Make Loving Fun"
                         },
                         new
                         {
                             Id = 136L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6166),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(498),
                             Length = "3:11",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6172),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(500),
                             Title = "I Don't Want to Know"
                         },
                         new
                         {
                             Id = 137L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6186),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(503),
                             Length = "3:54",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6193),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(505),
                             Title = "Oh Daddy"
                         },
                         new
                         {
                             Id = 138L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6201),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(507),
                             Length = "4:51",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6203),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(508),
                             Title = "Gold Dust Woman"
                         },
                         new
                         {
                             Id = 139L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6209),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(510),
                             Length = "3:33",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6215),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(512),
                             Title = "The Ties That Bind"
                         },
                         new
                         {
                             Id = 140L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6223),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(514),
                             Length = "4:02",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6229),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(515),
                             Title = "Sherry Darling"
                         },
                         new
                         {
                             Id = 141L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6238),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(517),
                             Length = "3:04",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6245),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(519),
                             Title = "Jackson Cage"
                         },
                         new
                         {
                             Id = 142L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6253),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(521),
                             Length = "2:42",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6260),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(522),
                             Title = "Two Hearts"
                         },
                         new
                         {
                             Id = 143L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6268),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(524),
                             Length = "4:46",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6275),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(526),
                             Title = "Independence Day"
                         },
                         new
                         {
                             Id = 144L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6283),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(528),
                             Length = "3:19",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6289),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(529),
                             Title = "Hungry Heart"
                         },
                         new
                         {
                             Id = 145L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6298),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(532),
                             Length = "4:17",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6305),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(533),
                             Title = "Out in the Street"
                         },
                         new
                         {
                             Id = 146L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6315),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(574),
                             Length = "3:10",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6321),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(576),
                             Title = "Crush on You"
                         },
                         new
                         {
                             Id = 147L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6330),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(579),
                             Length = "2:36",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6337),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(580),
                             Title = "You Can Look (But You Better Not Touch)"
                         },
                         new
                         {
                             Id = 148L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6345),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(582),
                             Length = "3:26",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6347),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(584),
                             Title = "I Wanna Marry You"
                         },
                         new
                         {
                             Id = 149L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6350),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(586),
                             Length = "4:59",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6352),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(587),
                             Title = "The River"
                         },
                         new
                         {
                             Id = 150L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6357),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(589),
                             Length = "6:05",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6363),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(591),
                             Title = "Point Blank"
                         },
                         new
                         {
                             Id = 151L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6371),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(593),
                             Length = "3:02",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6377),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(594),
                             Title = "Cadillac Ranch"
                         },
                         new
                         {
                             Id = 152L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6385),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(596),
                             Length = "3:34",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6392),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(598),
                             Title = "I'm a Rocker"
                         },
                         new
                         {
                             Id = 153L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6401),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(600),
                             Length = "4:40",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6407),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(601),
                             Title = "Fade Away"
                         },
                         new
                         {
                             Id = 154L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6416),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(603),
                             Length = "3:53",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6423),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(605),
                             Title = "Stolen Car"
                         },
                         new
                         {
                             Id = 155L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6428),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(607),
                             Length = "4:04",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6431),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(608),
                             Title = "Ramrod"
                         },
                         new
                         {
                             Id = 156L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6438),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(610),
                             Length = "5:27",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6444),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(612),
                             Title = "The Price You Pay"
                         },
                         new
                         {
                             Id = 157L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6452),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(615),
                             Length = "8:26",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6459),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(617),
                             Title = "Drive All Night"
                         },
                         new
                         {
                             Id = 158L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6466),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(619),
                             Length = "3:53",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6468),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(620),
                             Title = "Wreck on the Highway"
                         },
                         new
                         {
                             Id = 166L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6471),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(622),
                             Length = "4:03",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6473),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(624),
                             Title = "Badlands"
                         },
                         new
                         {
                             Id = 167L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6475),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(626),
                             Length = "4:32",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6480),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(627),
                             Title = "Adam Raised a Cain"
                         },
                         new
                         {
                             Id = 168L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6548),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(629),
                             Length = "5:11",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6555),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(631),
                             Title = "Something in the Night"
                         },
                         new
                         {
                             Id = 169L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6566),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(633),
                             Length = "2:51",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6568),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(634),
                             Title = "Candy's Room"
                         },
                         new
                         {
                             Id = 170L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6570),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(636),
                             Length = "6:53",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6572),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(638),
                             Title = "Racing in the Street"
                         },
                         new
                         {
                             Id = 171L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6575),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(640),
                             Length = "4:33",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6577),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(641),
                             Title = "The Promised Land"
                         },
                         new
                         {
                             Id = 172L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6583),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(643),
                             Length = "2:17",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6589),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(645),
                             Title = "Factory"
                         },
                         new
                         {
                             Id = 173L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6597),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(647),
                             Length = "4:09",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6599),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(648),
                             Title = "Streets of Fire"
                         },
                         new
                         {
                             Id = 174L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6601),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(650),
                             Length = "3:56",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6605),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(652),
                             Title = "Prove It All Night"
                         },
                         new
                         {
                             Id = 175L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6612),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(654),
                             Length = "4:30",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6618),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(655),
                             Title = "Darkness on the Edge of Town"
                         },
                         new
                         {
                             Id = 176L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6625),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(658),
                             Length = "4:03",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6631),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(659),
                             Title = "Rock 'n' Roll Rebel"
                         },
                         new
                         {
                             Id = 177L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6638),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(661),
                             Length = "4:32",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6645),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(662),
                             Title = "Bark at the Moon"
                         },
                         new
                         {
                             Id = 178L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6652),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(665),
                             Length = "5:11",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6658),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(667),
                             Title = "You're No Different"
                         },
                         new
                         {
                             Id = 179L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6668),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(669),
                             Length = "2:51",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6670),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(670),
                             Title = "Now You See It (Now You Don't)"
                         },
                         new
                         {
                             Id = 180L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6672),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(672),
                             Length = "6:53",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6674),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(673),
                             Title = "Forever"
                         },
                         new
                         {
                             Id = 181L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6677),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(675),
                             Length = "4:33",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6679),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(677),
                             Title = "So Tired"
                         },
                         new
                         {
                             Id = 182L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6681),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(679),
                             Length = "2:17",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6683),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(680),
                             Title = "Waiting for Darkness"
                         },
                         new
                         {
                             Id = 183L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6687),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(682),
                             Length = "4:09",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6689),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(684),
                             Title = "Spiders"
                         },
                         new
                         {
                             Id = 184L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6692),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(686),
                             Length = "1:10",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6694),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(687),
                             Title = "Longships"
                         },
                         new
                         {
                             Id = 185L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6701),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(689),
                             Length = "5:13",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6707),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(691),
                             Title = "The Raven"
                         },
                         new
                         {
                             Id = 186L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6715),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(693),
                             Length = "2:24",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6737),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(694),
                             Title = "Dead Loss Angeles"
                         },
                         new
                         {
                             Id = 187L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6743),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(696),
                             Length = "3:26",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6746),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(698),
                             Title = "Ice"
                         },
                         new
                         {
                             Id = 188L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6748),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(700),
                             Length = "3:50",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6751),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(701),
                             Title = "Baroque Bordello"
                         },
                         new
                         {
                             Id = 189L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6754),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(703),
                             Length = "3:32",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6756),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(705),
                             Title = "Nuclear Device(The Wizard of Aus)"
                         },
                         new
                         {
                             Id = 190L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6759),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(707),
                             Length = "4:50",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6762),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(708),
                             Title = "Shah Shah a Go Go"
                         },
                         new
                         {
                             Id = 191L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6765),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(710),
                             Length = "4:09",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6767),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(712),
                             Title = "Don't Bring Harry"
                         },
                         new
                         {
                             Id = 192L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6770),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(714),
                             Length = "2:30",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6773),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(715),
                             Title = "Duchess"
                         },
                         new
                         {
                             Id = 193L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6776),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(717),
                             Length = "4:48",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6779),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(719),
                             Title = "Meninblack"
                         },
                         new
                         {
                             Id = 194L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6782),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(721),
                             Length = "5:16",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6784),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(722),
                             Title = "Genetix"
                         },
                         new
                         {
                             Id = 195L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6803),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(725),
                             Length = "4:32",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6812),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(727),
                             Title = "Nebraska"
                         },
                         new
                         {
                             Id = 196L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6817),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(729),
                             Length = "4:00",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6820),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(730),
                             Title = "Atlantic City"
                         },
                         new
                         {
                             Id = 197L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6823),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(732),
                             Length = "4:08",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6825),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(734),
                             Title = "Mansion on the Hill"
                         },
                         new
                         {
                             Id = 198L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6831),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(736),
                             Length = "3:44",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6837),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(737),
                             Title = "Johnny 99"
                         },
                         new
                         {
                             Id = 199L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6845),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(739),
                             Length = "5:40",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6851),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(741),
                             Title = "Highway Patrolman"
                         },
                         new
                         {
                             Id = 200L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6860),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(743),
                             Length = "3:17",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6864),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(744),
                             Title = "State Trooper"
                         },
                         new
                         {
                             Id = 201L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6867),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(746),
                             Length = "3:11",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6869),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(748),
                             Title = "Used Cars"
                         },
                         new
                         {
                             Id = 202L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6876),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(750),
                             Length = "2:58",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6882),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(751),
                             Title = "Open All Night"
                         },
                         new
                         {
                             Id = 203L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6890),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(753),
                             Length = "5:07",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6897),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(755),
                             Title = "My Father's House"
                         },
                         new
                         {
                             Id = 204L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6905),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(757),
                             Length = "4:11",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6911),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(758),
                             Title = "Reason to Believe"
                         },
                         new
                         {
                             Id = 205L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6920),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(760),
                             Length = "2:55",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6927),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(762),
                             Title = "Iron Fist"
                         },
                         new
                         {
                             Id = 206L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6930),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(764),
                             Length = "3:04",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6932),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(766),
                             Title = "Heart of Stone"
                         },
                         new
                         {
                             Id = 207L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6935),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(768),
                             Length = "2:43",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6938),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(769),
                             Title = "I'm the Doctor"
                         },
                         new
                         {
                             Id = 208L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6943),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(771),
                             Length = "3:10",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6950),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(772),
                             Title = "Go to Hell"
                         },
                         new
                         {
                             Id = 209L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6958),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(774),
                             Length = "3:57",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6980),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(776),
                             Title = "Loser"
                         },
                         new
                         {
                             Id = 210L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6986),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(778),
                             Length = "2:10",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6988),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(779),
                             Title = "Sex & Outrage"
                         },
                         new
                         {
                             Id = 211L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6992),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(781),
                             Length = "3:38",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6994),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(783),
                             Title = "America"
                         },
                         new
                         {
                             Id = 212L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(6997),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(785),
                             Length = "2:41",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7000),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(786),
                             Title = "Shut It Down"
                         },
                         new
                         {
                             Id = 213L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7003),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(788),
                             Length = "3:28",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7005),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(790),
                             Title = "Speedfreak"
                         },
                         new
                         {
                             Id = 214L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7028),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(792),
                             Length = "3:08",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7035),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(793),
                             Title = "(Don't Let 'Em) Grind Ya Down"
                         },
                         new
                         {
                             Id = 215L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7040),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(795),
                             Length = "2:43",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7042),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(797),
                             Title = "(Don't Need) Religion"
                         },
                         new
                         {
                             Id = 216L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7045),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(799),
                             Length = "2:43",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7047),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(801),
                             Title = "Bang to Rights"
                         },
                         new
                         {
                             Id = 217L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7050),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(803),
                             Length = "4:03",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7053),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(804),
                             Title = "Stormbringer"
                         },
                         new
                         {
                             Id = 218L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7056),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(806),
                             Length = "4:23",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7058),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(808),
                             Title = "Love Don't Mean a Thing"
                         },
                         new
                         {
                             Id = 219L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7061),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(810),
                             Length = "4:28",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7063),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(811),
                             Title = "Holy Man"
                         },
                         new
                         {
                             Id = 220L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7066),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(813),
                             Length = "5:05",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7068),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(815),
                             Title = "Hold On"
                         },
                         new
                         {
                             Id = 221L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7072),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(817),
                             Length = "3:19",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7074),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(818),
                             Title = "Lady Double Dealer"
                         },
                         new
                         {
                             Id = 222L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7078),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(820),
                             Length = "3:24",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7080),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(822),
                             Title = "You Can't Do It Right (With the One You Love)"
                         },
                         new
                         {
                             Id = 223L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7083),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(824),
                             Length = "4:26",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7087),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(825),
                             Title = "High Ball Shooter"
                         },
                         new
                         {
                             Id = 224L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7094),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(827),
                             Length = "4:05",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7100),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(829),
                             Title = "The Gypsy"
                         },
                         new
                         {
                             Id = 225L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7109),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(831),
                             Length = "3:14",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7116),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(832),
                             Title = "Soldier of Fortune"
                         },
                         new
                         {
                             Id = 226L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7128),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(835),
                             Length = "3:41",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7130),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(837),
                             Title = "Girl from the North Country"
                         },
                         new
                         {
                             Id = 227L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7132),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(839),
                             Length = "3:12",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7136),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(840),
                             Title = "Nashville Skyline Rag"
                         },
                         new
                         {
                             Id = 228L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7144),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(842),
                             Length = "2:07",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7151),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(844),
                             Title = "To Be Alone with You"
                         },
                         new
                         {
                             Id = 229L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7159),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(846),
                             Length = "2:23",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7166),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(847),
                             Title = "I Threw It All Away"
                         },
                         new
                         {
                             Id = 230L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7173),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(850),
                             Length = "2:01",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7176),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(851),
                             Title = "Peggy Day"
                         },
                         new
                         {
                             Id = 231L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7180),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(853),
                             Length = "3:18",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7186),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(855),
                             Title = "Lay Lady Lay"
                         },
                         new
                         {
                             Id = 232L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7195),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(857),
                             Length = "2:23",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7216),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(859),
                             Title = "One More Night"
                         },
                         new
                         {
                             Id = 233L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7223),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(861),
                             Length = "2:41",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7226),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(862),
                             Title = "Tell Me That It Isn't True"
                         },
                         new
                         {
                             Id = 234L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7229),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(864),
                             Length = "1:37",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7232),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(866),
                             Title = "Country Pie"
                         },
                         new
                         {
                             Id = 235L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7235),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(868),
                             Length = "3:23",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7237),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(869),
                             Title = "Tonight I'll Be Staying Here with You"
                         },
                         new
                         {
                             Id = 236L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7241),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(871),
                             Length = "4:38",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7243),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(873),
                             Title = "Born in the U.S.A."
                         },
                         new
                         {
                             Id = 237L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7246),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(875),
                             Length = "3:29",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7249),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(877),
                             Title = "Cover Me"
                         },
                         new
                         {
                             Id = 238L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7252),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(919),
                             Length = "4:48",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7255),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(921),
                             Title = "Darlington County"
                         },
                         new
                         {
                             Id = 239L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7258),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(923),
                             Length = "3:13",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7261),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(925),
                             Title = "Working on the Highway"
                         },
                         new
                         {
                             Id = 240L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7264),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(927),
                             Length = "3:35",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7267),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(928),
                             Title = "Downbound Train"
                         },
                         new
                         {
                             Id = 241L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7291),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(930),
                             Length = "2:40",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7297),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(932),
                             Title = "I'm on Fire"
                         },
                         new
                         {
                             Id = 242L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7301),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(934),
                             Length = "4:01",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7303),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(935),
                             Title = "No Surrender"
                         },
                         new
                         {
                             Id = 243L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7306),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(937),
                             Length = "3:48",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7309),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(939),
                             Title = "Bobby Jean"
                         },
                         new
                         {
                             Id = 244L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7312),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(941),
                             Length = "3:30",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7314),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(942),
                             Title = "I'm Goin' Down"
                         },
                         new
                         {
                             Id = 245L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7318),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(944),
                             Length = "4:15",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7320),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(946),
                             Title = "Glory Days"
                         },
                         new
                         {
                             Id = 246L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7324),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(948),
                             Length = "4:04",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7326),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(950),
                             Title = "Dancing in the Dark"
                         },
                         new
                         {
                             Id = 247L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7329),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(952),
                             Length = "4:34",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7331),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(953),
                             Title = "My Hometown"
                         },
                         new
                         {
                             Id = 248L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7334),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(955),
                             Length = "4:49",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7340),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(957),
                             Title = "Thunder Road"
                         },
                         new
                         {
                             Id = 249L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7348),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(959),
                             Length = "3:11",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7355),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(960),
                             Title = "Tenth Avenue Freeze-Out"
                         },
                         new
                         {
                             Id = 250L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7358),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(963),
                             Length = "3:00",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7360),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(964),
                             Title = "Night"
                         },
                         new
                         {
                             Id = 251L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7364),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(966),
                             Length = "6:30",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7366),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(968),
                             Title = "Backstreets"
                         },
                         new
                         {
                             Id = 252L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7369),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(970),
                             Length = "4:31",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7376),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(971),
                             Title = "Born to Run"
                         },
                         new
                         {
                             Id = 253L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7472),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(973),
                             Length = "4:30",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7480),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(975),
                             Title = "She's the One"
                         },
                         new
                         {
                             Id = 254L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7490),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(977),
                             Length = "3:18",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7498),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(978),
                             Title = "Meeting Across the River"
                         },
                         new
                         {
                             Id = 255L,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7507),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(980),
                             Length = "9:34",
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 892, DateTimeKind.Local).AddTicks(7514),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 225, DateTimeKind.Local).AddTicks(982),
                             Title = "Jungleland"
                         });
                 });
@@ -6489,15 +6498,15 @@ namespace SwanSong.Data.Migrations
                         new
                         {
                             Id = 1,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9779),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9781),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9298),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9301),
                             Name = "Island Studios London, Sound Techniques London"
                         },
                         new
                         {
                             Id = 2,
-                            AddedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9787),
-                            ModifiedDate = new DateTime(2024, 2, 16, 13, 32, 4, 891, DateTimeKind.Local).AddTicks(9789),
+                            AddedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9305),
+                            ModifiedDate = new DateTime(2024, 2, 16, 12, 14, 28, 224, DateTimeKind.Local).AddTicks(9307),
                             Name = "914 Sound Studios, Blauvelt, New York"
                         });
                 });

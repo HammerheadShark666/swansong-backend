@@ -19,7 +19,7 @@ public class Account
     public bool IsAuthenticated => Verified.HasValue || PasswordReset.HasValue;
     public string ResetToken { get; set; }
     public DateTime? ResetTokenExpires { get; set; }
-    public DateTime? PasswordReset { get; set; }
+    public DateTime? PasswordReset { get; set; }    
     public DateTime Created { get; set; }
     public DateTime? Updated { get; set; }
     public List<RefreshToken> RefreshTokens { get; set; }
@@ -27,10 +27,5 @@ public class Account
     public Account()
     {
         RefreshTokens = new List<RefreshToken> { };
-    }
-        
-    public bool OwnsToken(string token) 
-    {
-        return this.RefreshTokens?.Find(x => x.Token == token) != null;
     }
 }

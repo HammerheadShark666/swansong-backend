@@ -112,19 +112,19 @@ public class StudioService : IStudioService
     private async Task SaveAddAsync(Studio studio, string cacheKey)
     {
         await _unitOfWork.Studios.AddAsync(studio);
-        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork); 
+        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork); 
     }
 
     private async Task SaveUpdateAsync(Studio studio, string cacheKey)
     {
         _unitOfWork.Studios.Update(studio);
-        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork); 
+        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork); 
     }
 
     private async Task DeleteAsync(Studio studio, string cacheKey)
     {
         _unitOfWork.Studios.Delete(studio);
-        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork); 
+        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork); 
     } 
 
     private async Task<Studio> GetStudioAsync(int id)

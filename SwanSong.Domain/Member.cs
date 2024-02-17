@@ -38,9 +38,11 @@ public class Member : BaseEntity
 
     public DateTime? DateOfDeath { get; set; }
 
+    [ForeignKey("BirthPlaceId")]
     public BirthPlace BirthPlace { get; set; }
-
-    public long? BirthPlaceId { get; set; }
+    
+    [Column(TypeName = "int")]
+    public int? BirthPlaceId { get; set; }
 
     public bool IsSongWriter { get; set; }
 

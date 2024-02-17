@@ -112,19 +112,19 @@ public class CountryService : ICountryService
     private async Task DeleteAsync(Country country, string cacheKey)
     {
         _unitOfWork.Countries.Delete(country);
-        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
     }
 
     private async Task SaveAddAsync(Country country, string cacheKey)
     {
         await _unitOfWork.Countries.AddAsync(country);
-        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
     }
 
     private async Task SaveUpdateAsync(Country country, string cacheKey)
     {
         _unitOfWork.Countries.Update(country);
-        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
     } 
 
     private async Task<Country> GetCountryAsync(int id)

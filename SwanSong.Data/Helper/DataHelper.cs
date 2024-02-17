@@ -5,9 +5,19 @@ using System.Threading.Tasks;
 namespace SwanSong.Data.Helper;
 public class DataHelper
 {
-    public static async Task CompleteContextAction(string cacheKey, IMemoryCache _memoryCache, IUnitOfWork _unitOfWork)
+    public static async Task CompleteContextActionAsync(string cacheKey, IMemoryCache _memoryCache, IUnitOfWork _unitOfWork)
     {
-        await _unitOfWork.Complete();
+        await _unitOfWork.CompleteAsync();
+
+        if (cacheKey != null)
+        {
+            _memoryCache.Remove(cacheKey);
+        }
+    }
+
+    public static void CompleteContextAction(string cacheKey, IMemoryCache _memoryCache, IUnitOfWork _unitOfWork)
+    {
+        _unitOfWork.Complete();
 
         if (cacheKey != null)
         {

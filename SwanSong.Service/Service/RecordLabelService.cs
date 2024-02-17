@@ -112,19 +112,19 @@ public class RecordLabelService : IRecordLabelService
     private async Task SaveAddAsync(RecordLabel recordLabel, string cacheKey)
     {
         await _unitOfWork.RecordLabels.AddAsync(recordLabel);
-        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
     }
 
     private async Task SaveUpdateAsync(RecordLabel recordLabel, string cacheKey)
     {
         _unitOfWork.RecordLabels.Update(recordLabel);
-        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
     }
 
     private async Task DeleteAsync(RecordLabel recordLabel, string cacheKey)
     {
         _unitOfWork.RecordLabels.Delete(recordLabel);
-        await DataHelper.CompleteContextAction(cacheKey, _memoryCache, _unitOfWork);
+        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
     } 
 
     private async Task<RecordLabel> GetRecordLabelAsync(int id)
