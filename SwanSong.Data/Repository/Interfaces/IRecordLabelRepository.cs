@@ -8,9 +8,9 @@ public interface IRecordLabelRepository
 {
     Task<bool> ExistsAsync(int ignoreId, string name);
     Task<bool> ExistsAsync(string name);
-    Task<IEnumerable<RecordLabel>> AllAsync();
-    Task AddAsync(RecordLabel recordLabel);
-    void Update(RecordLabel recordLabel);
-    void Delete(RecordLabel recordLabel);
+    Task<List<RecordLabel>> AllAsync();
+    Task<RecordLabel> AddAsync(RecordLabel recordLabel);
+    Task<RecordLabel> UpdateAsync(RecordLabel recordLabel);
+    Task<int> DeleteAsync(int id);
     Task<RecordLabel> ByIdAsync(int id); 
 }

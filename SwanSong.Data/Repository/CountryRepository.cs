@@ -25,22 +25,40 @@ public class CountryRepository : ICountryRepository
         return await _context.Countries.AnyAsync(a => a.Name.Equals(name) && !a.Id.Equals(ignoreId));
     }
 
-    public async Task AddAsync(Country country)
+    public async Task<Country> AddAsync(Country country)
     {
         await _context.Countries.AddAsync(country);
+        await _context.SaveChangesAsync();
+
+        return country; 
     }
 
-    public void Update(Country country)
+    public async Task<Country> UpdateAsync(Country country)
     {
-        _context.Countries.Update(country);
+        var existingCountry = await _context.Countries.FirstOrDefaultAsync(p => p.Id == country.Id);
+        if (existingCountry != null)
+        {
+            existingCountry.Name = country.Name;
+        }
+
+        await _context.SaveChangesAsync();
+
+        return existingCountry; 
     }
 
-    public void Delete(Country country)
+    public async Task<int> DeleteAsync(int id)
     {
-        _context.Countries.Remove(country);
+        var existingCountry = await _context.Countries.FirstOrDefaultAsync(p => p.Id == id);
+        if (existingCountry is null) return 0;
+
+        _context.Countries.Remove(existingCountry);
+
+        await _context.SaveChangesAsync();
+
+        return id; 
     }
 
-    public async Task<IEnumerable<Country>> AllAsync()
+    public async Task<List<Country>> AllAsync()
     {
         return await _context.Countries.ToListAsync();
     }

@@ -9,8 +9,8 @@ namespace SwanSong.Data.UnitOfWork;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly SwanSongContext _context;
-    public IRecordLabelRepository RecordLabels { get; private set; }
-    public IStudioRepository Studios { get; private set; } 
+   // public IRecordLabelRepository RecordLabels { get; private set; }
+    //public IStudioRepository Studios { get; private set; } 
     public ICountryRepository Countries { get; private set; }
     public ISongRepository Songs { get; private set; }
     public IMemberRepository Members { get; private set; }
@@ -31,10 +31,10 @@ public class UnitOfWork : IUnitOfWork
         BirthPlaces = new BirthPlaceRepository(_context);
         Countries = new CountryRepository(_context);
         Members = new MemberRepository(_context);
-        RecordLabels = new RecordLabelRepository(_context);
+        //RecordLabels = new RecordLabelRepository(_context);
         RefreshTokens = new RefreshTokenRepository(_context);
         Songs = new SongRepository(_context);
-        Studios = new StudioRepository(_context); 
+       // Studios = new StudioRepository(_context); 
     }        
     
     public async Task<int> CompleteAsync()

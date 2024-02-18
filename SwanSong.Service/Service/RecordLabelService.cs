@@ -1,37 +1,35 @@
 ﻿using AutoMapper;
+using MediatR;
 using Microsoft.Extensions.Caching.Memory;
 using SwanSong.Data.Helper;
-using SwanSong.Data.UnitOfWork.Interfaces;
+using SwanSong.Data.MediatR.Commands;
+using SwanSong.Data.MediatR.Queries;
 using SwanSong.Domain;
 using SwanSong.Domain.Dto;
 using SwanSong.Domain.Helper;
 using SwanSong.Helper;
-using SwanSong.Helper.Exceptions;
 using SwanSong.Helper.Interfaces;
 using SwanSong.Service.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SwanSong.Service;
 
-public class RecordLabelService : IRecordLabelService
-{
-    public readonly IMemoryCache _memoryCache;
-    public readonly IUnitOfWork _unitOfWork;
+public class RecordLabelService : BaseService, IRecordLabelService
+{ 
     public readonly IMapper _mapper;
     public readonly IValidatorHelper<RecordLabel> _validatorHelper;
+    private readonly IMediator _mediator;
 
     public RecordLabelService(IMapper mapper,
                               IValidatorHelper<RecordLabel> validatorHelper,
                               IMemoryCache memoryCache,
-                              IUnitOfWork unitOfWork)
+                              IMediator mediator) : base(memoryCache)
     {
-        _validatorHelper = validatorHelper;
-        _memoryCache = memoryCache;
-        _unitOfWork = unitOfWork;
+        _validatorHelper = validatorHelper; 
         _mapper = mapper;
+        _mediator = mediator;
     }
 
     #region Public Functions
@@ -41,28 +39,28 @@ public class RecordLabelService : IRecordLabelService
         return await _memoryCache.GetOrCreateAsync<List<RecordLabelResponse>>(CacheKeys.RecordLabel, async cache =>
         {
             cache.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
-            return _mapper.Map<List<RecordLabelResponse>>(await _unitOfWork.RecordLabels.AllAsync()).OrderBy(c => c.Name).ToList();
+            return _mapper.Map<List<RecordLabelResponse>>(await _mediator.Send(new GetRecordLabelListQuery()));
         });
     } 
 
-    public async Task<RecordLabelActionResponse> AddAsync(RecordLabelAddRequest recordLabelsAddRequest)
+    public async Task<RecordLabelActionResponse> AddAsync(RecordLabelAddRequest recordLabelAddRequest)
     {
-        var recordLabel = _mapper.Map<RecordLabel>(recordLabelsAddRequest);
-         
+        var recordLabel = _mapper.Map<RecordLabel>(recordLabelAddRequest);
+
         await BeforeSaveAsync(recordLabel);
-        await SaveAddAsync(recordLabel, CacheKeys.RecordLabel);
+        recordLabel = await SaveAddAsync(recordLabel, CacheKeys.RecordLabel);
 
         return await AfterSaveAsync(recordLabel);
     }
 
     public async Task<RecordLabelActionResponse> UpdateAsync(RecordLabelUpdateRequest recordLabelUpdateRequest)
-    {  
-        var recordLabel = await UpdateRecordLabelAsync(recordLabelUpdateRequest);
+    {
+        var recordLabel = await GetRecordLabelAsync(recordLabelUpdateRequest);
 
         await BeforeSaveAsync(recordLabel);
-        await SaveUpdateAsync(recordLabel, CacheKeys.RecordLabel);
+        recordLabel = await SaveUpdateAsync(recordLabel, CacheKeys.RecordLabel);
 
-        return await AfterSaveAsync(recordLabel); 
+        return await AfterSaveAsync(recordLabel);
     }
 
     public async Task<RecordLabelActionResponse> DeleteAsync(int id)
@@ -70,22 +68,14 @@ public class RecordLabelService : IRecordLabelService
         var recordLabel = await GetRecordLabelAsync(id);
 
         await BeforeDeleteAsync(recordLabel);
-        await DeleteAsync(recordLabel, CacheKeys.RecordLabel);
+        await DeleteAsync(id, CacheKeys.RecordLabel);
 
-        return await AfterDeleteAsync(recordLabel); 
+        return await AfterDeleteAsync(recordLabel);
     }
 
     #endregion
 
     #region Private Functions
-
-    private async Task<RecordLabel> UpdateRecordLabelAsync(RecordLabelUpdateRequest recordLabelUpdateRequest)
-    {
-        var recordLabel = await GetRecordLabelAsync(recordLabelUpdateRequest.Id);
-        recordLabel.Name = recordLabelUpdateRequest.Name;
-
-        return recordLabel;
-    }
 
     private async Task BeforeSaveAsync(RecordLabel recordLabel)
     {
@@ -107,37 +97,39 @@ public class RecordLabelService : IRecordLabelService
     {
         var afterDeleteValidate = await _validatorHelper.AfterEventAsync(recordLabel, Constants.ValidationEventAfterDelete);
         return new RecordLabelActionResponse(recordLabel.Id, recordLabel.Name, ResponseHelper.GetMessages(afterDeleteValidate.Errors), true);
-    } 
-
-    private async Task SaveAddAsync(RecordLabel recordLabel, string cacheKey)
-    {
-        await _unitOfWork.RecordLabels.AddAsync(recordLabel);
-        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
     }
 
-    private async Task SaveUpdateAsync(RecordLabel recordLabel, string cacheKey)
+    private async Task<RecordLabel> SaveAddAsync(RecordLabel recordLabel, string cacheKey)
     {
-        _unitOfWork.RecordLabels.Update(recordLabel);
-        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
+        recordLabel = await _mediator.Send(new CreateRecordLabelCommand(recordLabel.Name));
+        ClearCache(cacheKey);
+        return recordLabel;
     }
 
-    private async Task DeleteAsync(RecordLabel recordLabel, string cacheKey)
+    private async Task<RecordLabel> SaveUpdateAsync(RecordLabel recordLabel, string cacheKey)
     {
-        _unitOfWork.RecordLabels.Delete(recordLabel);
-        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
-    } 
+        recordLabel = await _mediator.Send(new UpdateRecordLabelCommand(recordLabel.Id, recordLabel.Name));
+        ClearCache(cacheKey);
+        return recordLabel;
+    }
 
+    private async Task<int> DeleteAsync(int id, string cacheKey)
+    {
+        id = _mapper.Map<int>(await _mediator.Send(new DeleteRecordLabelCommand(id)));
+        ClearCache(cacheKey);
+        return id;
+    }
+
+    private async Task<RecordLabel> GetRecordLabelAsync(RecordLabelUpdateRequest recordLabelUpdateRequest)
+    {
+        var recordLabel = await _mediator.Send(new GetRecordLabelByIdQuery(recordLabelUpdateRequest.Id));
+        return _mapper.Map(recordLabelUpdateRequest, recordLabel);
+    }
     private async Task<RecordLabel> GetRecordLabelAsync(int id)
     {
-        var recordLabels = await _unitOfWork.RecordLabels.ByIdAsync(id);
-        if (recordLabels == null)
-        {
-            throw new RecordLabelNotFoundException("Record label not found.");
-        }
-
-        return recordLabels;
+        return await _mediator.Send(new GetRecordLabelByIdQuery(id));
     }
-
+     
     #endregion
 
 }

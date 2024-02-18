@@ -11,8 +11,9 @@ builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
     config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
     config.AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
     config.AddEnvironmentVariables();
-}); 
+});
 
+builder.Services.ConfigureMediatR();
 builder.Services.ConfigureMvc();
 builder.Services.ConfigureControllers();
 builder.Services.ConfigureDbContext(builder.Configuration);

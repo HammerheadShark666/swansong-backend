@@ -25,22 +25,40 @@ public class RecordLabelRepository : IRecordLabelRepository
         return await _context.RecordLabels.AnyAsync(a => a.Name.Equals(name) && !a.Id.Equals(ignoreId));
     }
 
-    public async Task AddAsync(RecordLabel recordLabel)
+    public async Task<RecordLabel> AddAsync(RecordLabel recordLabel)
     {
         await _context.RecordLabels.AddAsync(recordLabel);
+        await _context.SaveChangesAsync();
+
+        return recordLabel;
     }
 
-    public void Update(RecordLabel recordLabel)
+    public async Task<RecordLabel> UpdateAsync(RecordLabel recordLabel)
     {
-        _context.RecordLabels.Update(recordLabel);
+        var existingRecordLabel = await _context.RecordLabels.FirstOrDefaultAsync(p => p.Id == recordLabel.Id);
+        if (existingRecordLabel != null)
+        {
+            existingRecordLabel.Name = recordLabel.Name;
+        }
+
+        await _context.SaveChangesAsync();
+
+        return existingRecordLabel;
     }
 
-    public void Delete(RecordLabel recordLabel)
+    public async Task<int> DeleteAsync(int id)
     {
-        _context.RecordLabels.Remove(recordLabel);
+        var existingRecordLabel = await _context.RecordLabels.FirstOrDefaultAsync(p => p.Id == id);
+        if (existingRecordLabel is null) return 0;
+
+        _context.RecordLabels.Remove(existingRecordLabel);
+
+        await _context.SaveChangesAsync();
+
+        return id;
     }
 
-    public async Task<IEnumerable<RecordLabel>> AllAsync()
+    public async Task<List<RecordLabel>> AllAsync()
     {
         return await _context.RecordLabels.ToListAsync();
     }

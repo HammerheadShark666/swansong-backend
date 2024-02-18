@@ -10,6 +10,7 @@ using SwanSong.Azure.Storage;
 using SwanSong.Azure.Storage.Interfaces;
 using SwanSong.Business.Validator;
 using SwanSong.Data;
+using SwanSong.Data.MediatR.Handlers;
 using SwanSong.Data.Repository;
 using SwanSong.Data.Repository.Interfaces;
 using SwanSong.Data.UnitOfWork;
@@ -153,5 +154,10 @@ public static class ServiceExtensions
             options.DefaultApiVersion = new ApiVersion(1, 0);
             options.ReportApiVersions = true;
         });
+    }
+
+    public static void ConfigureMediatR(this IServiceCollection services)
+    {
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateStudioHandler).GetTypeInfo().Assembly));
     }
 }

@@ -8,9 +8,9 @@ public interface ICountryRepository
 {
     Task<bool> ExistsAsync(int ignoreId, string name);
     Task<bool> ExistsAsync(string name); 
-    Task<IEnumerable<Country>> AllAsync();
-    Task AddAsync(Country country);
-    void Update(Country country);
-    void Delete(Country country);
+    Task<List<Country>> AllAsync();
+    Task<Country> AddAsync(Country country);
+    Task<Country> UpdateAsync(Country country);
+    Task<int> DeleteAsync(int id);
     Task<Country> ByIdAsync(int id);
 }

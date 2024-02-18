@@ -8,9 +8,9 @@ public interface IStudioRepository
 {
     Task<bool> ExistsAsync(int ignoreId, string name);
     Task<bool> ExistsAsync(string name);
-    Task<IEnumerable<Studio>> AllAsync();
-    Task AddAsync(Studio studio);
-    void Update(Studio studio);
-    void Delete(Studio studio);
-    Task<Studio> ByIdAsync(int id);
+    Task<List<Studio>> AllAsync();
+    Task<Studio> AddAsync(Studio studio);
+    Task<Studio> UpdateAsync(Studio studio);
+    Task<int> DeleteAsync(int studioId);
+    Task<Studio> ByIdAsync(int id); 
 }

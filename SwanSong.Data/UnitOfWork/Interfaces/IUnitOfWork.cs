@@ -14,9 +14,9 @@ public interface IUnitOfWork : IDisposable
     ICountryRepository Countries { get; }
     IMemberRepository Members { get; }
     IRefreshTokenRepository RefreshTokens { get; }
-    IRecordLabelRepository RecordLabels { get; }
+    //IRecordLabelRepository RecordLabels { get; }
     ISongRepository Songs { get; }
-    IStudioRepository Studios { get; } 
+   // IStudioRepository Studios { get; } 
     
     Task<int> CompleteAsync();
     int Complete();

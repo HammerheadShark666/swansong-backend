@@ -1,37 +1,35 @@
 ﻿using AutoMapper;
+using MediatR;
 using Microsoft.Extensions.Caching.Memory;
 using SwanSong.Data.Helper;
-using SwanSong.Data.UnitOfWork.Interfaces;
+using SwanSong.Data.MediatR.Commands;
+using SwanSong.Data.MediatR.Queries;
 using SwanSong.Domain;
 using SwanSong.Domain.Dto;
 using SwanSong.Domain.Helper;
 using SwanSong.Helper;
-using SwanSong.Helper.Exceptions;
 using SwanSong.Helper.Interfaces;
 using SwanSong.Service.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SwanSong.Service;
 
-public class CountryService : ICountryService
-{ 
-    public readonly IMemoryCache _memoryCache;
-    public readonly IUnitOfWork _unitOfWork;
-    public readonly IMapper _mapper; 
+public class CountryService : BaseService, ICountryService
+{
+    public readonly IMapper _mapper;
     public readonly IValidatorHelper<Country> _validatorHelper;
+    private readonly IMediator _mediator;
 
     public CountryService(IMapper mapper,
                           IValidatorHelper<Country> validatorHelper,
                           IMemoryCache memoryCache,
-                          IUnitOfWork unitOfWork)
+                          IMediator mediator) : base(memoryCache)
     {
         _validatorHelper = validatorHelper;
-        _memoryCache = memoryCache;
-        _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _mediator = mediator;
     }
 
     #region Public Functions
@@ -41,51 +39,43 @@ public class CountryService : ICountryService
         return await _memoryCache.GetOrCreateAsync<List<CountryResponse>>(CacheKeys.Country, async cache =>
         {
             cache.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
-            return _mapper.Map<List<CountryResponse>>(await _unitOfWork.Countries.AllAsync()).OrderBy(c => c.Name).ToList();
+            return _mapper.Map<List<CountryResponse>>(await _mediator.Send(new GetCountryListQuery()));
         });
-    } 
+    }
 
     public async Task<CountryActionResponse> AddAsync(CountryAddRequest countryAddRequest)
     {
         var country = _mapper.Map<Country>(countryAddRequest);
-         
-        await BeforeSaveAsync(country);
-        await SaveAddAsync(country, CacheKeys.Country);
 
-        return await AfterSaveAsync(country);         
+        await BeforeSaveAsync(country);
+        country = await SaveAddAsync(country, CacheKeys.Country);
+
+        return await AfterSaveAsync(country);
     }
 
     public async Task<CountryActionResponse> UpdateAsync(CountryUpdateRequest countryUpdateRequest)
-    { 
-        var country = await UpdateCountryAsync(countryUpdateRequest);
+    {
+        var country = await GetCountryAsync(countryUpdateRequest);
 
         await BeforeSaveAsync(country);
-        await SaveUpdateAsync(country, CacheKeys.Country);
+        country = await SaveUpdateAsync(country, CacheKeys.Country);
 
-        return await AfterSaveAsync(country);  
+        return await AfterSaveAsync(country);
     }
 
     public async Task<CountryActionResponse> DeleteAsync(int id)
-    { 
+    {
         var country = await GetCountryAsync(id);
- 
-        await BeforeDeleteAsync(country);
-        await DeleteAsync(country, CacheKeys.Country);
 
-        return await AfterDeleteAsync(country); 
+        await BeforeDeleteAsync(country);
+        await DeleteAsync(id, CacheKeys.Country);
+
+        return await AfterDeleteAsync(country);
     }
 
-    #endregion 
+    #endregion
 
     #region Private Functions
-
-    private async Task<Country> UpdateCountryAsync(CountryUpdateRequest countryUpdateRequest)
-    {
-        var country = await GetCountryAsync(countryUpdateRequest.Id);
-        country.Name = countryUpdateRequest.Name;
-
-        return country;
-    }
 
     private async Task BeforeSaveAsync(Country country)
     {
@@ -109,34 +99,37 @@ public class CountryService : ICountryService
         return new CountryActionResponse(country.Id, country.Name, ResponseHelper.GetMessages(afterDeleteValidate.Errors), true);
     }
 
-    private async Task DeleteAsync(Country country, string cacheKey)
+    private async Task<Country> SaveAddAsync(Country country, string cacheKey)
     {
-        _unitOfWork.Countries.Delete(country);
-        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
-    }
-
-    private async Task SaveAddAsync(Country country, string cacheKey)
-    {
-        await _unitOfWork.Countries.AddAsync(country);
-        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
-    }
-
-    private async Task SaveUpdateAsync(Country country, string cacheKey)
-    {
-        _unitOfWork.Countries.Update(country);
-        await DataHelper.CompleteContextActionAsync(cacheKey, _memoryCache, _unitOfWork);
-    } 
-
-    private async Task<Country> GetCountryAsync(int id)
-    {
-        var country = await _unitOfWork.Countries.ByIdAsync(id);
-        if (country == null)
-        {
-            throw new CountryNotFoundException("Country not found.");
-        }
-
+        country = await _mediator.Send(new CreateCountryCommand(country.Name));
+        ClearCache(cacheKey);
         return country;
     }
 
+    private async Task<Country> SaveUpdateAsync(Country country, string cacheKey)
+    {
+        country = await _mediator.Send(new UpdateCountryCommand(country.Id, country.Name));
+        ClearCache(cacheKey);
+        return country;
+    }
+
+    private async Task<int> DeleteAsync(int id, string cacheKey)
+    {
+        id = _mapper.Map<int>(await _mediator.Send(new DeleteCountryCommand(id)));
+        ClearCache(cacheKey);
+        return id;
+    }
+
+    private async Task<Country> GetCountryAsync(CountryUpdateRequest countryUpdateRequest)
+    {
+        var country = await _mediator.Send(new GetCountryByIdQuery(countryUpdateRequest.Id));
+        return _mapper.Map(countryUpdateRequest, country);
+    }
+    private async Task<Country> GetCountryAsync(int id)
+    {
+        return await _mediator.Send(new GetCountryByIdQuery(id));
+    }
+
     #endregion
+
 }
