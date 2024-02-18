@@ -8,9 +8,9 @@ public interface IBirthPlaceRepository
 {
     Task<bool> ExistsAsync(int ignoreId, string name);
     Task<bool> ExistsAsync(string name);
-    Task<IEnumerable<BirthPlace>> AllAsync();
-    Task AddAsync(BirthPlace birthPlace);
-    void Update(BirthPlace birthPlace);
-    void Delete(BirthPlace birthPlace);
+    Task<List<BirthPlace>> AllAsync();
+    Task<BirthPlace> AddAsync(BirthPlace birthPlace);
+    Task<BirthPlace> UpdateAsync(BirthPlace birthPlace);
+    Task<int> DeleteAsync(int id);
     Task<BirthPlace> ByIdAsync(int id);
 }

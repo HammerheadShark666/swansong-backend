@@ -25,22 +25,40 @@ public class BirthPlaceRepository : IBirthPlaceRepository
         return await _context.BirthPlaces.AnyAsync(a => a.Name.Equals(name) && !a.Id.Equals(ignoreId));
     }
 
-    public async Task AddAsync(BirthPlace birthPlace)
+    public async Task<BirthPlace> AddAsync(BirthPlace birthPlace)
     {
         await _context.BirthPlaces.AddAsync(birthPlace);
+        await _context.SaveChangesAsync();
+
+        return birthPlace;
     }
 
-    public void Update(BirthPlace birthPlace)
+    public async Task<BirthPlace> UpdateAsync(BirthPlace birthPlace)
     {
-        _context.BirthPlaces.Update(birthPlace);
+        var existingBirthPlace = await _context.BirthPlaces.FirstOrDefaultAsync(p => p.Id == birthPlace.Id);
+        if (existingBirthPlace != null)
+        {
+            existingBirthPlace.Name = birthPlace.Name;
+        }
+
+        await _context.SaveChangesAsync();
+
+        return existingBirthPlace;
     }
 
-    public void Delete(BirthPlace birthPlace)
+    public async Task<int> DeleteAsync(int id)
     {
-        _context.BirthPlaces.Remove(birthPlace);
+        var existingBirthPlace = await _context.BirthPlaces.FirstOrDefaultAsync(p => p.Id == id);
+        if (existingBirthPlace is null) return 0;
+
+        _context.BirthPlaces.Remove(existingBirthPlace);
+
+        await _context.SaveChangesAsync();
+
+        return id;
     }
 
-    public async Task<IEnumerable<BirthPlace>> AllAsync()
+    public async Task<List<BirthPlace>> AllAsync()
     {
         return await _context.BirthPlaces.ToListAsync();
     }
