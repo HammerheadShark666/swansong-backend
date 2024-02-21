@@ -39,7 +39,7 @@ public class AlbumRepository : IAlbumRepository
         return await _context.Albums.CountAsync();
     }
 
-    public async Task<IEnumerable<Album>> SearchByNameAsync(string criteria)
+    public async Task<List<Album>> GetByNameAsync(string criteria)
     {
         return await (from album in _context.Albums
                         join label in _context.RecordLabels on album.LabelId equals label.Id into lbl
@@ -48,14 +48,14 @@ public class AlbumRepository : IAlbumRepository
                       select album).ToListAsync();
     }
 
-    public async Task<IEnumerable<Album>> SearchByLetterAsync(string letter)
+    public async Task<List<Album>> GetByLetterAsync(string letter)
     {
         return await (from album in _context.Albums
                         where album.Name.ToUpper().Substring(0, 1).Equals(letter.ToUpper())
                       select album).ToListAsync();
     }
 
-    public async Task<IEnumerable<Album>> GetAlbumsForArtistAsync(long artistId)
+    public async Task<List<Album>> GetAlbumsForArtistAsync(long artistId)
     {
         return await (from album in _context.Albums
                         where album.ArtistId.Equals(artistId)
@@ -76,17 +76,7 @@ public class AlbumRepository : IAlbumRepository
             album.AlbumSongs = album.AlbumSongs.OrderBy(t => t.Side).ThenBy(t => t.Order).ToList();
 
         return album;
-    }
-
-    public async Task<Album> UpdateAlbumPhotoAsync(long id, string filename)
-    {
-        Album album = await GetAsync(id);
-
-        album.Photo = filename;
-        _context.SaveChanges();
-
-        return album;
-    }
+    } 
 
     public async Task<bool> ExistsAsync(string name)
     {
@@ -102,19 +92,28 @@ public class AlbumRepository : IAlbumRepository
                                .AnyAsync();
     }
 
-    public async Task AddAsync(Album album)
+    public async Task<Album> AddAsync(Album album)
     {
         await _context.Albums.AddAsync(album);
+        await _context.SaveChangesAsync();
+
+        return album;
     }
 
-    public void Update(Album album)
-    {
+    public async Task<Album> UpdateAsync(Album album)
+    { 
         _context.Albums.Update(album);
+        await _context.SaveChangesAsync();
+
+        return album; 
     }
 
-    public void Delete(Album album)
+    public async Task<Album> DeleteAsync(Album album)
     {
         _context.Albums.Remove(album);
+        await _context.SaveChangesAsync();
+
+        return album;
     }
 
     public async Task<Album> ByIdAsync(long id)

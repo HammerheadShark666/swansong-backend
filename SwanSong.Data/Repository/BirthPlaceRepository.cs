@@ -46,16 +46,15 @@ public class BirthPlaceRepository : IBirthPlaceRepository
         return existingBirthPlace;
     }
 
-    public async Task<int> DeleteAsync(int id)
+    public async Task<BirthPlace> DeleteAsync(BirthPlace birthPlace)
     {
-        var existingBirthPlace = await _context.BirthPlaces.FirstOrDefaultAsync(p => p.Id == id);
-        if (existingBirthPlace is null) return 0;
+        //var existingBirthPlace = await _context.BirthPlaces.FirstOrDefaultAsync(p => p.Id == id);
+        //if (existingBirthPlace is null) return 0;
 
-        _context.BirthPlaces.Remove(existingBirthPlace);
-
+        _context.BirthPlaces.Remove(birthPlace);
         await _context.SaveChangesAsync();
 
-        return id;
+        return birthPlace;
     }
 
     public async Task<List<BirthPlace>> AllAsync()

@@ -1,13 +1,14 @@
 ﻿using MediatR;
+using SwanSong.Domain;
 
 namespace SwanSong.Data.MediatR.Commands;
 
-public class DeleteBirthPlaceCommand : IRequest<int>
+public class DeleteBirthPlaceCommand : IRequest<BirthPlace>
 {
-    public int Id { get; set; }
+    public BirthPlace BirthPlace { get; set; }
 
-    public DeleteBirthPlaceCommand(int id)
+    public DeleteBirthPlaceCommand(BirthPlace birthPlace)
     {
-        Id = id;
+        BirthPlace = birthPlace;
     }
 }

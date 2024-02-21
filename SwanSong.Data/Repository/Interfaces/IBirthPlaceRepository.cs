@@ -11,6 +11,6 @@ public interface IBirthPlaceRepository
     Task<List<BirthPlace>> AllAsync();
     Task<BirthPlace> AddAsync(BirthPlace birthPlace);
     Task<BirthPlace> UpdateAsync(BirthPlace birthPlace);
-    Task<int> DeleteAsync(int id);
+    Task<BirthPlace> DeleteAsync(BirthPlace birthPlace);
     Task<BirthPlace> ByIdAsync(int id);
 }

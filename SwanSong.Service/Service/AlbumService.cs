@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using SwanSong.Azure.Storage.Interfaces;
 using SwanSong.Data.Helper;
-using SwanSong.Data.UnitOfWork.Interfaces;
+using SwanSong.Data.MediatR.Commands;
+using SwanSong.Data.MediatR.Queries;
 using SwanSong.Domain;
 using SwanSong.Domain.Dto;
 using SwanSong.Domain.Helper;
@@ -19,27 +21,24 @@ using System.Threading.Tasks;
 
 namespace SwanSong.Service;
 
-public class AlbumService : IAlbumService
-{
-
-    public readonly IMemoryCache _memoryCache;
-    public readonly IUnitOfWork _unitOfWork;
+public class AlbumService : BaseService, IAlbumService
+{     
     public readonly IMapper _mapper;
     public readonly IValidatorHelper<Album> _validatorHelper;
     public readonly IAzureStorageBlobHelper _azureStorageHelper;
+    private readonly IMediator _mediator;
 
     public record EditPhoto(bool photoWasChanged, string originalPhotoName);
 
     public AlbumService(IMapper mapper,
+                        IMediator mediator,
                         IValidatorHelper<Album> validatorHelper,
-                        IMemoryCache memoryCache,
-                        IUnitOfWork unitOfWork,
-                        IAzureStorageBlobHelper azureStorageHelper)
+                        IMemoryCache memoryCache, 
+                        IAzureStorageBlobHelper azureStorageHelper) : base(memoryCache)
     {
         _azureStorageHelper = azureStorageHelper;
-        _validatorHelper = validatorHelper;
-        _memoryCache = memoryCache;
-        _unitOfWork = unitOfWork;
+        _validatorHelper = validatorHelper; 
+        _mediator = mediator;
         _mapper = mapper;
     }
 
@@ -47,78 +46,65 @@ public class AlbumService : IAlbumService
 
     public async Task<long> CountAsync()
     {
-        return await _unitOfWork.Albums.CountAsync();
+        return await _mediator.Send(new GetAlbumCountQuery()); 
     }
 
-    public async Task<List<AlbumLookUpResponse>> GetAllAsync(PaginationFilter filter)
+    public async Task<List<AlbumLookUpResponse>> GetAllAsync(PaginationFilter paginationFilter)
     { 
-        return _mapper.Map<List<AlbumLookUpResponse>>(await _unitOfWork.Albums.GetAllAsync(filter.PageNumber, filter.PageSize));
+        return _mapper.Map<List<AlbumLookUpResponse>>(await _mediator.Send(new GetAlbumsByPageQuery(paginationFilter))); 
     }
 
     public async Task<List<AlbumLookUpResponse>> GetRandomAsync(int numberOfAlbums)
     { 
-        return GetAlbumLookUps((await _unitOfWork.Albums.GetRandomAsync(numberOfAlbums)).OrderBy(a => a.Name).ToList());
-    }
-
-    public List<AlbumLookUpResponse> GetAlbumLookUps(List<Album> albums)
-    {
-        List<AlbumLookUpResponse> albumLookUpResponses = _mapper.Map<List<AlbumLookUpResponse>>(albums);
-         
-        for (int i = 0; i < albumLookUpResponses.Count; i++)
-        {
-            List<AlbumSong> albumSongs = albums.First(a => a.Id.Equals(albumLookUpResponses[i].Id)).AlbumSongs.ToList();
-            albumLookUpResponses[i] = albumLookUpResponses[i] with { Tracks = albumSongs.Count().ToString(), Length = GetAlbumLength(albumSongs.ToList()) };
-        } 
-
-        return albumLookUpResponses;
+        return GetAlbumLookUps((await _mediator.Send(new GetAlbumsRandomQuery(numberOfAlbums))).OrderBy(a => a.Name).ToList()); 
     } 
 
-    public async Task<List<AlbumLookUpResponse>> SearchByNameAsync(string criteria)
-    {
-        return _mapper.Map<List<AlbumLookUpResponse>>(await _unitOfWork.Albums.SearchByNameAsync(criteria));
-    }
+    public async Task<List<AlbumLookUpResponse>> GetByNameAsync(string name)
+    { 
+        return _mapper.Map<List<AlbumLookUpResponse>>(await _mediator.Send(new GetAlbumsByNameQuery(name))); 
+    } 
 
-    public async Task<List<AlbumLookUpResponse>> SearchByLetterAsync(string letter)
+    public async Task<List<AlbumLookUpResponse>> GetByLetterAsync(string letter)
     {
-        return _mapper.Map<List<AlbumLookUpResponse>>(await _unitOfWork.Albums.SearchByLetterAsync(letter));
-    }
+        return _mapper.Map<List<AlbumLookUpResponse>>(await _mediator.Send(new GetAlbumsByLetterQuery(letter))); 
+    } 
 
     public async Task<List<AlbumLookUpResponse>> GetAlbumsForArtistAsync(long artistId)
     {
-        return _mapper.Map<List<AlbumLookUpResponse>>(await _unitOfWork.Albums.GetAlbumsForArtistAsync(artistId));
-    }
+        return _mapper.Map<List<AlbumLookUpResponse>>(await _mediator.Send(new GetAlbumsByArtistQuery(artistId))); 
+    } 
 
     public async Task<AlbumResponse> GetAsync(long id)
     {
-        return _mapper.Map<AlbumResponse>(await _unitOfWork.Albums.GetAsync(id));
-    }
+        return _mapper.Map<AlbumResponse>(await _mediator.Send(new GetAlbumByIdQuery(id))); 
+    } 
 
     public async Task<AlbumActionResponse> AddAsync(AlbumAddRequest albumAddRequest)
     {
-        Album album = _mapper.Map<Album>(albumAddRequest);
+        var album = _mapper.Map<Album>(albumAddRequest);
 
         await BeforeSaveAsync(album);
-        await SaveAddAsync(album); 
+        album = await SaveAddAsync(album, CacheKeys.Country);
 
-        return await AfterSaveAsync(album);
-    }
+        return await AfterSaveAsync(album); 
+    } 
 
     public async Task<AlbumActionResponse> UpdateAsync(AlbumUpdateRequest albumUpdateRequest)
-    {
-        var album = await UpdateAlbumAsync(albumUpdateRequest);
-
+    { 
+        var album = await GetUpdatedAlbumAsync(albumUpdateRequest);
+         
         await BeforeSaveAsync(album);
-        await SaveUpdateAsync(album);
+        await SaveUpdateAsync(album, null);
 
         return await AfterSaveAsync(album);
-    }
+    } 
 
     public async Task<AlbumActionResponse> DeleteAsync(long id)
     {
-        var album = await GetAlbumAsync(id);
-
-        await BeforeDeleteAsync(album);
-        await DeleteAsync(album);
+        var album = await GetExistingAlbumAsync(id);
+         
+        await BeforeDeleteAsync(album); 
+        await _mediator.Send(new DeleteAlbumCommand(album));
 
         if (NotDefaultImage(album.Photo))
         {
@@ -127,16 +113,18 @@ public class AlbumService : IAlbumService
 
         return await AfterDeleteAsync(album);
     }
-
+  
     public async Task<AlbumPhotoActionResponse> UpdateAlbumPhotoAsync(long id, IFormFile file)
-    {
-        var album = await GetAlbumAsync(id);
+    {  
+        var album = await GetExistingAlbumAsync(id);
 
         string newFileName = FileHelper.getGuidFileName(Constants.FileExtensionJpg);
         string originalFileName = album.Photo;
 
-        _mapper.Map<AlbumResponse>(await _unitOfWork.Albums.UpdateAlbumPhotoAsync(id, newFileName));
+        album.Photo = newFileName;
 
+        _mapper.Map<AlbumResponse>(await _mediator.Send(new UpdateAlbumCommand(album)));
+         
         await _azureStorageHelper.SaveBlobToAzureStorageContainerAsync(file, Constants.AzureStorageContainerAlbums, newFileName);
         await DeleteOriginalFileAsync(originalFileName, newFileName, Constants.AzureStorageContainerAlbums);
 
@@ -146,12 +134,28 @@ public class AlbumService : IAlbumService
     #endregion
 
     #region Private Functions
-
-    private async Task<Album> UpdateAlbumAsync(AlbumUpdateRequest albumUpdateRequest)
+     
+    private async Task<Album> GetUpdatedAlbumAsync(AlbumUpdateRequest albumUpdateRequest)
     {
-        Album album = await GetAlbumAsync(albumUpdateRequest.Id);
+        var album = await _mediator.Send(new GetAlbumByIdQuery(albumUpdateRequest.Id));
+        if (album == null)
+        {
+            throw new AlbumNotFoundException("Album Not Found.");
+        }
+
         album = _mapper.Map<AlbumUpdateRequest, Album>(albumUpdateRequest, album);
 
+        return album;
+    }
+
+    private async Task<Album> GetExistingAlbumAsync(long id)
+    {
+        var album = await _mediator.Send(new GetAlbumByIdQuery(id));
+        if (album == null)
+        {
+            throw new AlbumNotFoundException("Album Not Found.");
+        } 
+        
         return album;
     }
 
@@ -176,35 +180,20 @@ public class AlbumService : IAlbumService
         var afterDeleteValidate = await _validatorHelper.AfterEventAsync(album, Constants.ValidationEventAfterDelete);
         return new AlbumActionResponse(album.Id, ResponseHelper.GetMessages(afterDeleteValidate.Errors), true);
     }
-      
-    private async Task SaveAddAsync(Album album)
-    {
-        await _unitOfWork.Albums.AddAsync(album);
-        await DataHelper.CompleteContextActionAsync(null, _memoryCache, _unitOfWork);
-    }
 
-    private async Task SaveUpdateAsync(Album album)
+    private async Task<Album> SaveAddAsync(Album album, string cacheKey)
     {
-        _unitOfWork.Albums.Update(album);
-        await DataHelper.CompleteContextActionAsync(null, _memoryCache, _unitOfWork);
-    }
-
-    private async Task DeleteAsync(Album album)
-    {
-        _unitOfWork.Albums.Delete(album);
-        await DataHelper.CompleteContextActionAsync(null, _memoryCache, _unitOfWork);
-    }
-     
-    private async Task<Album> GetAlbumAsync(long id)
-    {
-        var album = await _unitOfWork.Albums.ByIdAsync(id);
-        if (album == null)
-        {
-            throw new AlbumNotFoundException("Album not found.");
-        }
-
+        album = await _mediator.Send(new CreateAlbumCommand(album));
+        ClearCache(cacheKey);
         return album;
-    }
+    } 
+
+    private async Task<Album> SaveUpdateAsync(Album album, string cacheKey)
+    {
+        album = await _mediator.Send(new UpdateAlbumCommand(album));
+        ClearCache(cacheKey);
+        return album;
+    }  
 
     private bool NotDefaultImage(string fileName)
     {
@@ -242,6 +231,19 @@ public class AlbumService : IAlbumService
         }
 
         return time.ToString();
+    }
+
+    private List<AlbumLookUpResponse> GetAlbumLookUps(List<Album> albums)
+    {
+        List<AlbumLookUpResponse> albumLookUpResponses = _mapper.Map<List<AlbumLookUpResponse>>(albums);
+
+        for (int i = 0; i < albumLookUpResponses.Count; i++)
+        {
+            List<AlbumSong> albumSongs = albums.First(a => a.Id.Equals(albumLookUpResponses[i].Id)).AlbumSongs.ToList();
+            albumLookUpResponses[i] = albumLookUpResponses[i] with { Tracks = albumSongs.Count().ToString(), Length = GetAlbumLength(albumSongs.ToList()) };
+        }
+
+        return albumLookUpResponses;
     }
 
     #endregion

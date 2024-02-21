@@ -122,9 +122,10 @@ public class CountryService : BaseService, ICountryService
 
     private async Task<Country> GetCountryAsync(CountryUpdateRequest countryUpdateRequest)
     {
-        var country = await _mediator.Send(new GetCountryByIdQuery(countryUpdateRequest.Id));
-        return _mapper.Map(countryUpdateRequest, country);
+        //var country = await _mediator.Send(new GetCountryByIdQuery(countryUpdateRequest.Id));
+        return _mapper.Map(countryUpdateRequest, await _mediator.Send(new GetCountryByIdQuery(countryUpdateRequest.Id)));
     }
+
     private async Task<Country> GetCountryAsync(int id)
     {
         return await _mediator.Send(new GetCountryByIdQuery(id));

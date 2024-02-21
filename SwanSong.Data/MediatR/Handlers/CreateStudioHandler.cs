@@ -9,11 +9,11 @@ namespace SwanSong.Data.MediatR.Handlers;
 
 public class CreateStudioHandler : IRequestHandler<CreateStudioCommand, Studio>
 {
-    private readonly IStudioRepository _studentRepository;
+    private readonly IStudioRepository _studioRepository;
 
-    public CreateStudioHandler(IStudioRepository studentRepository)
+    public CreateStudioHandler(IStudioRepository studioRepository)
     {
-        _studentRepository = studentRepository;
+        _studioRepository = studioRepository;
     }
     public async Task<Studio> Handle(CreateStudioCommand command, CancellationToken cancellationToken)
     {
@@ -22,6 +22,6 @@ public class CreateStudioHandler : IRequestHandler<CreateStudioCommand, Studio>
             Name = command.Name
         };
 
-        return await _studentRepository.AddAsync(studio);
+        return await _studioRepository.AddAsync(studio);
     }
 }

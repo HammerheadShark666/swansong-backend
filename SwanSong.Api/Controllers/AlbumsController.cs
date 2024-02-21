@@ -52,13 +52,13 @@ public class AlbumsController : Controller
     [HttpGet("search/{criteria}")] 
     public async Task<ActionResult<List<AlbumLookUpResponse>>> SearchAsync(string criteria) 
     {
-        return Ok(await _albumService.SearchByNameAsync(criteria));                        
+        return Ok(await _albumService.GetByNameAsync(criteria));                        
     }
           
     [HttpGet("search-by-letter/{letter}")] 
     public async Task<ActionResult<List<AlbumLookUpResponse>>> SearchByLetterAsync(string letter)
     {
-        return Ok(await _albumService.SearchByLetterAsync(letter));
+        return Ok(await _albumService.GetByLetterAsync(letter));
     }
 
     [HttpGet("album/{id}")]
@@ -84,7 +84,6 @@ public class AlbumsController : Controller
     {
         return Ok(await _albumService.UpdateAsync(albumUpdateRequest)); 
     }
-
 
     [HttpDelete("album/{id}")]
     public async Task<ActionResult<AlbumActionResponse>> DeleteAsync(long id)

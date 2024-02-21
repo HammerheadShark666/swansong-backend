@@ -115,7 +115,9 @@ public class BirthPlaceService : BaseService, IBirthPlaceService
 
     private async Task<int> DeleteAsync(int id, string cacheKey)
     {
-        id = _mapper.Map<int>(await _mediator.Send(new DeleteBirthPlaceCommand(id)));
+        var birthPlace = await GetBirthPlaceAsync(id);
+
+        id = _mapper.Map<int>(await _mediator.Send(new DeleteBirthPlaceCommand(birthPlace)));
         ClearCache(cacheKey);
         return id;
     }

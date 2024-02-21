@@ -50,6 +50,21 @@ public class AutoMapperProfile : AutoMapper.Profile
               album.ReleaseDate, "",
               album.Photo, "", ""));
 
+        base.CreateMap<Album, Album>()
+            .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
+            .ForMember(dest => dest.ArtistId, act => act.MapFrom(src => src.ArtistId))
+            .ForMember(dest => dest.RecordedDate, act => act.MapFrom(src => src.RecordedDate))
+            .ForMember(dest => dest.ReleaseDate, act => act.MapFrom(src => src.ReleaseDate))
+            .ForMember(dest => dest.LabelId, act => act.MapFrom(src => src.LabelId))
+            .ForMember(dest => dest.StudioId, act => act.MapFrom(src => src.StudioId))
+            .ForMember(dest => dest.Studio, opt => opt.Ignore())
+            .ForMember(dest => dest.Producers, act => act.MapFrom(src => src.Producers))
+            .ForMember(dest => dest.Arrangers, act => act.MapFrom(src => src.Arrangers))
+            .ForMember(dest => dest.Engineers, act => act.MapFrom(src => src.Engineers))
+            .ForMember(dest => dest.Artwork, act => act.MapFrom(src => src.Artwork));
+
+
+
         CreateMap<AlbumSong, AlbumSongAddRequest>().ReverseMap();
         CreateMap<AlbumSong, AlbumSongUpdateRequest>().ReverseMap();
         CreateMap<AlbumSong, AlbumSongActionResponse>().ReverseMap();

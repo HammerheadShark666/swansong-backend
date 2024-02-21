@@ -8,8 +8,8 @@ namespace SwanSong.Service.Interfaces;
 
 public interface IAlbumService
 {
-    Task<List<AlbumLookUpResponse>> SearchByNameAsync(string criteria);
-    Task<List<AlbumLookUpResponse>> SearchByLetterAsync(string letter);
+    Task<List<AlbumLookUpResponse>> GetByNameAsync(string criteria);
+    Task<List<AlbumLookUpResponse>> GetByLetterAsync(string letter);
     Task<List<AlbumLookUpResponse>> GetAlbumsForArtistAsync(long artistId);
     Task<long> CountAsync();
     Task<List<AlbumLookUpResponse>> GetAllAsync(PaginationFilter filter);
