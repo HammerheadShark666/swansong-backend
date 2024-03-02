@@ -1,11 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SwanSong.Domain.Dto;
-
-//public record Register(string FirstName, string LastName, string Email, 
-//                       string Password, string ConfirmPassword);
-
-//public record RegisterVerifyEmail(string Token);
+namespace SwanSong.Domain.Dto; 
 
 public record RegisterRequest(string FirstName, string LastName, string Email,
                               string Password, string ConfirmPassword);

@@ -2,7 +2,7 @@
 
 namespace SwanSong.Helper.Exceptions;
 
-public class AlbumNotFoundException : ArgumentNullException //Exception
+public class AlbumNotFoundException : ArgumentNullException
 {
     public AlbumNotFoundException()
     {
