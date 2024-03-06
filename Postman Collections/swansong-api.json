@@ -322,10 +322,10 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6da381b4-4277-4de9-aeb5-aa8aec4a5043",
+								"id": "53a473f2-afbf-4f5d-b867-6f88e2193e29",
 								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
 									"});"
 								],
 								"type": "text/javascript"
