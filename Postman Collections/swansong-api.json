@@ -1835,7 +1835,8 @@
 									"\r",
 									" "
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -1848,7 +1849,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"id\": {{memberId}},\r\n  \"artistId\": {{artistId}},\r\n  \"stageName\": \"Test Member 2\",\r\n  \"firstName\": \"Test\",\r\n  \"middleName\": null,\r\n  \"surname\": \"Member\",\r\n  \"photo\": null,\r\n  \"dateOfBirth\": \"2021-09-29T14:19:12.947Z\",\r\n  \"dateOfDeath\": \"2021-09-30T14:19:12.947Z\",\r\n  \"birthPlaceId\": 0  \r\n}",
+							"raw": "{\r\n  \"id\": {{memberId}},\r\n  \"artistId\": {{artistId}},\r\n  \"stageName\": \"Test Member 2\",\r\n  \"firstName\": \"Test\",\r\n  \"middleName\": null,\r\n  \"surname\": \"Member\",\r\n  \"photo\": null,\r\n  \"dateOfBirth\": \"2021-09-29T14:19:12.947Z\",\r\n  \"dateOfDeath\": \"2021-09-30T14:19:12.947Z\",\r\n  \"birthPlaceId\": 1 \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
