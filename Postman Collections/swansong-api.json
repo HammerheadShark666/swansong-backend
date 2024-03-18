@@ -1786,7 +1786,8 @@
 									" \r",
 									"pm.environment.set(\"memberId\", jsonData.id); "
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -1799,7 +1800,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"id\": 0,\r\n  \"artistId\": {{artistId}},\r\n  \"stageName\": \"Test Member\",\r\n  \"firstName\": \"Test\",\r\n  \"middleName\": null,\r\n  \"surname\": \"Member\",\r\n  \"photo\": null,\r\n  \"dateOfBirth\": \"2021-09-29T14:19:12.947Z\",\r\n  \"dateOfDeath\": \"2021-09-30T14:19:12.947Z\",\r\n  \"birthPlaceId\": 0  \r\n}",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"artistId\": {{artistId}},\r\n  \"stageName\": \"Test Member\",\r\n  \"firstName\": \"Test\",\r\n  \"middleName\": null,\r\n  \"surname\": \"Member\",\r\n  \"photo\": null,\r\n  \"dateOfBirth\": \"2021-09-29T14:19:12.947Z\",\r\n  \"dateOfDeath\": \"2021-09-30T14:19:12.947Z\",\r\n  \"birthPlaceId\": null  \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
