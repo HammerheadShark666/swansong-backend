@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SwanSong.Domain;
 
+[Table("SWSG_Artist")]
 public class Artist : BaseEntity
 {
     [Key]

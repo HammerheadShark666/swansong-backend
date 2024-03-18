@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SwanSong.Domain;
 
+[Table("SWSG_Country")]
 public class Country : BaseEntity
 {
     [Key]

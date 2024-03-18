@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SwanSong.Domain;
 
+[Table("SWSG_Album")]
 public class Album : BaseEntity
 {
     private int? labelId;
