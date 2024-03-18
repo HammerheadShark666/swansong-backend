@@ -31,7 +31,7 @@ public class AutoMapperProfile : AutoMapper.Profile
               album.Id,
               album.Name,
               album.ArtistId,
-              "",
+              album.Artist.Name,
               album.ReleaseDate,
               album.RecordedDate,
               album.LabelId,

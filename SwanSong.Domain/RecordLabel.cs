@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SwanSong.Domain;
 
+[Table("SWSG_RecordLabel")]
 public class RecordLabel : BaseEntity
 {
     [Key]

@@ -89,8 +89,8 @@ public class AlbumService : IAlbumService
     }
 
     public async Task<AlbumResponse> GetAsync(long id)
-    {
-        return _mapper.Map<AlbumResponse>(await _unitOfWork.Albums.GetAsync(id));
+    { 
+        return _mapper.Map<AlbumResponse>(await GetAlbumAsync(id));
     }
 
     public async Task<AlbumActionResponse> AddAsync(AlbumAddRequest albumAddRequest)
@@ -197,7 +197,7 @@ public class AlbumService : IAlbumService
      
     private async Task<Album> GetAlbumAsync(long id)
     {
-        var album = await _unitOfWork.Albums.ByIdAsync(id);
+        var album = await _unitOfWork.Albums.GetAsync(id);
         if (album == null)
         {
             throw new AlbumNotFoundException("Album not found.");

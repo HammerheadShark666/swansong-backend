@@ -75,7 +75,7 @@ public class MemberService : IMemberService
 
     public async Task<MemberResponse> GetAsync(long id)
     {
-        return _mapper.Map<MemberResponse>(await _unitOfWork.Members.GetAsync(id));
+        return _mapper.Map<MemberResponse>(await GetMemberAsync(id));
     }
 
     public async Task<MemberActionResponse> AddAsync(MemberAddRequest memberAddRequest)

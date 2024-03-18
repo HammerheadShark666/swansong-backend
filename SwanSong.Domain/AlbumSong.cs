@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SwanSong.Domain;
 
+[Table("SWSG_AlbumSong")]
 public class AlbumSong : BaseEntity
 {
     [Key]

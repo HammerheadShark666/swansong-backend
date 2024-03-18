@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using static SwanSong.Domain.Helper.Enums;
 
 namespace SwanSong.Domain;
 
+[Table("SWSG_Account")]
 public class Account
 {
     public int Id { get; set; }
