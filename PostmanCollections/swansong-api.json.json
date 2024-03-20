@@ -2965,6 +2965,25 @@
 				}
 			],
 			"id": "65b5a9c1-0d3b-4ae2-92cf-3584a9ba9557"
+		},
+		{
+			"name": "Register",
+			"item": [
+				{
+					"name": "/api/register",
+					"id": "0396106b-9560-43ea-b6fb-1b4d41f09121",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{baseUrl}}/api/register"
+					},
+					"response": []
+				}
+			],
+			"id": "04bbf2d2-2a5c-4dae-9176-e9420c360ec3"
 		}
 	],
 	"auth": {
