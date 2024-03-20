@@ -2978,6 +2978,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n  \"FirstName\": \"Tom\",\r\n  \"LastName\": \"Williams\",\r\n  \"Email\": \"johnwmiller33@hotmail.com\",\r\n  \"Password\": \"Password#1\",\r\n  \"ConfirmPassword\": \"Password#1\"\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": "{{baseUrl}}/api/register"
 					},
 					"response": []
